@@ -1,0 +1,25 @@
+{% extends 'sinteagros/base.html' %}
+{% block content %}
+<form method="POST" action="{% url 'cadastrar_safra' %}">
+    {% csrf_token %}
+    <div class="form-row"><h1 class='h2'>Cadastro de Safra</h1></div>
+    <div class="form-row">
+        <div class="col"><select class="form-control" name='ano1'>
+                <optgroup label="Selecione o ano"></optgroup>
+                {% for ano in anos %}
+                <option value="{{ ano }}">{{ ano }}</option>
+                {% endfor %}
+            </select></div>
+        <div class="col"><select class="form-control" name='ano2'>
+                <optgroup label="Selecione o ano"></optgroup>
+                {% for ano in anos %}
+                <option value="{{ ano }}">{{ ano }}</option>
+                {% endfor %}
+            </select></div>
+        {{ requisicao }}
+    </div>
+    <div class="form-row">
+        <div class="col offset-lg-5"><button class="btn btn-primary" type="submit">Cadastrar</button></div>
+    </div>
+</form>
+{% endblock content %}

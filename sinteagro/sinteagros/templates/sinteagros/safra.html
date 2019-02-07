@@ -1,0 +1,38 @@
+{% extends 'sinteagros/base.html' %}
+
+{% block content %}
+
+<div class="row">
+  <h2 class='h2'>Safras</h2>
+</div>
+<div class="row">
+  <a class="btn btn-primary" href="{% url 'cadastrar_safra' %}"><i class="fa fa-plus-circle"></i> Cadastrar Nova Safra</a>
+</div>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Selecione abaixo
+        </th>
+        <th>Safra</th>
+      </tr>
+    </thead>
+    <tbody>
+      <form class="" action="{% url 'safra' %}" method="post">
+        {% csrf_token %}
+        {% for t in safras %}
+        <tr>
+          <td><a class="btn btn-danger" href="{{ t.id }}"><i class="fa fa-remove"></i> Excluir</a> </td>
+          <td> {{ t }} </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td>Sem safras cadastradas.</td>
+        </tr>
+        {% endfor %}
+      </form>
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

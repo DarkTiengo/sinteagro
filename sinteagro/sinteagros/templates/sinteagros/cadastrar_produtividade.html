@@ -1,0 +1,29 @@
+{% extends "sinteagros/fazenda_menu.html" %}
+
+{% block extra %}
+<form action="{% url 'edit_producao' fazenda.id talhao.id %}" method="post">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col">
+      <label for="safra">Safra: </label><select class="form-control" name="safra">
+        {% if not safras %}
+        <option value="0">Sem safras cadastradas. </option>
+        {% else %}
+        <option value="">Selecione a safra abaixo.</option>
+        {% for s in safras %}
+        <option value="{{s.id}}">{{s}}</option>
+        {% endfor %}
+        {% endif %}
+      </select>
+    </div>
+    <div class="col">
+      <label for="producao">Produtividade (em sacas/ha): </label><input class="form-control" type="number" name="producao" placeholder="Digite sua Produtividade" value="{{ producao }}">
+    </div>
+  </div>
+  <div class="row" style="padding: 5px;">
+    <div class="col-md-12 offset-lg-5">
+      <button type="submit" name="button" class="btn btn-primary">Salvar</button> <a href="{% url 'edit_produtividades' fazenda.id talhao.id %}" class="btn btn-danger">Cancelar</a>
+    </div>
+  </div>
+</form>
+{% endblock %}

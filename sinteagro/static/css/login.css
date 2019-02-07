@@ -1,0 +1,32 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 24/10/2018, 13:58:10
+    Author     : rafael
+*/
+
+body{
+    //background-color: #010101
+}
+
+.img-cad{
+    background-size: cover;
+    height: auto;
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 20px;
+}
+
+.block-cadastro{
+  min-width: 50%;
+  min-height: 50%;
+}
+
+.custom-select{
+  background-color: rgb(69, 69, 69);
+  color: rgb(240, 223, 230);
+}

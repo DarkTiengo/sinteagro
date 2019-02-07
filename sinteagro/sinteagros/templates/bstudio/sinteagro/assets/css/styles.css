@@ -1,0 +1,9 @@
+.sidebar {
+  position: fixed;
+  box-shadow: inset;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 60px 0 0;
+}
+

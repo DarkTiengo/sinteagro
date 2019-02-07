@@ -1,0 +1,35 @@
+{% extends 'sinteagros/fazenda_menu.html' %}
+
+
+{% block extra %}
+<body>
+  {% if talhao is not None %}
+    <form action="{% url 'edit_talhao' fazenda.id talhao.id %}" method="POST">
+  {% else %}
+    <form action="{% url 'cadastrar_talhao' fazenda.id %}" method="POST">
+  {% endif %}
+        {% csrf_token %}
+        <input type="hidden" name="fazenda" value="{{ fazenda.id }}">
+        <input type="hidden" name="talhao" value="{{ talhao.id }}">
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col"></div>
+            </div>
+            <div class="form-row">
+                <div class="col"><label>Nome do talhao</label><input class="form-control" type="text" name="nome" required="" placeholder="Digite o nome do talhao" value="{{talhao.nome }}"></div>
+                <div class="col"><label>Tamanho (em hectares)</label><input class="form-control" type="number" name="tamanho" placeholder="Digite o tamanho do talhao" value="{{talhao.tamanho}}"></div>
+                <div class="col"><label for="produto">Produto</label><select class="form-control" name="produto">
+                  {% for p in produto %}
+                    <option value="{{p}}">{{p}}</option>
+                  {% endfor %}
+                </select></div>
+                <div class="col offset-lg-0"><label>Tipo de manejo</label><select class="form-control" name="tipo"><option value="1" selected="">Agricultura</option><option value="2">Pecuaria</option><option value="3">Integrado (Agricultura e Pecuaria)</option></select></div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12 offset-lg-5" style="padding: 15px"><button class="btn btn-primary" type="submit">{% if talhao  %}Alterar Talhao {% else %}Cadastrar Talhao {% endif %}</button></div>
+            </div>
+        </div>
+    </form>
+</body>
+
+{% endblock extra %}

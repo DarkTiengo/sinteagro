@@ -1,0 +1,25 @@
+{% extends 'sinteagros/fazenda.html' %}
+{% block extra %}
+
+<form class="form-row form-group" method="POST" action="{% url 'edit_fazenda' fazenda.id %}">
+    {% csrf_token %}
+        <div class="container-fluid">
+            <h5 class="h1">Cadastro de Fazendas</h5>
+        <div class="form-row">
+            <div class="col"><label for="nome">Nome da fazenda</label><input class="form-control" type="text" name="nome" value="{{ fazenda.nome }}"></div>
+        </div>
+        <div class="form-row">
+            <div class="col-lg-6"><label for="estado">Estado</label><select class="form-control" name="estado">
+                <optgroup label="Selecione abaixo"></optgroup>
+                <option>GO</option>
+            </select></div>
+            <div class="col"><label for="cidade">Cidade</label><input class="form-control" name="cidade" required="" value="{{ fazenda.cidade }}"></div>
+        </div>
+            <div class="row separador"></div>
+        <div class="row">
+            <div class="col offset-lg-5"><button class="btn btn-primary btn-lg" type="submit"><i class="fa fa-save"></i> Salvar</button>  <a class="btn btn-secondary btn-lg" href="{% url 'fazenda' fazenda.id %}"><i class="fa fa-remove"></i> Cancelar</a></div>
+        </div>
+        </div>
+    </form>
+
+{% endblock extra %}

@@ -1,0 +1,19 @@
+{% extends 'account/base.html' %}
+
+{% block container %}
+    <div class="login-dark" style="background-image: url('/static/img/b.jpg')">
+        <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          {% if info is not None %}
+            <div class="alert alert-danger" role="alert"> {{ info }}</div>
+          {% endif %}
+            <h2 class="sr-only">Login no Sistema</h2>
+            <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
+            <div class="form-group"><input class="form-control login" type="email" name="username" placeholder="Email" data-toggle="tooltip" data-placement="top" title="Entre com seu E-mail de acesso."></div>
+            <div class="form-group"><input class="form-control login" type="password" name="password" placeholder="Senha" data-toggle="tooltip" data-placement="top" title="Entre com a sua senha."></div>
+            <input type="hidden" name="next" value="{% url 'index' %}">
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Entrar</button></div><a href="#" class="forgot">Esqueceu sua senha?</a><a href="{% url 'cadastro' %}" class="forgot">Cadastrar agora.</a></form>
+        </form>
+
+    </div>
+{% endblock container %}

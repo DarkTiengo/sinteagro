@@ -1,0 +1,50 @@
+{% extends "sinteagros/fazenda_menu.html" %}
+
+{% block extra %}
+<div class="row">
+  <div class="col-md-12">
+    {% if info == "sucesso" %}
+    <div class="alert alert-success" role="alert">
+      {{ mensagem }}
+    </div>
+    {% elif info == "erro" %}
+    <div class="alert alert-danger" role="alert">
+      {{ mensagem }}
+    </div>
+    {% endif %}
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <a href="{% url 'edit_producao' fazenda.id talhao.id %}" class="btn btn-primary">Adicionar Produtividade</a>
+  </div>
+  <div class="col-md-12" style="padding-top: 10px;">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Gerenciar Produtividades</h4>
+        <div class="card-text">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Safra</th>
+                <th scope="col">Produtividade</th>
+                <th scope="col"></th>
+              </tr>
+              <tr>
+                {% if not produtividades %}
+                <td>Sem produtividades cadastradas.</td>
+                {% else %}
+                {% for p in produtividades %}
+                  <td>{{ p.safra }}</td>
+                  <td>{{ p }}</td>
+                {% endfor %}
+                {% endif %}
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'sinteagros/fazenda.html' %}
+
+{% block extra %}
+
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="h4">Talhao {{ talhao }}</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Analise de Solo</h4>
+        <p class="card-text"><i class="fa fa-file-o"></i> Sem Analises Cadastradas.</p><button class="btn btn-primary" type="button">Gerenciar Analises</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Produtividade</h4>
+        <p class="card-text"><i class="fa fa-signal"></i> Sem produtividades cadastradas.</p><a class="btn btn-primary" href="{% url 'edit_produtividades' fazenda.id talhao.id %}">Gerenciar Produtividades</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock extra %}

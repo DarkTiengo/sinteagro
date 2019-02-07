@@ -1,0 +1,32 @@
+{% extends 'sinteagros/base.html' %}
+
+{% block content %}
+<form class="form-row form-group" method="POST" action="{% url 'cadastrar_fazenda' %}">
+  {% csrf_token %}
+  <div class="container-fluid">
+    <h5 class="h1">Cadastro de Fazendas</h5>
+    <div class="form-row">
+      <div class="col"><label for="nome">Nome da fazenda</label><input class="form-control" type="text" name="nome" required="" placeholder="Digite o nome da fazenda"></div>
+      <div class="col"><label for="tipo">Atividade da fazenda</label><select class="form-control" name="tipo" required="">
+          <optgroup label="Selecione o Estado"></optgroup>
+          <option value="0">Agricultura</option>
+          <option value="1">Pecuaria</option>
+          <option value="2">Agropecuaria</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-lg-6"><label for="estado">Estado</label><select class="form-control" name="estado" required="">
+          <optgroup label="Selecione o Estado">Selecione o Estado</optgroup>
+          <option>GO</option>
+        </select></div>
+      <div class="col"><label for="cidade">Cidade</label><input class="form-control" name="cidade" required=""></input></div>
+    </div>
+    <div class="row separador"></div>
+    <div class="row">
+      <div class="col offset-lg-5"><button class="btn btn-primary btn-lg" type="submit">Cadastrar</button></div>
+    </div>
+  </div>
+</form>
+
+{% endblock content %}

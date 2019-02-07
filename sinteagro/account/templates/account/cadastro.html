@@ -1,0 +1,105 @@
+{% extends 'account/base.html' %}
+
+{% block container %}
+<div class="login-dark" style="background-image: url('/static/img/b.jpg')">
+  <form method="post" name="block-cadastro" class="block-cadastro" action="{% url 'cadastro' %}">
+    {% csrf_token %}
+    <h2 class="sr-only">Cadastro de Usuario</h2>
+    <div class="illustration"><img src="/static/img/backcad.jpg" class="img-cad"></div>
+    <div class="form-row">
+      <div class="col-md-12" id="div-alerta">
+        {% if info is not None %}
+        <div class="alert alert-danger" role="alert" id="alerta">{{ mensagem }}</div>
+        {% else %}
+        <div class="alert alert-danger" role="alert" id="alerta" style="display: none"></div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6"><label>Nome</label><input class="form-control i1" type="text" name="first_name" placeholder="Nome" id="nome">
+      </div>
+      <div class="form-group col-md-6"><label>Sobrenome</label><input class="form-control i1" type="text" name="last_name" placeholder="Sobrenome" id="sobrenome">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12"><label>Email</label><input class="form-control i1" type="email" name="email" placeholder="Email" id="email"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label>Estado</label>
+        <select class="custom-select i2" name="estado" id="estado">
+          <option value="0" selected>Selecione seu Estado</option>
+          <option value="AC">Acre</option>
+          <option value="AL">Alagoas</option>
+          <option value="AP">Amapá</option>
+          <option value="AM">Amazonas</option>
+          <option value="BA">Bahia</option>
+          <option value="CE">Ceará</option>
+          <option value="DF">Distrito Federal</option>
+          <option value="ES">Espírito Santo</option>
+          <option value="GO">Goiás</option>
+          <option value="MA">Maranhão</option>
+          <option value="MT">Mato Grosso</option>
+          <option value="MS">Mato Grosso do Sul</option>
+          <option value="MG">Minas Gerais</option>
+          <option value="PA">Pará</option>
+          <option value="PB">Paraíba</option>
+          <option value="PR">Paraná</option>
+          <option value="PE">Pernambuco</option>
+          <option value="PI">Piauí</option>
+          <option value="RJ">Rio de Janeiro</option>
+          <option value="RN">Rio Grande do Norte</option>
+          <option value="RS">Rio Grande do Sul</option>
+          <option value="RO">Rondônia</option>
+          <option value="RR">Roraima</option>
+          <option value="SC">Santa Catarina</option>
+          <option value="SP">São Paulo</option>
+          <option value="SE">Sergipe</option>
+          <option value="TO">Tocantins</option>
+          <option value="ES">Estrangeiro</option>
+        </select>
+      </div>
+      <div class="col-md-6 form-group">
+        <label>Cidade</label>
+        <input class="form-control i1" type="text" name="cidade" placeholder="Cidade" id="cidade">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label>Data de nascimento</label><input class="form-control i1" type="date" name="nascimento" id="nascimento">
+      </div>
+      <div class="form-group col-md-6">
+        <label>Sexo</label>
+        <select class="custom-select i2" name="sexo" id="sexo">
+          <option value="0">Selecione o sexo</option>
+          <option value="m">Masculino</option>
+          <option value="f">Feminino</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label>Senha</label>
+        <input class="form-control i1" type="password" name="password" data-toggle="tooltip" data-html="true" placeholder="Senha" id="senha">
+      </div>
+      <div class="form-group col-md-6">
+        <label>Confirmar a Senha</label>
+        <input class="form-control i1" type="password" name="confirmapassword" placeholder="Confirmar a Senha" id="confirmasenha" title="Repita a senha novamente.">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label>Confirme o botao abaixo</label>
+        <div class="form-group form-check">
+          <input class="form-check-input" type="checkbox" id="confirmaregistro" name="confirmaregistro">
+          <label class="form-check-label" for="confirmaregistro">Aceito que o sistema se encontra em fase de desenvolvimento e podera sofrer alteracoes nas suas politicas de utilizacao.</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <button type="submit" class="btn btn-success" id="registrar">Registrar</button>
+        </div>
+      </div>
+  </form>
+</div>
+  {% endblock container %}

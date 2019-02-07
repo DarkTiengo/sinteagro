@@ -1,0 +1,26 @@
+{% extends 'sinteagros/base.html' %}
+
+{% block content %}
+<div>
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean-button">
+        <div class="container"><a href="{% url 'fazenda' fazenda.id %}" class="navbar-brand"><i class="fa fa-leaf"></i> {{ fazenda }}</a><button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav mr-auto">
+                    <li role="presentation" class="nav-item"><a href="{% url 'edit_fazenda' fazenda.id %}" class="nav-link"><i class="fa fa-pencil"></i> Editar</a></li>
+                    <li role="presentation" class="nav-item"><a href="{% url 'exclui_fazenda' fazenda.id %}" class="nav-link"><i class="fa fa-trash-o"></i> Excluir</a></li>
+                    <li class="dropdown"><a data-toggle="dropdown" aria-expanded="false" href="#" class="dropdown-toggle nav-link dropdown-toggle">Talhoes</a>
+                        <div role="menu" class="dropdown-menu">
+                        <a role="presentation" href="{% url 'cadastrar_talhao' fazenda.id %}" class="dropdown-item"><i class="fa fa-plus"></i> Adicionar Talhao</a>
+                        {% for t in talhoes %}
+                        <a role="presentation" href="{% url 'talhao' fazenda.id t.id %}" class="dropdown-item"><i class="fa fa-chevron-right"></i> {{ t|title }}</a>
+                        {% endfor %}
+                        <a role="presentation" href="{% url 'edit_talhoes' fazenda.id %}" class="dropdown-item"><i class="fa fa-gears"></i> Gerenciar Talhoes</a>
+                        </div>
+                    </li>
+                </ul><span class="navbar-text actions"></span></div>
+</div>
+</nav>
+</div>
+
+{% endblock content %}
