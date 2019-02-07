@@ -3,7 +3,7 @@ from django.db import models
 from account.models import User
 
 class Fazenda(models.Model):
-    """Cadastro da fazenda do Usuario."""
+    """Cadastro da fazenda do Usuario. / Farm registrarion"""
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     nome = models.CharField(max_length=200)
     estado = models.CharField(max_length=2)
@@ -12,11 +12,11 @@ class Fazenda(models.Model):
     data = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        """Retorna o nome da fazenda quando o objeto e chamado"""
+        """Retorna o nome da fazenda quando o objeto e chamado / Return Farm Name"""
         return self.nome
 
 class Talhao(models.Model):
-    """Cadastro de talhoes"""
+    """Cadastro de talhoes / Field Registration"""
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     fazenda = models.ForeignKey(Fazenda,on_delete= models.CASCADE)
     nome = models.CharField(max_length=100, null=False)
@@ -29,22 +29,22 @@ class Talhao(models.Model):
         verbose_name_plural = "Talhoes"
 
     def __str__(self):
-        """Retorna o nome do talhao quando o objeto e chamado"""
+        """Retorna o nome do talhao quando o objeto e chamado / Return Field Name"""
         return self.nome
 
 class Safra(models.Model):
-    """Cadastro de Safras"""
+    """Cadastro de Safras / Crops Registration"""
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     ano1 = models.CharField(max_length=4)
     ano2 = models.CharField(max_length=4)
     data = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        """Retorna a safra"""
+        """Retorna a safra / Return Crop"""
         return self.ano1 + "/" + self.ano2
 
 class Produtividade(models.Model):
-    """Cadastro de produtividades de talhoes"""
+    """Cadastro de produtividades de talhoes / """
     talhao = models.ForeignKey(Talhao,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     safra = models.ForeignKey(Safra,on_delete=models.CASCADE,blank=False)
