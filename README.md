@@ -1,10 +1,11 @@
-# sinteagro
+﻿# sinteagro
 
 ################################################################################################################################################################
-Online system for apps in agrobusiness
+# Online system for apps in agrobusiness
 
 Initial focus on creating the template in bootstrap, so that it can be opened on any system, in the future it can become an app for mobile devices. Any help are welcome :)
 
+# Welcome
 
 My name is Rafael, I am Systems Analyst and Agronomist, and for years I've been trying to develop an online system that presents tools that help rural producers, from small to large, to have a satisfactory control of their business, with little or no cost. Initially I thought of developing tools that would directly support production, such as fertilization and production control, but anyone who knows the Brazilian producer knows that they have little education and need more general controls of business administration.
 
@@ -19,14 +20,24 @@ What I have in mind at the moment is to initially create a production control fo
 
 Up to this point only 2 apps have been created: 1 for access control of the account and an initial one that would be for registration of farms and stores. At this point, I would like to include production cost control. All functions are commented and will be translated into English.
 
+# 3 - How you can help
+
+With all possible help, mainly code reviews, implementations of new functions, suggestions and etc.
+
+# 4 - Logbook
+
+07/02/2019 - The entire project developed during the year 2018 was made available, with the intention of staying alive and, in a certain way, improving and speeding up the development of my dream.
+
+08/02/2019 - As a way to make the project more useful already in its early stages, I stop the development of the more technical parts of agriculture and open the beginning of the development phase of the system's bills to pay.
+
 #################################################################################################################################################################
 
 #################################################################################################################################################################
-Sistema Online para ferramentas para o agronegocio.
+# Sistema Online para ferramentas para o agronegocio.
 
 Foco inicial na criacao do template em bootstrap, para que seja aberto em qualquer sistema, futuramente podendo se tornar um app para dispositivos moveis. Qualquer ajuda e bem vinda :)
 
-#Introducao
+# Introducao
 Olá,
 
 Meu nome é Rafael, sou Analista de Sistemas e Agrônomo, e venho a anos tentando desenvolver um sistema online que apresente ferramentas que auxiliem os produtores rurais, dos pequenos aos grandes, a ter um controle satisfatório de seu negócio, com pouco ou nenhum custo. Inicialmente pensei em desenvolver ferramentas que auxiliassem diretamente a produção, como a adubação e controle de produção, porém quem conhece o produtor brasileiro sabe que os mesmos possuem pouca instrução e necessitam mais de controles gerais da administração do negócio.
@@ -42,5 +53,15 @@ O que tenho em mente nesse momento é criar inicialmente um controle de produç�
 
 Até esse momento foi apenas criado 2 apps: Uma para controle de acesso a conta e um inicial que seria para cadastro de fazendas e talhoes. Nesse momento gostaria de incluir já um controle de gastos de produção. Todas as funções estão comentadas e serão traduzidas para o ingles.
 
+# 3 – Como pode ajudar
+
+Com a toda a ajuda possível, principalmente revisões de códigos, implementações de novas funções, sugestões e etc.
+
+
+# 4 - Diario de bordo
+
+07/02/2019 – Todo o projeto desenvolvido durante o ano de 2018 foi disponibilizado, com pretensão de permanecer o desenvolvimento vivo e certa forma melhorar e agilizar o desenvolvimento deste meu sonho.
+
+08/02/2019 – Como forma de deixar o projeto mais útil já em suas fases inicias, paro o desenvolvimento das partes mais técnicas da agricultura e abro o inicio da fase de desenvolvimento das contas a pagar do sistema.
 
 #################################################################################################################################################################
