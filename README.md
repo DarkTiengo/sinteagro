@@ -1,4 +1,5 @@
 ﻿# sinteagro
+![alt text](https://github.com/DarkTiengo/sinteagro/blob/master/sinteagro.png)
 
 ################################################################################################################################################################
 # Online system for apps in agrobusiness
@@ -24,7 +25,11 @@ Up to this point only 2 apps have been created: 1 for access control of the acco
 
 With all possible help, mainly code reviews, implementations of new functions, suggestions and etc.
 
-# 4 - Logbook
+# 4 - Requirements
+
+
+
+# 6 - Logbook
 
 07/02/2019 - The entire project developed during the year 2018 was made available, with the intention of staying alive and, in a certain way, improving and speeding up the development of my dream.
 
