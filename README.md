@@ -30,6 +30,7 @@ With all possible help, mainly code reviews, implementations of new functions, s
 
  - Python3
  - Bootstrap
+ - pip
  - Obs: Developed in Windows using PyCharm
 
 ### 5 - Installation
@@ -72,6 +73,7 @@ Com a toda a ajuda possível, principalmente revisões de códigos, implementaç
 
  - Python3
  - Bootstrap
+ - pip
  - Obs: Desenvolvido no Windows utilizando o PyCharm
 
 ### 5 - Instalação
