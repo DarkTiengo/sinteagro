@@ -13,7 +13,7 @@ from account.forms import UserForm
 
 @login_required()
 def index(request, alert = None):
-    """Pagina inicial """
+    """Pagina inicial  / Main Menu"""
     contexto = gera_Menu(request.user)
     contexto['numero_linhas_fazenda'] = int(contexto['fazendas'].count()/3)
     contexto['home'] = True
@@ -23,15 +23,15 @@ def index(request, alert = None):
 
 
 def logout(request):
-    """Sai do Sistema"""
+    """Sai do Sistema / Logout"""
     django_logout(request)
     contexto = {"aba" : None, "info": "Voce foi desconectado do sistema."}
     return render(request,'account/login.html',contexto)
 
-#Partes relacionada a Fazenda
+#Partes relacionada a Fazenda / Farming Parts
 @login_required()
 def fazenda(request,fazenda_id,alert = None):
-    """Mostra talhoes relacionados a fazenda"""
+    """Mostra talhoes relacionados a fazenda / Show Farm Fields"""
     contexto = get_fazenda_e_talhoes(fazenda_id=fazenda_id, usuario=request.user)
     if alert is not None:
         contexto['alerta'] = alert
@@ -39,14 +39,12 @@ def fazenda(request,fazenda_id,alert = None):
 
 @login_required()
 def cadastrar_fazenda(request):
-    """Cadastrar novas fazendas"""
+    """Cadastrar novas fazendas / Create new Farms"""
     contexto = gera_Menu(request.user)
     contexto['cadastro'] = True
     if request.method != 'POST':
-        #Se vazio, cria um novo formulario
         pass
     else:
-        #Dados obtidos, processar dados
         form = FazendaForm(request.POST)
         contexto["form"] = form
         if form.is_valid():
@@ -61,7 +59,7 @@ def cadastrar_fazenda(request):
 
 @login_required()
 def edit_fazenda(request,fazenda_id):
-    """Editar dados da fazenda"""
+    """Editar dados da fazenda / Edit Farming's Data"""
     fazenda = get_fazenda(fazenda_id=fazenda_id)
     contexto = gera_Menu(request.user)
     contexto.update(fazenda)
@@ -78,7 +76,7 @@ def edit_fazenda(request,fazenda_id):
 
 @login_required()
 def exclui_fazenda(request,fazenda_id):
-    """Exclui fazenda cadastrada"""
+    """Exclui fazenda cadastrada / Remove Farming """
     contexto = gera_Menu(request.user)
     fazenda = get_fazenda(fazenda_id=fazenda_id)
     if request.user != fazenda['fazenda'].user:
@@ -89,7 +87,7 @@ def exclui_fazenda(request,fazenda_id):
 
 @login_required()
 def talhao(request,fazenda_id,talhao_id, alert = None):
-    """Exibe informacoes do talhao"""
+    """Exibe informacoes do talhao / Show Farming Field"""
     contexto = get_fazenda_e_talhoes(fazenda_id=fazenda_id, usuario=request.user)
     contexto.update(get_talhao(talhao_id))
     if alert is not None:
@@ -98,13 +96,13 @@ def talhao(request,fazenda_id,talhao_id, alert = None):
 
 @login_required()
 def edit_talhoes(request,fazenda_id):
-    """"Edita os talhoes"""
+    """"Edita os talhoes / Edit Fields"""
     contexto = get_fazenda_e_talhoes(fazenda_id=fazenda_id, usuario=request.user)
     return render(request,'sinteagros/editar_talhoes.html',contexto)
 
 @login_required()
 def cadastrar_talhao(request, fazenda_id):
-    """Cadastrar novo talhao"""
+    """Cadastrar novo talhao / Create New Field"""
     contexto = get_fazenda_e_talhoes(fazenda_id=fazenda_id,usuario=request.user)
     contexto["produto"] = produtos
     if request.method == "POST":
@@ -123,7 +121,7 @@ def cadastrar_talhao(request, fazenda_id):
 
 @login_required()
 def edit_talhao(request,fazenda_id,talhao_id = None):
-    """"Editar talhao"""
+    """"Editar talhao / Edit Field"""
     contexto = get_fazenda_e_talhoes(fazenda_id=fazenda_id,usuario=request.user)
     contexto.update(get_talhao(talhao_id))
     contexto["produto"] = produtos
@@ -143,7 +141,7 @@ def edit_talhao(request,fazenda_id,talhao_id = None):
 
 @login_required()
 def apaga_talhao(request,fazenda_id,talhao_id):
-    """Remover Talhao"""
+    """Remover Talhao / Remove Field"""
     contexto = get_fazenda_e_talhoes(fazenda_id=fazenda_id,usuario=request.user)
     if remove_talhao(talhao_id):
         contexto["info"] = "sucesso"
@@ -155,14 +153,14 @@ def apaga_talhao(request,fazenda_id,talhao_id):
 
 @login_required()
 def safra(request):
-    """Exibe e cadastra safras"""
+    """Exibe e cadastra safras / Show and Add new Crop"""
     contexto = gera_Menu(request.user)
     contexto.update(get_safras(request.user))
     return render(request,'sinteagros/safra.html',contexto)
 
 @login_required()
 def cadastrar_safra(request):
-    """Cadastra Safra"""
+    """Cadastra Safra / Create New Crop """
     contexto = gera_Menu(request.user)
     ano = 2000
     anos = []
@@ -185,12 +183,12 @@ def cadastrar_safra(request):
 
 @login_required()
 def excluir_safra(request):
-    """Excluir safra"""
+    """Excluir safra / Remove Crop """
     dados = safra_remove(request.POST["id"])
 
 @login_required()
 def configuracoes(request):
-    """Exibe e altera informacoes do usuario"""
+    """Exibe e altera informacoes do usuario / Show and edit User Information"""
     contexto = gera_Menu(request.user)
     contexto['profile'] = request.user
     contexto['estados'] = select_estados
@@ -208,7 +206,7 @@ def configuracoes(request):
 
 @login_required()
 def altera_senha(request):
-    """"Altera senha do usuario"""
+    """"Altera senha do usuario / Edit User Password"""
     dados = request.POST
     contexto = gera_Menu(request.user)
     if request.user.check_password(dados["senha"]):
@@ -226,7 +224,7 @@ def altera_senha(request):
 
 @login_required()
 def edit_produtividades(request,fazenda_id,talhao_id):
-    """"Gerencia as produtividades"""
+    """"Gerencia as produtividades / Productivity Manager"""
     contexto = get_fazenda_e_talhoes(fazenda_id=fazenda_id,usuario=request.user)
     contexto.update(get_talhao(talhao_id))
     contexto["produtividades"] = get_produtividade(contexto["talhao"])
@@ -234,7 +232,7 @@ def edit_produtividades(request,fazenda_id,talhao_id):
 
 @login_required()
 def edit_producao(request,fazenda_id,talhao_id):
-    """Edita Produtividade"""
+    """Edita Produtividade / Edit Productivity"""
     contexto = get_fazenda_e_talhoes(fazenda_id=fazenda_id,usuario=request.user)
     contexto.update(get_talhao(talhao_id))
     contexto.update(get_safras(request.user))
