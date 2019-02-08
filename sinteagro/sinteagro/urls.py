@@ -21,4 +21,5 @@ urlpatterns = [
     path('/',include("account.urls")),
     path('login/',include("account.urls")),
     path('index/',include('sinteagros.urls')),
+    path('',include("account.urls")),
 ]

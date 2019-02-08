@@ -33,7 +33,7 @@ def get_fazenda(fazenda_id):
     return {'fazenda': dados}
 
 def excluir_fazenda(fazenda_id):
-    """" Excluir Fazenda / Remove Farm """"
+    """" Excluir Fazenda / Remove Farm """
     return Fazenda.objects.filter(id=fazenda_id).delete()
 
 def get_safras(usuario):
@@ -42,5 +42,5 @@ def get_safras(usuario):
     return {'safras': safras}
 
 def safra_remove(id):
-    """ Remove uma safra / Remove a Crop""""
+    """ Remove uma safra / Remove a Crop"""
     return Safra.objects.get(id=id).delete()
