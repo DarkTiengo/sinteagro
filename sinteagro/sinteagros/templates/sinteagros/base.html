@@ -28,6 +28,25 @@
       <div class="col-md-2 d-none d-md-block bg-light sidebar shadow">
         <div class="sidebar-sticky">
           <h6 class="h6 texto-menu"><i class="fa fa-star"></i> Menu Principal</h6>
+          <div id="main-menu" class="list-group">
+                <a href="#sub-menu" class="list-group-item active" data-toggle="collapse" data-parent="#main-menu">Item 1 <span class="caret"></span></a>
+                <div class="collapse list-group-level1" id="sub-menu">
+                    <a href="#" class="list-group-item" data-parent="#sub-menu">Sub Item 1</a>
+                    <a href="#" class="list-group-item" data-parent="#sub-menu">Sub Item 2</a>
+                    <a href="#sub-sub-menu" class="list-group-item" data-toggle="collapse" data-parent="#sub-menu">Sub Item 3 <span class="caret"></span></a>
+                    <div class="collapse list-group-level2" id="sub-sub-menu">
+                        <a href="#" class="list-group-item" data-parent="#sub-sub-menu">Sub Sub Item 1</a>
+                        <a href="#" class="list-group-item" data-parent="#sub-sub-menu">Sub Sub Item 2</a>
+                        <a href="#" class="list-group-item" data-parent="#sub-sub-menu">Sub Sub Item 3</a>
+                    </div>
+                </div>
+
+                <a href="#" class="list-group-item">Item 2</a>
+                <a href="#" class="list-group-item">Item 3</a>
+                <a href="#" class="list-group-item">Item 4</a>
+                <a href="#" class="list-group-item">Item 5</a>
+            </div>
+        </div>
           <ul class="nav nav-pills flex-column">
             {% if home is True %}
             <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}"><i class="fa fa-home"></i> Pagina inicial</a></li>
@@ -37,10 +56,13 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'safra' %}"><i class="fa fa-book"></i> Safras</a></li>
           </ul>
           <h6 class="h6 texto-menu"><i class="fa fa-th-list"></i> Fazendas</h6>
-          <ul class="nav nav-pills flex-column">
+          <ul id="farm-menu" class="nav nav-pills flex-column">
             {% for faz in fazendas %}
-            {% if faz == fazenda %}
-            <li class="nav-item"><a class="nav-link active" href="{% url 'fazenda' faz.id %}"><i class="fa fa-leaf"></i> {{ faz }} </a></li>
+            {% if faz == fazena %}
+            <li class="nav-item"><a class="list-group-item active" href="#sub-menu" data-toggle="collapse" data-parent="#farm-menu"><i class="fa fa-leaf"></i> {{ faz }} </a></li>
+            <div class="collapse list-group-level1" id="{{faz.id}}">
+              <a href="#" class="list-group-item" data-parent="{{faz.id}}">Contas a pagar</a>
+            </div>
             {% else %}
             <li class="nav-item"><a class="nav-link" href="{% url 'fazenda' faz.id %}"><i class="fa fa-leaf"></i> {{ faz }} </a> </li>
             {% endif %}
@@ -75,5 +97,5 @@
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/sinteagro.js' %}"></script>
+<script src="{% static "js/style.js" %}"></script>
 </html>
