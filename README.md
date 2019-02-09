@@ -30,6 +30,7 @@ With all possible help, mainly code reviews, implementations of new functions, s
 
  - Python3
  - Bootstrap
+ - Django
  - pip
  - Obs: Developed in Windows using PyCharm
 
