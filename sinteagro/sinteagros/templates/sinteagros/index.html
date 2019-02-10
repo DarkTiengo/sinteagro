@@ -1,34 +1,6 @@
 {% extends "sinteagros/base.html" %}
 
 {% block content %}
-<div class="row">
-  <div class="col-md-12">
-    <h1 class="h3">Bem-Vindo {{ user.first_name.title }},</h1>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <span>Selecione uma das fazendas:</span>
-  </div>
-    {% for fazenda in fazendas %}
-      <div class="col-sm-3 card-fazendas">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ fazenda }}</h5>
-            <p class="card-text"> {{ fazenda.cidade }} / {{fazenda.estado }}</p>
-            <a href="{% url 'fazenda' fazenda.id %}" class="btn btn-primary">Entrar</a>
-          </div>
-        </div>
-      </div>
-  {% endfor %}
-    <div class="col-sm-3 card-fazendas">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Cadastrar Fazenda</h5>
-          <p class="card-Text"></p>
-          <a href="{% url 'cadastrar_fazenda' %}" class="btn btn-primary">Cadastrar</a>
-        </div>
-      </div>
-    </div>
+
 
 {% endblock content %}

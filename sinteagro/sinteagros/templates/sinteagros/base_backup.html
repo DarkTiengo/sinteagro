@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>SINTEAGRO</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-dark">
+    <div class="container-fluid"><a class="navbar-brand" href="{% url 'index' %}">Sinteagro</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Navegador</span><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navcol-1">
+        <ul class="nav navbar-nav">
+          <li class="dropdown"><a class="dropdown-toggle nav-link bg-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fa fa-user"></i> {{ user.first_name.title }} {{ user.last_name.title }}</a>
+            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="{% url 'configuracoes' %}"><i class="fa fa-cog"></i> Configuracoes</a></div>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="{% url 'logout' %}"><i class="fa fa-power-off"></i>&nbsp;Sair</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 d-none d-md-block bg-light sidebar shadow">
+        <div class="sidebar-sticky">
+          <h6 class="h6 texto-menu"><i class="fa fa-star"></i> Menu Principal</h6>
+          <div id="main-menu" class="list-group">
+                <a href="#sub-menu" class="list-group-item active" data-toggle="collapse" data-parent="#main-menu">Item 1 <span class="caret"></span></a>
+                <div class="collapse list-group-level1" id="sub-menu">
+                    <a href="#" class="list-group-item" data-parent="#sub-menu">Sub Item 1</a>
+                    <a href="#" class="list-group-item" data-parent="#sub-menu">Sub Item 2</a>
+                    <a href="#sub-sub-menu" class="list-group-item" data-toggle="collapse" data-parent="#sub-menu">Sub Item 3 <span class="caret"></span></a>
+                    <div class="collapse list-group-level2" id="sub-sub-menu">
+                        <a href="#" class="list-group-item" data-parent="#sub-sub-menu">Sub Sub Item 1</a>
+                        <a href="#" class="list-group-item" data-parent="#sub-sub-menu">Sub Sub Item 2</a>
+                        <a href="#" class="list-group-item" data-parent="#sub-sub-menu">Sub Sub Item 3</a>
+                    </div>
+                </div>
+
+                <a href="#" class="list-group-item">Item 2</a>
+                <a href="#" class="list-group-item">Item 3</a>
+                <a href="#" class="list-group-item">Item 4</a>
+                <a href="#" class="list-group-item">Item 5</a>
+            </div>
+        </div>
+          <ul class="nav nav-pills flex-column">
+            {% if home is True %}
+            <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}"><i class="fa fa-home"></i> Pagina inicial</a></li>
+            {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'index' %}"><i class="fa fa-home"></i> Pagina inicial</a></li>
+            {% endif %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'safra' %}"><i class="fa fa-book"></i> Safras</a></li>
+          </ul>
+          <h6 class="h6 texto-menu"><i class="fa fa-th-list"></i> Fazendas</h6>
+          <ul id="farm-menu" class="nav nav-pills flex-column">
+            {% for faz in fazendas %}
+            {% if faz == fazena %}
+            <li class="nav-item"><a class="list-group-item active" href="#sub-menu" data-toggle="collapse" data-parent="#farm-menu"><i class="fa fa-leaf"></i> {{ faz }} </a></li>
+            <div class="collapse list-group-level1" id="{{faz.id}}">
+              <a href="#" class="list-group-item" data-parent="{{faz.id}}">Contas a pagar</a>
+            </div>
+            {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fazenda' faz.id %}"><i class="fa fa-leaf"></i> {{ faz }} </a> </li>
+            {% endif %}
+            {% empty %}
+            <li class="nav-item">Sem fazendas cadastradas.</li>
+            {% endfor %}
+            {% if cadastro is True %}
+            <li class="nav-item"><a class="nav-link active" href="{% url 'cadastrar_fazenda' %}"><i class="fa fa-plus-square"></i> Cadastrar nova fazenda</a> </li>
+            {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'cadastrar_fazenda' %}"><i class="fa fa-plus-square"></i> Cadastrar nova fazenda</a> </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-8 main_mod">
+        <main` role="main">
+          {% if alerta == 'sucesso' %}
+          <div class='alert alert-success' role='alert' style='margin-top: 2%'> Alteracoes realizadas com sucesso. </div>
+          {% elif alerta == 'erro' %}
+          <div class='alert alert-danger' role='alert' style='margin-top: 2%'> Algo deu errado! Por favor tente novamente. {{ mensagem }}</div>
+          {% endif %}
+          {% block content %}{% endblock content %}
+          {% block extra %}{% endblock extra%}
+          </main>
+      </div>
+    </div>
+  </div>
+</body>
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static "js/style.js" %}"></script>
+</html>
