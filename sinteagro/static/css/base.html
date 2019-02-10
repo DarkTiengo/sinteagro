@@ -1,0 +1,86 @@
+% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>SINTEAGRO</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark navbar-expand-md sticky-top bg-dark">
+    <div class="container-fluid"><a class="navbar-brand" href="{% url 'index' %}">Sinteagro</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Navegador</span><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="navcol-1">
+        <ul class="nav navbar-nav">
+          <li class="dropdown"><a class="dropdown-toggle nav-link bg-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fa fa-user"></i> {{ user.first_name.title }} {{ user.last_name.title }}</a>
+            <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="{% url 'configuracoes' %}"><i class="fa fa-cog"></i> Configuracoes</a></div>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item" role="presentation"><a class="nav-link text-monospace" href="{% url 'logout' %}"><i class="fa fa-power-off"></i>&nbsp;Sair</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2 d-none d-md-block bg-light sidebar shadow">
+        <div class="sidebar-sticky">
+          <h6 class="h6 texto-menu"><i class="fa fa-star"></i> Menu Principal</h6>
+          <div id="home" class="list-group"><a href="{% url 'index' %}" class="list-group-item bg-light" data-parent="home"><i class="fa fa-home"></i> Home</a></div>
+          <div id="safras" class="list-group"><a href="{% url 'safra' %}" class="list-group-item bg-light" data-parent="safras"><i class="fa fa-book"></i> Safras</a></div>
+        </div>
+        <h6 class="h6 texto-menu"><i class="fa fa-th-list"></i> Fazendas</h6>
+        {% for faz in fazendas %}
+        <div id="main-menu{{faz.id}}" class="list-group">
+          {% if faz == fazenda %}
+          <a href="#sub-menu{{faz.id}}" class="list-group-item bg-light active" data-toggle="collapse" data-parent="#main-menu{{faz.id}}"><i class="fa fa-leaf"></i> {{faz}}<span class="caret"></span></a>
+          {% else %}
+          <a href="#sub-menu{{faz.id}}" class="list-group-item bg-light" data-toggle="collapse" data-parent="#main-menu{{faz.id}}"><i class="fa fa-leaf"></i> {{faz}}<span class="caret"></span></a>
+          {% endif %}
+          <div class="collapse list-group-level1 bg-light" id="sub-menu{{faz.id}}">
+            <a href="{% url 'fazenda' faz.id %}" class="list-group-item bg-light" data-parent="#sub-menu{{faz.id}}">Home</a>
+            <a href="#sub-sub-menu{{faz.id}}" class="list-group-item bg-light" data-toggle="collapse" data-parent="#sub-menu{{faz.id}}">Contas a Pagar<span class="caret"></span></a>
+            <div class="collapse list-group-level2 bg-light" id="sub-sub-menu{{faz.id}}">
+              <a href="#" class="list-group-item bg-light" data-parent="#sub-sub-menu{{faz.id}}">Salario de Funcionarios</a>
+              <a href="#" class="list-group-item bg-light" data-parent="#sub-sub-menu{{faz.id}}">Compra de Produtos e Peças</a>
+              <a href="#" class="list-group-item bg-light" data-parent="#sub-sub-menu{{faz.id}}">Outros</a>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div id="no-register" class="list-group"> Sem Fazendas Cadastradas </div>
+        {% endfor %}
+        <div class="list-group" id="farm-register">
+          {% if cadastro is True %}
+          <a href="{% url 'cadastrar_fazenda' %}" class="list-group-item bg-light active" data-parent="farm-register"><i class="fa fa-plus"></i> Cadastrar Nova Fazenda</a>
+          {% else %}
+          <a href="{% url 'cadastrar_fazenda' %}" class="list-group-item bg-light" data-parent="farm-register"><i class="fa fa-plus"></i> Cadastrar Nova Fazenda</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 main_mod">
+      <main` role="main">
+        {% if alerta == 'sucesso' %}
+        <div class='alert alert-success' role='alert' style='margin-top: 2%'> Alteracoes realizadas com sucesso. </div>
+        {% elif alerta == 'erro' %}
+        <div class='alert alert-danger' role='alert' style='margin-top: 2%'> Algo deu errado! Por favor tente novamente. {{ mensagem }}</div>
+        {% endif %}
+        {% block content %}{% endblock content %}
+        {% block extra %}{% endblock extra%}
+        </main>
+    </div>
+  </div>
+  </div>
+</body>
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static " js/style.js" %}"></script>
+
+</html>

@@ -30,6 +30,7 @@ With all possible help, mainly code reviews, implementations of new functions, s
 
  - Python3
  - Bootstrap
+ - Django
  - pip
  - Obs: Developed in Windows using PyCharm
 
@@ -39,9 +40,11 @@ With all possible help, mainly code reviews, implementations of new functions, s
 
 ### 6 - Logbook
 
-07/02/2019 - The entire project developed during the year 2018 was made available, with the intention of staying alive and, in a certain way, improving and speeding up the development of my dream.
+02/07/2019 - The entire project developed during the year 2018 was made available, with the intention of staying alive and, in a certain way, improving and speeding up the development of my dream.
 
-08/02/2019 - As a way to make the project more useful already in its early stages, I stop the development of the more technical parts of agriculture and open the beginning of the development phase of the system's bills to pay.
+02/08/2019 - As a way to make the project more useful already in its early stages, I stop the development of the more technical parts of agriculture and open the beginning of the development phase of the system's bills to pay.
+
+02/09/2019 - Change the main menu for new apps.
 
 ------------------------------------------------------------------------------------------------------
 # Sistema Online para ferramentas para o agronegocio.
@@ -86,5 +89,7 @@ Com a toda a ajuda possível, principalmente revisões de códigos, implementaç
 07/02/2019 – Todo o projeto desenvolvido durante o ano de 2018 foi disponibilizado, com pretensão de permanecer o desenvolvimento vivo e certa forma melhorar e agilizar o desenvolvimento deste meu sonho.
 
 08/02/2019 – Como forma de deixar o projeto mais útil já em suas fases inicias, paro o desenvolvimento das partes mais técnicas da agricultura e abro o inicio da fase de desenvolvimento das contas a pagar do sistema.
+
+09/02/2019 - Alteração do menu principal para novos apps.
 
 ------------------------------------------------------------------------------------------------------

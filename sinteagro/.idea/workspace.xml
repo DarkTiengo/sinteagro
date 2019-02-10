@@ -141,6 +141,11 @@
               <item name="sinteagro" type="462c0819:PsiDirectoryNode" />
               <item name="sinteagros" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="sinteagro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sinteagro" type="462c0819:PsiDirectoryNode" />
+              <item name="venv" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -181,7 +186,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="sinteagro.settings" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Users\r_tie\AppData\Local\Programs\Python\Python37-32\pythonw.exe" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -220,15 +225,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32909605" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5013423" side_tool="true" weight="0.32909605" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.32418162" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.2740113" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986577" weight="0.19067797" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986577" weight="0.19007392" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32909605" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.36644295" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
@@ -536,9 +541,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="25" column="50" selection-start-line="25" selection-start-column="50" selection-end-line="25" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
