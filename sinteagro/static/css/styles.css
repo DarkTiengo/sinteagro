@@ -51,41 +51,6 @@ sidebar {
   border-radius: 10px;
 }
 
-#main-menu {
-    background-color: #2E3039;
-}
-
-.list-group-item {
-    background-color: #2E3039;
-    border: none;
-}
-
-a.list-group-item {
-    color: #FFF;
-}
-
-a.list-group-item:hover,
-a.list-group-item:focus {
-    background-color: #43D5B1;
-}
-
-a.list-group-item.active,
-a.list-group-item.active:hover,
-a.list-group-item.active:focus {
-    color: #FFF;
-    background-color: #43D5B1;
-    border: none;
-}
-
-.list-group-item:first-child,
-.list-group-item:last-child {
-    border-radius: 0;
-}
-
-.list-group-level1 .list-group-item {
-    padding-left:30px;
-}
-
-.list-group-level2 .list-group-item {
-    padding-left:60px;
+body{
+  background-color: rgba(185, 193, 205, 0.2);
 }
