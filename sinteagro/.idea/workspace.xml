@@ -2,27 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="670bdce1-e662-4d53-8c7a-936c2eaafe57" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/localidades/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/localidades/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/localidades/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/localidades/fixtures/initial_data.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/localidades/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/localidades/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/localidades/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/localidades/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/localidades/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.tern-project" beforeDir="false" afterPath="$PROJECT_DIR$/../.tern-project" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/templates/account/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/account/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/templates/account/cadastro.html" beforeDir="false" afterPath="$PROJECT_DIR$/account/templates/account/cadastro.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sinteagro/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/sinteagro/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sinteagros/templates/sinteagros/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/sinteagros/templates/sinteagros/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sinteagros/templates/sinteagros/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sinteagros/templates/sinteagros/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/pip-selfcheck.json" beforeDir="false" afterPath="$PROJECT_DIR$/venv/pip-selfcheck.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/style.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/style.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -54,7 +38,7 @@
         <entry file="file://$PROJECT_DIR$/account/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="7" column="38" lean-forward="true" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+              <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -590,7 +574,7 @@
     <entry file="file://$PROJECT_DIR$/account/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
-          <caret line="7" column="38" lean-forward="true" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
         </state>
       </provider>
     </entry>

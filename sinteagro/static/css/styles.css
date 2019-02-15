@@ -50,3 +50,8 @@ sidebar {
   border: 1px solid;
   border-radius: 10px;
 }
+
+#calendar{
+  max-width: 600px;
+  padding: 20px;
+}
