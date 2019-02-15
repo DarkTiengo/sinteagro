@@ -46,6 +46,10 @@ With all possible help, mainly code reviews, implementations of new functions, s
 
 02/09/2019 - Change the main menu for new apps.
 
+02/15/2019 - Update:
+- Start app calendar. 
+- Reformulation of areas.
+- Fix bugs.
 ------------------------------------------------------------------------------------------------------
 # Sistema Online para ferramentas para o agronegocio.
 
@@ -91,5 +95,10 @@ Com a toda a ajuda possível, principalmente revisões de códigos, implementaç
 08/02/2019 – Como forma de deixar o projeto mais útil já em suas fases inicias, paro o desenvolvimento das partes mais técnicas da agricultura e abro o inicio da fase de desenvolvimento das contas a pagar do sistema.
 
 09/02/2019 - Alteração do menu principal para novos apps.
+
+15/02/2019 - Update:
+- Inicio do app calendário. 
+- Reformulação de áreas.
+- Correção de erros.
 
 ------------------------------------------------------------------------------------------------------
