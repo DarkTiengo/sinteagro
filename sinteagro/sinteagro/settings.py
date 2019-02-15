@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     #Meus apps
     'account',
     'sinteagros',
+    'localidades.apps.LocalidadesConfig',
 ]
 
 MIDDLEWARE = [

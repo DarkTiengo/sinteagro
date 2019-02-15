@@ -26,7 +26,6 @@ body{
   min-height: 50%;
 }
 
-.custom-select{
-  background-color: rgb(69, 69, 69);
-  color: rgb(240, 223, 230);
+.custom-select option{
+  background: rgb(30, 40, 51);
 }
