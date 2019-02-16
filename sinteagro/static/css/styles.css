@@ -1,9 +1,9 @@
 body {
-  background-color: rgba(185, 193, 205, 0.2);
+  background-color: #f5f5f5;
 }
 
 #calendar {
-  max-width: 80%;
+  min-width: 80%;
   margin: 20px;
   padding: 10px;
   -webkit-box-shadow: 15px 6px 34px -17px rgba(0, 0, 0, 0.67);
@@ -12,12 +12,87 @@ body {
   background: #ffff;
 }
 
-#note{
-  background: #fff;
+#note {
+  background: #F5F5AF;
   width: 90%;
   height: 93%;
   margin: 20px;
   -webkit-box-shadow: 15px 6px 34px -17px rgba(0, 0, 0, 0.67);
   -moz-box-shadow: 15px 6px 34px -17px rgba(0, 0, 0, 0.67);
   box-shadow: 15px 6px 34px -17px rgba(0, 0, 0, 0.67);
+}
+
+.top-note {
+  background-color: #633617;
+  font-size: 42px;
+  color: #fff;
+  letter-spacing: -2px;
+  text-align: center;
+  padding: 5px;
+}
+
+#note-date{
+  padding-left: 20px;
+}
+
+.list {
+  color: #CAB468;
+  font-size: 15px;
+  padding: 0 !important;
+  width: 100%;
+  font-family: courier, monospace;
+  border: 1px solid #dedede;
+}
+
+.list li {
+  list-style: none;
+  border-bottom: 1px dotted #ccc;
+  text-indent: 25px;
+  height: auto;
+  padding: 10px;
+  text-transform: capitalize;
+}
+
+.list li:hover {
+  background-color: #f0f0f0;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+}
+
+.lines {
+  position: absolute;
+  border-left: 1px solid #ffaa9f;
+  border-right: 1px solid #ffaa9f;
+  width: 2px;
+  float: left;
+  height: 55px;
+  margin-left: 40px;
+}
+
+.input-note {
+  -webkit-appearance: none;
+  /* Remove estilo padrão do Chrome */
+  -moz-appearance: none;
+  /* Remove estilo padrão do FireFox */
+  appearance: none;
+  background: #F5F5AF;
+  border: none;
+  position: relative;
+  width: 80%;
+  left: 3%;
+}
+
+.input-note:hover {
+  background-color: #f0f0f0;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+}
+
+.icon-note{
+  color: #633617;
+  width: 3%;
 }
