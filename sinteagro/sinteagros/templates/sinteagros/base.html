@@ -5,6 +5,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static "css/fullcalendar.css" %}">
   <title>SINTEAGRO</title>
 </head>
 
@@ -43,7 +47,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Sair</a>
+          <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-power-off"></i> Sair</a>
         </li>
       </ul>
     </div>
@@ -57,12 +61,12 @@
     </div>
   </div>
 </body>
-<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-<link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="{% static 'js/popper.min.js' %}"></script>
-<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-<script src="{% static " js/style.js" %}"></script>
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/popper.min.js" %}"></script>
+<script src="{% static "js/lib/moment.min.js" %}"></script>
+<script src="{% static "js/fullcalendar.js" %}"></script>
+<script src="{% static "js/locale/pt-br.js" %}"></script>
+<script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/style.js" %}"></script>
 
 </html>

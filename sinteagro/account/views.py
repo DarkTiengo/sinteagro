@@ -2,8 +2,11 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login as django_login
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
+from django.http import JsonResponse
 
+from .models import User
 from .forms import UserForm
+from localidades.models import Cidade
 
 def login(request):
     """Pagina Inicial de Login / System Login"""
@@ -47,3 +50,15 @@ def cadastro(request):
             contexto["info"] = "erro"
             contexto["mensagem"] = "Voce deve aceitar os termos de uso."
     return render(request,"account/cadastro.html",contexto)
+
+def check_email(request):
+    """"Check if email exist / Checa se email existe"""
+    email = request.GET.get('email')
+    data = {'is_taken': User.objects.filter(email__exact=email).exists() }
+    return JsonResponse(data)
+
+def get_cidade(request):
+    """"Pega as cidades pelos estados / Get cities by brazilian states"""
+    estado = request.GET.get('estado')
+    data = Cidade.objects.filter(uf=estado).values()
+    return JsonResponse({"cities": list(data)})
