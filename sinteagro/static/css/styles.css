@@ -1,56 +1,23 @@
-sidebar {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  padding: 60px 0 0;
-  z-index: 101;
-}
-
-.separador {
-    padding-top: 5%;
-}
-
-.sidebar-sticky{
-    position: sticky;
-    text-align: left;
-}
-
-.main_mod{
-    position: fixed;
-    z-index: 100;
-    padding-left: 20%;
-}
-
-.texto-menu{
-    color: #6c757d;
-    padding: 2%;
-}
-
-.card-fazendas{
-  padding: 1%;
-}
-
-.sidebar-right{
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 101;
-}
-
-.pop-cadastro{
-  z-index: 110;
-  position: fixed;
-  height: 300px;
-  width: 300px;
-  top: 30%;
-  left: 30%;
-  box-shadow: 5px 10px 8px #888888;
-  border: 1px solid;
-  border-radius: 10px;
-}
-
-body{
+body {
   background-color: rgba(185, 193, 205, 0.2);
+}
+
+#calendar {
+  max-width: 80%;
+  margin: 20px;
+  padding: 10px;
+  -webkit-box-shadow: 15px 6px 34px -17px rgba(0, 0, 0, 0.67);
+  -moz-box-shadow: 15px 6px 34px -17px rgba(0, 0, 0, 0.67);
+  box-shadow: 15px 6px 34px -17px rgba(0, 0, 0, 0.67);
+  background: #ffff;
+}
+
+#note{
+  background: #fff;
+  width: 90%;
+  height: 93%;
+  margin: 20px;
+  -webkit-box-shadow: 15px 6px 34px -17px rgba(0, 0, 0, 0.67);
+  -moz-box-shadow: 15px 6px 34px -17px rgba(0, 0, 0, 0.67);
+  box-shadow: 15px 6px 34px -17px rgba(0, 0, 0, 0.67);
 }

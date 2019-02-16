@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <link rel="stylesheet" href="{% static "css/fullcalendar.css" %}">
+  <link rel="stylesheet" href="{% static "css/styles.css" %}">
   <title>SINTEAGRO</title>
 </head>
 
@@ -52,14 +52,10 @@
       </ul>
     </div>
   </nav>
-  <div class="row">
-    <div class="col-md-12">
       <main role="main">
         {% block content %}{% endblock %}
         {% block extra %}{% endblock %}
       </main>
-    </div>
-  </div>
 </body>
 <script src="{% static "js/jquery.min.js" %}"></script>
 <script src="{% static "js/popper.min.js" %}"></script>

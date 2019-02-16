@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="670bdce1-e662-4d53-8c7a-936c2eaafe57" name="Default" comment="" />
+    <list default="true" id="670bdce1-e662-4d53-8c7a-936c2eaafe57" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/sinteagros/templates/sinteagros/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/sinteagros/templates/sinteagros/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sinteagros/templates/sinteagros/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sinteagros/templates/sinteagros/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -127,6 +131,11 @@
             <path>
               <item name="sinteagro" type="b2602c69:ProjectViewProjectNode" />
               <item name="sinteagro" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sinteagro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sinteagro" type="462c0819:PsiDirectoryNode" />
               <item name="venv" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -217,39 +226,25 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32909605" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.32418162" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986577" weight="0.18901795" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.2740113" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986577" weight="0.19007392" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32909605" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3609375" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.37708333" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.3295302" />
       <window_info anchor="right" id="SciView" order="3" weight="0.3295302" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49932885" weight="0.3997175" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49932885" weight="0.3997175" />
       <window_info active="true" anchor="bottom" id="manage.py@sinteagro" order="7" visible="true" weight="0.32485875" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49932885" weight="0.3997175" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3771812" />
-      <window_info anchor="right" id="SciView" order="3" weight="0.3295302" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32909605" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4986577" visible="true" weight="0.18926553" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" weight="0.3295302" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.32418162" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32909605" />
-      <window_info anchor="bottom" id="Python Console" order="7" weight="0.2740113" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -468,18 +463,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/localidades/fixtures/initial_data.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/localidades/fixtures/initial_data.json" />
     <entry file="file://$PROJECT_DIR$/sinteagros/admin.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/localidades/views.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/localidades/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/localidades/views.py" />
+    <entry file="file://$PROJECT_DIR$/localidades/__init__.py" />
     <entry file="file://$PROJECT_DIR$/sinteagro/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="765">
@@ -487,13 +476,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/localidades/apps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/localidades/apps.py" />
     <entry file="file://$PROJECT_DIR$/sinteagros/apps.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="794">
@@ -508,27 +491,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/localidades/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="26" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/localidades/models.py" />
     <entry file="file://$PROJECT_DIR$/sinteagros/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
+        <state relative-caret-position="794">
           <caret line="248" column="77" selection-start-line="248" selection-start-column="77" selection-end-line="248" selection-end-column="77" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/localidades/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-38">
-          <caret column="15" selection-start-column="15" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/localidades/admin.py" />
     <entry file="file://$PROJECT_DIR$/sinteagro/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
@@ -540,9 +511,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1003">
           <caret line="62" column="33" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
