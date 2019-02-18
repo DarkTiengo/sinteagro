@@ -1,6 +1,39 @@
 {% extends "sinteagros/base.html" %}
 
 {% block content %}
+
+<script>
+  $(document).ready(function() {
+
+    // Create Calendar / Cria Calendario
+    $('#calendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay,listMonth'
+      },
+      locale: "pt-br"
+    });
+
+    //js Calendario
+    moment().locale('pt-br');
+
+    $("#note-date").append(moment().format('LL'))
+    // Create note lines / Cria linhas da agenda
+    var i = 0;
+    while (i < 10) {
+      $(".list").append('<div class="lines"></div><li><input class="input-note" type="text" maxlength="40" /><a href="#" class="check-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a></li>');
+      i++;
+    };
+
+    $(".list li").click(function() {
+      $(this)[0].find("a").show();
+    });
+
+  });
+</script>
+
+
 <div class="row">
   <div class="col-md-6">
     <div id="calendar">
@@ -12,7 +45,6 @@
       <h4 class="top-note">Agenda</h4>
       <h5 id="note-date"></h5>
       <ul class="list">
-        <div class="lines"></div><li><input class="input-note" type="text" maxlength="70" /><i class="fa fa-check icon-note"></i> <i class="fa fa-close icon-note"></i></li>
       </ul>
     </div>
   </div>

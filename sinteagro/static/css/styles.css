@@ -13,6 +13,7 @@ body {
 }
 
 #note {
+  position: relative;
   background: #F5F5AF;
   width: 90%;
   height: 93%;
@@ -36,8 +37,9 @@ body {
 }
 
 .list {
+  position: relative;
   color: #CAB468;
-  font-size: 15px;
+  font-size: 22px;
   padding: 0 !important;
   width: 100%;
   font-family: courier, monospace;
@@ -80,8 +82,8 @@ body {
   background: #F5F5AF;
   border: none;
   position: relative;
-  width: 80%;
-  left: 3%;
+  width: 60%;
+  right: -13px;
 }
 
 .input-note:hover {
@@ -92,7 +94,11 @@ body {
   -o-transition: all 0.2s;
 }
 
+.list li a{
+ display: none;
+ width: 3%;
+}
+
 .icon-note{
   color: #633617;
-  width: 3%;
 }
