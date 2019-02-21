@@ -5,29 +5,38 @@
 <script>
   $(document).ready(function() {
 
-    // Create Calendar / Cria Calendario
-    $('#calendar').fullCalendar({
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay,listMonth'
-      },
-      locale: "pt-br"
-    });
-
     //js Calendario
     moment().locale('pt-br');
 
-    $("#note-date").append(moment().format('LL'))
-    // Create note lines / Cria linhas da agenda
-    var i = 0;
-    while (i < 10) {
-      $(".list").append('<div class="lines"></div><li><input class="input-note" type="text" maxlength="40" /><a href="#" class="check-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a></li>');
-      i++;
-    };
+    // Create Calendar / Cria Calendario
+$('#calendar').fullCalendar({
+      header: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay,listMonth'
+      },
+      locale: "pt-br",
+      editable: true,
+      selectable: true,
+      select: function(start,end){
+        var inicio = moment(start);
+        $("#note-date").empty().append(inicio.format('LL'));
+        $("#date").val(inicio);
+      }
+    });
 
-    $(".list li").click(function() {
-      $(this)[0].find("a").show();
+
+    // ##### NOTEPAD ####
+
+    // Create Notepad / Cria agenda
+    $("#note-date").append(moment().format('LL'));
+    $("#date").val(moment().format());
+
+    // Notepad icons effect / Efeito nos icones da agenda
+    $(".list li").focusin(function() {
+      $(this).find("a").fadeIn(1000);
+    }).focusout(function(){
+      $(this).find("a").fadeOut(500);
     });
 
   });
@@ -42,10 +51,16 @@
   </div>
   <div class="col-md-6">
     <div id="note">
-      <h4 class="top-note">Agenda</h4>
-      <h5 id="note-date"></h5>
-      <ul class="list">
-      </ul>
+      <form action="" method="post">
+        <h4 class="top-note">Anotações</h4>
+        <h5 id="note-date"></h5>
+        <ul class="list">
+          {% for note in notes %}
+            <li><input class="input-note" type="text" maxlength="40" /><a href="#" class="check-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a></li>
+          {% endfor %}
+        </ul>
+        <input type="hidden" name="date" id="date" value="">
+      </form>
     </div>
   </div>
 

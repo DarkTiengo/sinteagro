@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Fazenda,Talhao,Safra,Produtividade
+from .models import Fazenda,Talhao,Safra,Produtividade, Agenda
 
 class FazendaForm(forms.ModelForm):
     class Meta:
@@ -25,3 +25,8 @@ class ProdutividadeForm(forms.ModelForm):
         model = Produtividade
         fields = ['safra','producao','talhao']
         labels = {'safra': 'Safra', 'producao': 'Producao', 'talhao': 'Talhao'}
+
+class AgendaForm(forms.ModelForm):
+    class Meta:
+        model = Agenda
+        fields = ['user', 'note', 'module', 'id_task','hour','date']

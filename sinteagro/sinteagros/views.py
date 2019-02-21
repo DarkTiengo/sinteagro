@@ -3,19 +3,29 @@ from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from datetime import datetime
 
-from .forms import FazendaForm, TalhaoForm, SafraForm, ProdutividadeForm
+from .forms import FazendaForm, TalhaoForm, SafraForm, ProdutividadeForm, AgendaForm
 from .fazendas import *
 from .talhoes import *
 from account.auxiliar import *
 from account.forms import UserForm
+from .models import Agenda
 
 
 @login_required()
 def index(request, alert = None):
     """Pagina inicial  / Main Menu"""
     contexto = gera_Menu(request.user)
-    contexto['numero_linhas_fazenda'] = int(contexto['fazendas'].count()/3)
+    notes =[None] * 11
+    query = Agenda.objects.filter(user=request.user,date=datetime.now())
+    cont = 0
+    if len(notes) > 0:
+        for note in query:
+            notes[cont] = note
+            cont += cont
+    contexto['notes'] = notes
     contexto['home'] = True
     if alert is not None:
         contexto['alerta'] = alert
@@ -247,3 +257,20 @@ def edit_producao(request,fazenda_id,talhao_id):
             contexto["info"] = "erro"
             contexto["mensagem"] = "Algo deu errado, por favor tente novamente."
     return render(request,"sinteagros/cadastrar_produtividade.html",contexto)
+
+def set_note(request):
+    """Manipulate notes / Manipula as notas"""
+    if request.method == "POST":
+        data = AgendaForm(request.POST)
+        if data.is_valid():
+            post = data.save(commit=False)
+            post.user = request.user
+            post.save()
+            return JsonResponse({"success": True})
+
+def get_notes(request):
+    """Get All User Notes / Pegar todas as anotacoes do usuario"""
+    user = request.user
+    date = request.GET.get('date')
+    notes = Agenda.objects.filter(date=date,user=user)
+    return JsonResponse(notes)

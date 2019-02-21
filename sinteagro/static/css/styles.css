@@ -32,7 +32,7 @@ body {
   padding: 5px;
 }
 
-#note-date{
+#note-date {
   padding-left: 20px;
 }
 
@@ -49,9 +49,9 @@ body {
 .list li {
   list-style: none;
   border-bottom: 1px dotted #ccc;
-  text-indent: 25px;
+  text-indent: 2px;
   height: auto;
-  padding: 10px;
+  padding: 2px;
   text-transform: capitalize;
 }
 
@@ -63,27 +63,19 @@ body {
   -o-transition: all 0.2s;
 }
 
-.lines {
-  position: absolute;
-  border-left: 1px solid #ffaa9f;
-  border-right: 1px solid #ffaa9f;
-  width: 2px;
-  float: left;
-  height: 55px;
-  margin-left: 40px;
+.input-note {
+  background: #F5F5AF;
+  border: none;
+  padding-right: 1px;
 }
 
-.input-note {
+.input-note[type="text"] {
   -webkit-appearance: none;
   /* Remove estilo padrão do Chrome */
   -moz-appearance: none;
   /* Remove estilo padrão do FireFox */
   appearance: none;
-  background: #F5F5AF;
-  border: none;
-  position: relative;
-  width: 60%;
-  right: -13px;
+  width: 83%;
 }
 
 .input-note:hover {
@@ -94,11 +86,12 @@ body {
   -o-transition: all 0.2s;
 }
 
-.list li a{
- display: none;
- width: 3%;
+.list li a {
+  display: none;
+  width: 3%;
+  padding-left: 3px;
 }
 
-.icon-note{
+.icon-note {
   color: #633617;
 }

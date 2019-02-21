@@ -44,7 +44,7 @@ class Safra(models.Model):
         return self.ano1 + "/" + self.ano2
 
 class Produtividade(models.Model):
-    """Cadastro de produtividades de talhoes / """
+    """Cadastro de produtividades de talhoes"""
     talhao = models.ForeignKey(Talhao,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     safra = models.ForeignKey(Safra,on_delete=models.CASCADE,blank=False)
@@ -55,24 +55,14 @@ class Produtividade(models.Model):
         """"Retorna a producao"""
         return self.producao
 
-class Analise(models.Model):
-    """Cadastro da Analise de Solo"""
-    safra = models.ForeignKey(Safra,on_delete=models.CASCADE)
-    talhao = models.ForeignKey(Talhao,on_delete=models.CASCADE)
+class Agenda(models.Model):
+    """"Cadastro de anotacoes"""
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    data = models.DateTimeField(auto_now_add=True)
-    N = models.FloatField()
-    P = models.FloatField()
-    K = models.FloatField()
-    S = models.FloatField()
-    Ca = models.FloatField()
-    Mg = models.FloatField()
-    Al = models.FloatField()
-    MO = models.FloatField()
-    Mn = models.FloatField()
-    Zn = models.FloatField()
-    Cu = models.FloatField()
-    Fe = models.FloatField()
-    B = models.FloatField()
-    SO4 = models.FloatField()
-    pH = models.FloatField()
+    note = models.CharField(max_length=40)
+    module = models.CharField(max_length=10,default=None)
+    id_task = models.IntegerField(default=0)
+    hour = models.TimeField()
+    date = models.DateField()
+
+    def __str__(self):
+        return self.note

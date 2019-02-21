@@ -27,4 +27,5 @@ urlpatterns = [
     path('apaga_talhao/<fazenda_id>/<talhao_id>/',views.apaga_talhao,name='apaga_talhao'),
     path('edit_produtividades/<fazenda_id>/<talhao_id>/',views.edit_produtividades,name='edit_produtividades'),
     path('edit_producao/<fazenda_id>/<talhao_id>/',views.edit_producao,name='edit_producao'),
+    path('get_notes/',views.get_notes,name='get_notes'),
 ] + static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
