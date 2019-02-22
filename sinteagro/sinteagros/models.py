@@ -59,9 +59,6 @@ class Agenda(models.Model):
     """"Cadastro de anotacoes"""
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     note = models.CharField(max_length=40)
-    module = models.CharField(max_length=10,default=None)
-    id_task = models.IntegerField(default=0)
-    hour = models.TimeField()
     date = models.DateField()
 
     def __str__(self):

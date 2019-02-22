@@ -31,7 +31,6 @@ $('#calendar').fullCalendar({
     // Create Notepad / Cria agenda
     $("#note-date").append(moment().format('LL'));
     $("#date").val(moment().format("YYYY-MM-DD"));
-    $("#hour").val(moment().format("HH:mm"));
 
     // Notepad icons effect / Efeito nos icones da agenda
     $(".list li").focusin(function() {
@@ -43,8 +42,17 @@ $('#calendar').fullCalendar({
     $(".new-note").click(function(){
       var note = $(this).parent().find(".input-note").val();
       $.ajax({
-        url: 'index/set_note/'
-      });
+        url: 'index/set_note/',
+        dataType: 'json',
+        data: {
+          note: note,
+          date: $("#date").val()
+        }
+      }).fail(function(jq,txt,msg){
+        alert(txt + " haahahaha " + msg);
+      }).done(function(data){
+        alert(data);
+      })
     });
 
   });
@@ -73,7 +81,6 @@ $('#calendar').fullCalendar({
           {% endfor %}
         </ul>
         <input type="hidden" name="date" id="date" value="">
-        <input type="hidden" name="hour" id="hour" value="">
       </form>
     </div>
   </div>

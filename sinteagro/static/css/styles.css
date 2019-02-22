@@ -86,9 +86,10 @@ body {
   -o-transition: all 0.2s;
 }
 
-.list li a {
+.check-note {
+  background-color: #F5F5AF;
+  border: none;
   display: none;
-  width: 3%;
   padding-left: 3px;
 }
 
