@@ -21,7 +21,7 @@ $('#calendar').fullCalendar({
       select: function(start,end){
         var inicio = moment(start);
         $("#note-date").empty().append(inicio.format('LL'));
-        $("#date").val(inicio);
+        $("#date").val(inicio.format("YYYY-MM-DD"));
       }
     });
 
@@ -30,13 +30,21 @@ $('#calendar').fullCalendar({
 
     // Create Notepad / Cria agenda
     $("#note-date").append(moment().format('LL'));
-    $("#date").val(moment().format());
+    $("#date").val(moment().format("YYYY-MM-DD"));
+    $("#hour").val(moment().format("HH:mm"));
 
     // Notepad icons effect / Efeito nos icones da agenda
     $(".list li").focusin(function() {
       $(this).find("a").fadeIn(1000);
     }).focusout(function(){
       $(this).find("a").fadeOut(500);
+    });
+
+    $(".new-note").click(function(){
+      var note = $(this).parent().find(".input-note").val();
+      $.ajax({
+        url: 'index/set_note/'
+      });
     });
 
   });
@@ -56,10 +64,16 @@ $('#calendar').fullCalendar({
         <h5 id="note-date"></h5>
         <ul class="list">
           {% for note in notes %}
-            <li><input class="input-note" type="text" maxlength="40" /><a href="#" class="check-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a></li>
+            {% if note == None %}
+            <li><input class="input-note" type="text" maxlength="40" /><a href="#" class="check-note new-note"><i class="fa fa-save icon-note"></i></a></li>
+            {% else %}
+            <li><input class="input-note" type="text" maxlength="40" /><a href="#" class="check-note alter-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a></li>
+            {% endif %}
+
           {% endfor %}
         </ul>
         <input type="hidden" name="date" id="date" value="">
+        <input type="hidden" name="hour" id="hour" value="">
       </form>
     </div>
   </div>
