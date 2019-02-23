@@ -41,19 +41,28 @@ $('#calendar').fullCalendar({
 
     $(".new-note").click(function(){
       var note = $(this).parent().find(".input-note").val();
+      var line = $(this).parent();
       $.ajax({
-        url: 'index/set_note/',
+        url: 'ajax/set_note/',
         dataType: 'json',
         data: {
-          note: note,
-          date: $("#date").val()
-        }
-      }).fail(function(jq,txt,msg){
-        alert(txt + " haahahaha " + msg);
+          'note': note,
+          'date': $("#date").val()
+        },
+        method: 'post',
+      }).fail(function(jq,txt,erro){
+        alert("Ocorreu um erro, por favor tente novamente.");
       }).done(function(data){
-        alert(data);
+        if(data.response){
+          line.find(".new-note").remove().append('<a href="#" class="check-note alter-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a>');
+          line.find("a").show();
+        } else{
+          alert("deu errado");
+        }
       })
     });
+
+  
 
   });
 </script>
@@ -67,7 +76,8 @@ $('#calendar').fullCalendar({
   </div>
   <div class="col-md-6">
     <div id="note">
-      <form action="" method="post">
+      <form action="#" method="post" id="form-note" name="form-note">
+        {% csrf_token %}
         <h4 class="top-note">Anotações</h4>
         <h5 id="note-date"></h5>
         <ul class="list">
@@ -75,7 +85,7 @@ $('#calendar').fullCalendar({
             {% if note == None %}
             <li><input class="input-note" type="text" maxlength="40" /><a href="#" class="check-note new-note"><i class="fa fa-save icon-note"></i></a></li>
             {% else %}
-            <li><input class="input-note" type="text" maxlength="40" /><a href="#" class="check-note alter-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a></li>
+            <li><input class="input-note" type="text" maxlength="40" name="{{note.id}}" id="{{note.id}}" value="{{note}}" /><a href="#" class="check-note alter-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a></li>
             {% endif %}
 
           {% endfor %}

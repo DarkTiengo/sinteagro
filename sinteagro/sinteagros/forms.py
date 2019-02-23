@@ -29,4 +29,4 @@ class ProdutividadeForm(forms.ModelForm):
 class AgendaForm(forms.ModelForm):
     class Meta:
         model = Agenda
-        fields = ['user', 'note','date']
+        fields = ['note','date']

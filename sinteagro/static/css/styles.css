@@ -67,9 +67,6 @@ body {
   background: #F5F5AF;
   border: none;
   padding-right: 1px;
-}
-
-.input-note[type="text"] {
   -webkit-appearance: none;
   /* Remove estilo padrão do Chrome */
   -moz-appearance: none;

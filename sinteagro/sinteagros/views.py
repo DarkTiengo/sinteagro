@@ -260,16 +260,15 @@ def edit_producao(request,fazenda_id,talhao_id):
 
 def set_note(request):
     """Manipulate notes / Manipula as notas"""
-    """if request.method == "POST":
-        data = AgendaForm(request.POST)
-        if data.is_valid():
-            post = data.save(commit=False)
+    if request.method == "POST":
+        note = AgendaForm(request.POST)
+        if note.is_valid():
+            post = note.save(commit=False)
             post.user = request.user
-            post.save() """
-    responde = {
-        'sucesso': 'Teste'
-    }
-    return JsonResponse(responde)
+            post.save()
+            return JsonResponse({"response": True})
+    return JsonResponse({"response": False})
+
 
 def get_notes(request):
     """Get All User Notes / Pegar todas as anotacoes do usuario"""
