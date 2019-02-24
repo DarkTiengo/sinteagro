@@ -18,13 +18,10 @@ from .models import Agenda
 def index(request, alert = None):
     """Pagina inicial  / Main Menu"""
     contexto = gera_Menu(request.user)
-    notes =[None] * 11
-    query = Agenda.objects.filter(user=request.user,date=datetime.now())
-    cont = 0
-    if len(notes) > 0:
-        for note in query:
-            notes[cont] = note
-            cont += cont
+    notes = Agenda.objects.filter(user=request.user,date=datetime.now())
+    if len(notes) < 11:
+        n = 11 - len(notes)
+        contexto['blank'] = [None] * n
     contexto['notes'] = notes
     contexto['home'] = True
     if alert is not None:

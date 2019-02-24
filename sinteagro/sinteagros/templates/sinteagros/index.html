@@ -69,6 +69,7 @@ $('#calendar').fullCalendar({
       var line = $(this).parent();
       var ajax = set_notes($(this));
       if(ajax.response){
+        alert(ajax.id);
         $(this).remove();
         line.append('<a href="#" class="alter-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a>');
         line.find(".input-note").attr("id",ajax.id);
@@ -102,12 +103,10 @@ $('#calendar').fullCalendar({
         <h5 id="note-date"></h5>
         <ul class="list">
           {% for note in notes %}
-            {% if note == None %}
-            <li><input class="input-note" type="text" maxlength="40" name="" id="" /><a href="#" class="check-note new-note"><i class="fa fa-save icon-note"></i></a></li>
-            {% else %}
             <li><input class="input-note" type="text" maxlength="40" name="{{note.id}}" id="{{note.id}}" value="{{note}}" /><a href="#" class="alter-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a></li>
-            {% endif %}
-
+          {% endfor %}
+          {% for b in blank %}
+            <li><input class="input-note" type="text" maxlength="40" name="" id="" /><a href="#" class="check-note new-note"><i class="fa fa-save icon-note"></i></a></li>
           {% endfor %}
         </ul>
         <input type="hidden" name="date" id="date" value="">
