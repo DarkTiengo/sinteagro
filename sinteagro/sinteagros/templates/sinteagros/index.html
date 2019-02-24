@@ -3,6 +3,32 @@
 {% block content %}
 
 <script>
+
+//Change Notes / Alterar notas
+function set_notes(element){
+  var line = element.parent().find(".input-note");
+  var note = line.val();
+  var id = line.attr("id");
+  $.ajax({
+    url: 'ajax/set_note/',
+    dataType: 'json',
+    data: {
+      'note': note,
+      'date': $("#date").val(),
+      'id': id
+    },
+    method: 'post',
+  }).fail(function(jq,txt,erro){
+    alert("Ocorreu um erro, por favor tente novamente.");
+  }).done(function(data){
+    if(data.response){
+      return true;
+    } else{
+      return false;
+    }
+  });
+};
+
   $(document).ready(function() {
 
     //js Calendario
@@ -40,31 +66,25 @@ $('#calendar').fullCalendar({
     });
 
     $(".new-note").click(function(){
-      var note = $(this).parent().find(".input-note").val();
       var line = $(this).parent();
-      $.ajax({
-        url: 'ajax/set_note/',
-        dataType: 'json',
-        data: {
-          'note': note,
-          'date': $("#date").val()
-        },
-        method: 'post',
-      }).fail(function(jq,txt,erro){
-        alert("Ocorreu um erro, por favor tente novamente.");
-      }).done(function(data){
-        if(data.response){
-          line.find(".new-note").remove().append('<a href="#" class="check-note alter-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a>');
-          line.find("a").show();
-        } else{
-          alert("deu errado");
-        }
-      })
+      var ajax = set_notes($(this));
+      if(ajax.response){
+        $(this).remove();
+        line.append('<a href="#" class="alter-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a>');
+        line.find(".input-note").attr("id",ajax.id);
+        line.find('a').fadeIn(500);
+      }
     });
 
-  
+  $(".alter-note").on("click",function(){
+    var ajax = set_notes($(this));
+    if(ajax.response == true){
+      alert("Nota alterada com sucesso.");
+    }
+  });
 
   });
+
 </script>
 
 
@@ -83,9 +103,9 @@ $('#calendar').fullCalendar({
         <ul class="list">
           {% for note in notes %}
             {% if note == None %}
-            <li><input class="input-note" type="text" maxlength="40" /><a href="#" class="check-note new-note"><i class="fa fa-save icon-note"></i></a></li>
+            <li><input class="input-note" type="text" maxlength="40" name="" id="" /><a href="#" class="check-note new-note"><i class="fa fa-save icon-note"></i></a></li>
             {% else %}
-            <li><input class="input-note" type="text" maxlength="40" name="{{note.id}}" id="{{note.id}}" value="{{note}}" /><a href="#" class="check-note alter-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a></li>
+            <li><input class="input-note" type="text" maxlength="40" name="{{note.id}}" id="{{note.id}}" value="{{note}}" /><a href="#" class="alter-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a></li>
             {% endif %}
 
           {% endfor %}

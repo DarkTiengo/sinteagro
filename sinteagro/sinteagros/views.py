@@ -261,12 +261,19 @@ def edit_producao(request,fazenda_id,talhao_id):
 def set_note(request):
     """Manipulate notes / Manipula as notas"""
     if request.method == "POST":
-        note = AgendaForm(request.POST)
+        try:
+            note = AgendaForm(request.POST,instance=request.POST.id)
+        except:
+            note = AgendaForm(request.POST)
         if note.is_valid():
             post = note.save(commit=False)
             post.user = request.user
             post.save()
-            return JsonResponse({"response": True})
+            result = {
+                "id": post.id,
+                "response": True
+            }
+            return JsonResponse(result)
     return JsonResponse({"response": False})
 
 
