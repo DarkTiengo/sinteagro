@@ -58,7 +58,7 @@ class Produtividade(models.Model):
 class Agenda(models.Model):
     """"Cadastro de anotacoes"""
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    note = models.CharField(max_length=40)
+    note = models.CharField(max_length=250)
     date = models.DateField()
 
     def __str__(self):

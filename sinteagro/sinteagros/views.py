@@ -259,7 +259,15 @@ def set_note(request):
     """Manipulate notes / Manipula as notas"""
     if request.method == "POST":
         try:
-            note = AgendaForm(request.POST,instance=request.POST.id)
+            id = request.POST.get('id')
+            query = Agenda.objects.get(id=id)
+            note = AgendaForm(request.POST,instance=query)
+            if request.POST.get('note') == "":
+                query.delete()
+                result = {
+                    "response": True
+                }
+                return JsonResponse(result)
         except:
             note = AgendaForm(request.POST)
         if note.is_valid():
@@ -273,10 +281,10 @@ def set_note(request):
             return JsonResponse(result)
     return JsonResponse({"response": False})
 
-
 def get_notes(request):
     """Get All User Notes / Pegar todas as anotacoes do usuario"""
     user = request.user
     date = request.GET.get('date')
-    notes = Agenda.objects.filter(date=date,user=user)
+    query = Agenda.objects.filter(date=date,user=user).values()
+    notes = {"notes": list(query)}
     return JsonResponse(notes)

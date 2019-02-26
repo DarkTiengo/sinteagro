@@ -4,19 +4,20 @@
 
 <script>
 
-//Change Notes / Alterar notas
+  //Change Notes / Alterar notas
 function set_notes(element){
-  var line = element.parent().find(".input-note");
-  var note = line.val();
-  var id = line.attr("id");
+  var note = element.val();
+  var dados = {
+    'note': note,
+    'date': $("#date").val()
+  }
+  if(element.attr("id") != null){
+    dados.id = element.attr("id");
+  }
   $.ajax({
-    url: 'ajax/set_note/',
+    url: "ajax/set_note/",
     dataType: 'json',
-    data: {
-      'note': note,
-      'date': $("#date").val(),
-      'id': id
-    },
+    data: dados,
     method: 'post',
   }).fail(function(jq,txt,erro){
     alert("Ocorreu um erro, por favor tente novamente.");
@@ -29,12 +30,20 @@ function set_notes(element){
   });
 };
 
+
   $(document).ready(function() {
+
+
+    // ##### NOTEPAD ####
+
+    // Create Notepad / Cria agenda
+    $("#note-date").append(moment().format('LL'));
+    $("#date").val(moment().format("YYYY-MM-DD"));
 
     //js Calendario
     moment().locale('pt-br');
 
-    // Create Calendar / Cria Calendario
+// Create Calendar / Cria Calendario
 $('#calendar').fullCalendar({
       header: {
         left: 'prev,next',
@@ -48,44 +57,21 @@ $('#calendar').fullCalendar({
         var inicio = moment(start);
         $("#note-date").empty().append(inicio.format('LL'));
         $("#date").val(inicio.format("YYYY-MM-DD"));
+        $.ajax({
+          url: 'ajax/get_notes/',
+          dataType: 'json',
+          data: {
+            'date': $("#date").val()
+          }
+        }).done(function(data){
+
+        }).fail(function(q,txt,err){
+          alert("Ocorreu um erro, por favor tente novamente.");
+        });
       }
     });
 
-
-    // ##### NOTEPAD ####
-
-    // Create Notepad / Cria agenda
-    $("#note-date").append(moment().format('LL'));
-    $("#date").val(moment().format("YYYY-MM-DD"));
-
-    // Notepad icons effect / Efeito nos icones da agenda
-    $(".list li").focusin(function() {
-      $(this).find("a").fadeIn(1000);
-    }).focusout(function(){
-      $(this).find("a").fadeOut(500);
-    });
-
-    $(".new-note").click(function(){
-      var line = $(this).parent();
-      var ajax = set_notes($(this));
-      if(ajax.response){
-        alert(ajax.id);
-        $(this).remove();
-        line.append('<a href="#" class="alter-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a>');
-        line.find(".input-note").attr("id",ajax.id);
-        line.find('a').fadeIn(500);
-      }
-    });
-
-  $(".alter-note").on("click",function(){
-    var ajax = set_notes($(this));
-    if(ajax.response == true){
-      alert("Nota alterada com sucesso.");
-    }
-  });
-
-  });
-
+});
 </script>
 
 
@@ -102,12 +88,13 @@ $('#calendar').fullCalendar({
         <h4 class="top-note">Anotações</h4>
         <h5 id="note-date"></h5>
         <ul class="list">
-          {% for note in notes %}
-            <li><input class="input-note" type="text" maxlength="40" name="{{note.id}}" id="{{note.id}}" value="{{note}}" /><a href="#" class="alter-note"><i class="fa fa-check icon-note"></i></a><a href="#" class="close-note"><i class="fa fa-close icon-note"></i></a></li>
-          {% endfor %}
-          {% for b in blank %}
-            <li><input class="input-note" type="text" maxlength="40" name="" id="" /><a href="#" class="check-note new-note"><i class="fa fa-save icon-note"></i></a></li>
-          {% endfor %}
+          <li>
+            <textarea name="note" rows="11" cols="45" class="input-note" maxlength="250"></textarea>
+          </li>
+          <li><div class="btn-group d-flex justify-content-center" role="group">
+            <button class="btn btn-note" type="button" name="button"><i class="fa fa-save"></i> Salvar</button>
+            <button class="btn btn-note" type="button" name="button"><i class="fa fa-trash-o"></i> Excluir</button>
+          </div></li>
         </ul>
         <input type="hidden" name="date" id="date" value="">
       </form>
