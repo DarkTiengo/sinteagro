@@ -18,11 +18,17 @@ from .models import Agenda
 def index(request, alert = None):
     """Pagina inicial  / Main Menu"""
     contexto = gera_Menu(request.user)
-    notes = Agenda.objects.filter(user=request.user,date=datetime.now())
-    if len(notes) < 11:
-        n = 11 - len(notes)
-        contexto['blank'] = [None] * n
-    contexto['notes'] = notes
+    try:
+        note = Agenda.objects.get(user=request.user,date=datetime.now())
+    except:
+        note = ""
+    try:
+        date = datetime.now()
+        calendar = Agenda.objects.filter(date__month=date.month)
+        contexto["calendar"] = calendar
+    except:
+        pass
+    contexto['note'] = note
     contexto['home'] = True
     if alert is not None:
         contexto['alerta'] = alert
@@ -259,32 +265,33 @@ def set_note(request):
     """Manipulate notes / Manipula as notas"""
     if request.method == "POST":
         try:
-            id = request.POST.get('id')
-            query = Agenda.objects.get(id=id)
+            date = request.POST.get('date')
+            query = Agenda.objects.get(date=date)
             note = AgendaForm(request.POST,instance=query)
-            if request.POST.get('note') == "":
-                query.delete()
-                result = {
-                    "response": True
-                }
-                return JsonResponse(result)
         except:
             note = AgendaForm(request.POST)
         if note.is_valid():
             post = note.save(commit=False)
             post.user = request.user
             post.save()
-            result = {
-                "id": post.id,
-                "response": True
-            }
-            return JsonResponse(result)
+            return JsonResponse({"response": True})
     return JsonResponse({"response": False})
+
+def delete_note(request):
+    date = request.POST.get('date')
+    try:
+       query = Agenda.objects.get(date=date,user=request.user).delete()
+       return JsonResponse({'response': True})
+    except:
+        return JsonResponse({'response': False})
 
 def get_notes(request):
     """Get All User Notes / Pegar todas as anotacoes do usuario"""
     user = request.user
     date = request.GET.get('date')
-    query = Agenda.objects.filter(date=date,user=user).values()
-    notes = {"notes": list(query)}
+    try:
+        query = Agenda.objects.get(date=date,user=user)
+    except:
+        query = ""
+    notes = {"notes": str(query)}
     return JsonResponse(notes)

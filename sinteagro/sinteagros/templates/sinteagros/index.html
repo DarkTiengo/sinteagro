@@ -4,35 +4,9 @@
 
 <script>
 
-  //Change Notes / Alterar notas
-function set_notes(element){
-  var note = element.val();
-  var dados = {
-    'note': note,
-    'date': $("#date").val()
-  }
-  if(element.attr("id") != null){
-    dados.id = element.attr("id");
-  }
-  $.ajax({
-    url: "ajax/set_note/",
-    dataType: 'json',
-    data: dados,
-    method: 'post',
-  }).fail(function(jq,txt,erro){
-    alert("Ocorreu um erro, por favor tente novamente.");
-  }).done(function(data){
-    if(data.response){
-      return true;
-    } else{
-      return false;
-    }
-  });
-};
-
 
   $(document).ready(function() {
-
+    $("#calendar").fullCalendar('renderEvent',)
 
     // ##### NOTEPAD ####
 
@@ -53,6 +27,14 @@ $('#calendar').fullCalendar({
       locale: "pt-br",
       editable: true,
       selectable: true,
+      events: [
+        {% for c in calendar %}
+        {
+          title: "Anotações",
+          start: moment('{{c.date}}').format("YYYY-MM-DD")
+        },
+        {% endfor %}
+      ],
       select: function(start,end){
         var inicio = moment(start);
         $("#note-date").empty().append(inicio.format('LL'));
@@ -64,8 +46,66 @@ $('#calendar').fullCalendar({
             'date': $("#date").val()
           }
         }).done(function(data){
+          $(".input-note").empty().hide()
+          .val(data.notes).fadeIn(500);
 
         }).fail(function(q,txt,err){
+          alert("Ocorreu um erro, por favor tente novamente.");
+        });
+      }
+    });
+
+
+
+    $("#save").on("click",function(){
+      var url = 'ajax/set_note/';
+      var data = {
+          'note': $('.input-note').val(),
+          'date': $('#date').val(),
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+      };
+      $.ajax({
+        url: url,
+        dataType: 'json',
+        data: data,
+        method: 'POST',
+        beforeSend: function(){
+          $(".input-note").attr("disabled",true);
+          $(".btn-note").attr("disabled",true);
+        }
+      }).done(function(data){
+        $(".input-note").attr("disabled",false);
+        $(".btn-note").attr("disabled",false);
+      }).fail(function(q,err,txt){
+        $(".input-note").attr("disabled",false);
+        $(".btn-note").attr("disabled",false);
+        alert("Ocorreu um erro, por favor tente novamente.");
+      });
+    });
+
+    $("#delete").on("click",function(){
+      if(confirm("Tem certeza que deseja remover a nota?")){
+        var url = 'ajax/delete_note/',
+        data = {
+          'date': $('#date').val(),
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        };
+        $.ajax({
+          url: url,
+          dataType: 'json',
+          data: data,
+          method: 'POST',
+          beforeSend: function(){
+            $(".input-note").attr("disabled",true);
+            $(".btn-note").attr("disabled",true);
+          }
+        }).done(function(data){
+          $(".input-note").attr("disabled",false).val("").hide().fadeIn(500);
+          $(".btn-note").attr("disabled",false);
+
+        }).fail(function(q,err,txt){
+          $(".input-note").attr("disabled",false);
+          $(".btn-note").attr("disabled",false);
           alert("Ocorreu um erro, por favor tente novamente.");
         });
       }
@@ -89,11 +129,11 @@ $('#calendar').fullCalendar({
         <h5 id="note-date"></h5>
         <ul class="list">
           <li>
-            <textarea name="note" rows="11" cols="45" class="input-note" maxlength="250"></textarea>
+            <textarea name="note" rows="11" cols="45" class="input-note" maxlength="250">{{note}}</textarea>
           </li>
           <li><div class="btn-group d-flex justify-content-center" role="group">
-            <button class="btn btn-note" type="button" name="button"><i class="fa fa-save"></i> Salvar</button>
-            <button class="btn btn-note" type="button" name="button"><i class="fa fa-trash-o"></i> Excluir</button>
+            <button class="btn btn-note" type="button" name="save" id="save"><i class="fa fa-save"></i> Salvar</button>
+            <button class="btn btn-note" type="button" name="delete" id="delete"><i class="fa fa-trash-o"></i> Excluir</button>
           </div></li>
         </ul>
         <input type="hidden" name="date" id="date" value="">
