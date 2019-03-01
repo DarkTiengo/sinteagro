@@ -15,25 +15,24 @@ from .models import Agenda
 
 
 @login_required()
-def index(request, alert = None):
+def index(request):
     """Pagina inicial  / Main Menu"""
     contexto = gera_Menu(request.user)
-    try:
-        note = Agenda.objects.get(user=request.user,date=datetime.now())
-    except:
-        note = ""
-    try:
-        date = datetime.now()
-        calendar = Agenda.objects.filter(date__month=date.month)
-        contexto["calendar"] = calendar
-    except:
-        pass
-    contexto['note'] = note
     contexto['home'] = True
-    if alert is not None:
-        contexto['alerta'] = alert
     return render(request,'sinteagros/index.html',contexto)
 
+@login_required()
+def get_events(request):
+    """"Get Calendar Events"""
+    date = request.GET.get('date')
+    user = request.user
+    result = {}
+    try:
+        calendar = Agenda.objects.filter(date__month=date.month,user=user)
+        result.update('calendar',calendar)
+    except:
+        pass
+    return JsonResponse(result)
 
 def logout(request):
     """Sai do Sistema / Logout"""

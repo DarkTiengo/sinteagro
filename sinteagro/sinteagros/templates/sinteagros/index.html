@@ -20,21 +20,13 @@
 // Create Calendar / Cria Calendario
 $('#calendar').fullCalendar({
       header: {
-        left: 'prev,next',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay,listMonth'
+        left: '',
+        center: '',
+        right: ''
       },
       locale: "pt-br",
       editable: true,
       selectable: true,
-      events: [
-        {% for c in calendar %}
-        {
-          title: "Anotações",
-          start: moment('{{c.date}}').format("YYYY-MM-DD")
-        },
-        {% endfor %}
-      ],
       select: function(start,end){
         var inicio = moment(start);
         $("#note-date").empty().append(inicio.format('LL'));
@@ -52,10 +44,9 @@ $('#calendar').fullCalendar({
         }).fail(function(q,txt,err){
           alert("Ocorreu um erro, por favor tente novamente.");
         });
-      }
+      },
+
     });
-
-
 
     $("#save").on("click",function(){
       var url = 'ajax/set_note/';
@@ -76,6 +67,11 @@ $('#calendar').fullCalendar({
       }).done(function(data){
         $(".input-note").attr("disabled",false);
         $(".btn-note").attr("disabled",false);
+        var eventData = {
+          title: "Anotações",
+          start: $('#date').val()
+        }
+        $("#calendar").fullCalendar('renderEvent',eventData,true);
       }).fail(function(q,err,txt){
         $(".input-note").attr("disabled",false);
         $(".btn-note").attr("disabled",false);
@@ -117,8 +113,14 @@ $('#calendar').fullCalendar({
 
 <div class="row">
   <div class="col-md-6">
-    <div id="calendar">
+    <div class="widget-sinteagro">
+      <h4 class="title-widget">Calendario</h4>
+      <div class="calendar-menu">
+        Teste
+      </div>
+      <div id="calendar">
 
+      </div>
     </div>
   </div>
   <div class="col-md-6">

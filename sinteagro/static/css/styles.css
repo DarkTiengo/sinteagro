@@ -2,7 +2,8 @@ body {
   background-color: #f5f5f5;
 }
 
-#calendar {
+.widget-sinteagro {
+  position: relative;
   min-width: 80%;
   margin: 20px;
   padding: 10px;
@@ -10,6 +11,14 @@ body {
   -moz-box-shadow: 15px 6px 34px -17px rgba(0, 0, 0, 0.67);
   box-shadow: 15px 6px 34px -17px rgba(0, 0, 0, 0.67);
   background: #ffff;
+}
+
+.title-widget {
+  font-size: 42px;
+  color: #000000;
+  letter-spacing: -2px;
+  text-align: center;
+  padding: 5px;
 }
 
 #note {
