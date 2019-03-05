@@ -9,7 +9,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     #Pagina inicial
     path('',views.index,name='index'),
-    path('index/',views.index,name='index'),
     path('cadastrar_fazenda',views.cadastrar_fazenda,name='cadastrar_fazenda'),
     path('fazenda/<fazenda_id>/',views.fazenda,name='fazenda'),
     path('fazenda/<fazenda_id>/<alert>/',views.fazenda,name='fazenda'),

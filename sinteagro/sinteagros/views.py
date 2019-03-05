@@ -19,6 +19,8 @@ def index(request):
     """Pagina inicial  / Main Menu"""
     contexto = gera_Menu(request.user)
     contexto['home'] = True
+    contexto['month'] = mes
+    contexto['year'] = ano
     return render(request,'sinteagros/index.html',contexto)
 
 @login_required()

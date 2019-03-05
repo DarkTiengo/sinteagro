@@ -1,5 +1,13 @@
 from .models import Fazenda, Safra
 
+mes = {
+    1 : 'Janeiro',
+    2 : 'Fevereiro'
+}
+
+ano = []
+for x in range(2009, 2020):
+    ano.append(x)
 
 #Auxiliar do Views de Fazenda
 def gera_Menu(usuario):
