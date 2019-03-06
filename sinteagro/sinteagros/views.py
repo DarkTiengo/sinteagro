@@ -27,14 +27,14 @@ def index(request):
 def get_events(request):
     """"Get Calendar Events"""
     date = request.GET.get('date')
+    month = datetime.strptime(date,'%Y-%m').month
     user = request.user
-    result = {}
     try:
-        calendar = Agenda.objects.filter(date__month=date.month,user=user)
-        result.update('calendar',calendar)
+        calendar = Agenda.objects.filter(date__month=month,user=user).values()
+        result = list(calendar)
     except:
-        pass
-    return JsonResponse(result)
+        result = {}
+    return JsonResponse(result,safe=False)
 
 def logout(request):
     """Sai do Sistema / Logout"""

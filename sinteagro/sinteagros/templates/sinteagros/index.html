@@ -13,10 +13,33 @@
     // Create Notepad / Cria agenda
     $("#note-date").append(moment().format('LL'));
     $("#date").val(moment().format("YYYY-MM-DD"));
-
+    $("#year").val(moment().format("YYYY"));
+    $("#month").val(moment().format("MM"));
 
     //js Calendario
     moment().locale('pt-br');
+
+    $(".select-date").change(function(){
+      var date = $("#year").val() + "-" + $("#month").val();
+      $("#calendar").fullCalendar('gotoDate', moment(date,"YYYY-MM"));
+      $.ajax({
+        url: 'ajax/get_events/',
+        dataType: 'json',
+        data: {
+          'date': date
+        }
+      }).done(function(data){
+        for(i = 0;i < data.length; i++){
+          var eventData = {
+            title: "Anotações",
+            start: data[i].date
+          }
+          $("#calendar").fullCalendar('renderEvent',eventData,true);
+        }
+      }).fail(function(q,txt,err){
+        alert("Ocorreu um erro, por favor tente novamente.");
+      });
+    });
 
 // Create Calendar / Cria Calendario
 $('#calendar').fullCalendar({
@@ -119,7 +142,8 @@ $('#calendar').fullCalendar({
         <div class="row">
           <div id="calendar-menu-left" class="col-md-6">
             <nav>
-              <a href="#" class="nav-link disabled">Notificações <span class="badge badge-light">4</span></a>
+
+              <a href="#" class="nav-link disabled">Notificações <span class="badge badge-light">{{notices}}</span></a>
             </nav>
           </div>
           <div id="calendar-menu-right"  class="col-md-6">
@@ -130,10 +154,6 @@ $('#calendar').fullCalendar({
                     <option value="{{s}}">{{m}}</option>
                   {% endfor %}
                 </select>
-              </li>
-              <li class="nav-item">
-                /
-              </li>
               <li class="nav-item">
                 <select class="select-date" name="year" id="year">
                 {% for y in year %}
