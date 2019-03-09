@@ -1,3 +1,4 @@
+// Functions for POST Ajax via Django
 function getCookie(name)
 {
     var cookieValue = null;
@@ -24,3 +25,7 @@ $.ajaxSetup({
          }
      }
 });
+
+//WIDGETS
+
+$(".dialog").dialog();
