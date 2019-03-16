@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="670bdce1-e662-4d53-8c7a-936c2eaafe57" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/../.tern-project" beforeDir="false" afterPath="$PROJECT_DIR$/../.tern-project" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account/auxiliar.py" beforeDir="false" afterPath="$PROJECT_DIR$/account/auxiliar.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sinteagros/templates/sinteagros/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/sinteagros/templates/sinteagros/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sinteagros/templates/sinteagros/fazenda.html" beforeDir="false" afterPath="$PROJECT_DIR$/sinteagros/templates/sinteagros/fazenda.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sinteagros/templates/sinteagros/configuracoes.html" beforeDir="false" afterPath="$PROJECT_DIR$/sinteagros/templates/sinteagros/configuracoes.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sinteagros/templates/sinteagros/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/sinteagros/templates/sinteagros/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sinteagros/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sinteagros/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/fullcalendar.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/fullcalendar.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/style.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/style.js" afterDir="false" />
     </list>
@@ -39,7 +43,38 @@
         <entry file="file://$PROJECT_DIR$/sinteagros/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
+              <caret line="210" column="45" selection-start-line="210" selection-start-column="45" selection-end-line="210" selection-end-column="45" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="auxiliar.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/account/auxiliar.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="410">
+              <caret line="36" column="22" lean-forward="true" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/localidades/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-185" />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/account/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="918">
+              <caret line="62" column="33" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -47,7 +82,7 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sinteagros/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
+            <state relative-caret-position="459">
               <caret line="31" column="64" selection-start-line="31" selection-start-column="64" selection-end-line="31" selection-end-column="64" />
             </state>
           </provider>
@@ -83,7 +118,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/account/tests.py" />
-        <option value="$PROJECT_DIR$/account/auxiliar.py" />
         <option value="$PROJECT_DIR$/account/forms.py" />
         <option value="$PROJECT_DIR$/account/models.py" />
         <option value="$PROJECT_DIR$/account/admin.py" />
@@ -105,6 +139,7 @@
         <option value="$PROJECT_DIR$/sinteagros/fazendas.py" />
         <option value="$PROJECT_DIR$/sinteagros/urls.py" />
         <option value="$PROJECT_DIR$/sinteagros/views.py" />
+        <option value="$PROJECT_DIR$/account/auxiliar.py" />
       </list>
     </option>
   </component>
@@ -128,13 +163,22 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="sinteagro" type="b2602c69:ProjectViewProjectNode" />
               <item name="sinteagro" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sinteagro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sinteagro" type="462c0819:PsiDirectoryNode" />
+              <item name="account" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sinteagro" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sinteagro" type="462c0819:PsiDirectoryNode" />
+              <item name="localidades" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sinteagro" type="b2602c69:ProjectViewProjectNode" />
@@ -150,6 +194,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -232,13 +277,13 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32909605" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" weight="0.32418162" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50130206" side_tool="true" weight="0.18331054" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32909605" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.27222982" />
-      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.4986577" weight="0.18331054" />
+      <window_info anchor="bottom" id="Run" order="5" sideWeight="0.4986979" weight="0.18331054" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32909605" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.122395836" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.122395836" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.3295302" />
       <window_info anchor="right" id="SciView" order="3" weight="0.3295302" />
@@ -416,13 +461,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/account/auxiliar.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="36" column="17" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/account/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -457,13 +495,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/localidades/views.py" />
     <entry file="file://$PROJECT_DIR$/localidades/__init__.py" />
-    <entry file="file://$PROJECT_DIR$/sinteagro/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="45" column="39" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/localidades/apps.py" />
     <entry file="file://$PROJECT_DIR$/sinteagros/apps.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -472,7 +503,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/localidades/models.py" />
     <entry file="file://$PROJECT_DIR$/localidades/admin.py" />
     <entry file="file://$PROJECT_DIR$/sinteagros/ajax.py" />
     <entry file="file://$PROJECT_DIR$/account/models.py">
@@ -486,13 +516,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="601">
-          <caret line="62" column="33" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -524,17 +547,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/account/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="918">
+          <caret line="62" column="33" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/sinteagros/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
+        <state relative-caret-position="459">
           <caret line="31" column="64" selection-start-line="31" selection-start-column="64" selection-end-line="31" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sinteagro/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="18" column="38" lean-forward="true" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/localidades/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-185" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account/auxiliar.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="36" column="22" lean-forward="true" selection-start-line="36" selection-start-column="22" selection-end-line="36" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sinteagros/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
+          <caret line="210" column="45" selection-start-line="210" selection-start-column="45" selection-end-line="210" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

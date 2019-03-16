@@ -9,9 +9,11 @@
   <link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
   <link rel="stylesheet" href="{% static "css/fullcalendar.css" %}">
   <link rel="stylesheet" href="{% static "css/styles.css" %}">
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" />
   <script src="{% static "js/jquery.min.js" %}"></script>
   <script src="{% static "js/popper.min.js" %}"></script>
   <script src="{% static "js/lib/moment.min.js" %}"></script>
+  <script src="{% static "js/lib/jquery-ui.min.js" %}"></script>
   <script src="{% static "js/fullcalendar.js" %}"></script>
   <script src="{% static "js/locale/pt-br.js" %}"></script>
   <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
@@ -21,6 +23,7 @@
 </head>
 
 <body>
+
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="{% url 'index' %}">SINTEAGRO</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +50,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="workerDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i> Funcionários</a>
           <div class="dropdown-menu" aria-labelledby="workerDropdown">
-            <a class="dropdown-item" href="#"><i class="fa fa-user-plus"></i> Cadastrar Novo Funcionário</a>
+            <a class="dropdown-item" href="#" id="new_worker"><i class="fa fa-user-plus"></i> Cadastrar Novo Funcionário</a>
           </div>
         </li>
       </ul>
@@ -57,7 +60,7 @@
             <i class="fa fa-user"></i> {{user.get_full_name.title}}
           </a>
           <div class="dropdown-menu" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#"><i class="fa fa-gear"></i> Configurações</a>
+            <a class="dropdown-item" id="config" href="#"><i class="fa fa-gear"></i> Configurações</a>
           </div>
         </li>
         <li class="nav-item">

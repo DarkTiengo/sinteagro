@@ -113,3 +113,12 @@ body {
 .icon-note {
   color: #633617;
 }
+
+.widget-sinteagro{
+  z-index: 0;
+}
+
+.dialog{
+  z-index: 9999 !important;
+  position: absolute;
+}

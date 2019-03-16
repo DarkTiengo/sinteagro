@@ -203,20 +203,15 @@ def excluir_safra(request):
 @login_required()
 def configuracoes(request):
     """Exibe e altera informacoes do usuario / Show and edit User Information"""
-    contexto = gera_Menu(request.user)
-    contexto['profile'] = request.user
-    contexto['estados'] = select_estados
-    contexto['genero'] = genero
-    if request.method == "POST":
-        user = UserForm(request.POST,instance=request.user)
-        if user.is_valid():
-            user.save()
-            contexto['info'] = "sucesso"
-            contexto['mensagem'] = "Alteracoes feitas com sucesso."
-        else:
-            contexto['info'] = "erro"
-            contexto['mensagem'] = user.errors
-    return render(request,'sinteagros/configuracoes.html',contexto)
+    if request.method == "GET":
+        cities = get_cities(request.user.estado)
+        contexto = {
+            'estados': select_estados,
+            'user': request.user,
+            'cidades': (cities.uf,cities.nome)
+        }
+        file = render(request,'sinteagros/configuracoes.html',contexto)
+    return file
 
 @login_required()
 def altera_senha(request):

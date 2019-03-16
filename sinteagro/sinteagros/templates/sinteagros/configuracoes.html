@@ -1,103 +1,43 @@
-{% extends "sinteagros/base.html" %}
-{% block content %}
-<div>
-  <h2 class="sr-only">Cadastro de Usuario</h2>
-  <div class="form-row">
-    <div class="col-md-12">
-      {% if info == "erro" %}
-      <div class="alert alert-danger" role="alert">{{ mensagem }}</div>
-      {% endif %}
-      {% if info == "sucesso" %}
-      <div class="alert alert-success" role="alert">{{ mensagem }}</div>
-      {% endif %}
+<form method="post">
+  <div class="form-row align-items-center">
+    <div class="col-md-6">
+      <label for="first_name">Nome:</label>
+      <input type="text" class="form-control" name="first_name" value="{{user.first_name}}">
+    </div>
+    <div class="col-md-6">
+      <label for="last_name">Sobrenome:</label>
+      <input type="text" class="form-control" name="last_name" value="{{user.last_name}}">
     </div>
   </div>
-  <div>
-    <ul class="nav nav-tabs">
-      <li class="nav-item"><a class="nav-link active" role="tab" data-toggle="tab" href="#tab-1">Informacoes Gerais</a></li>
-      <li class="nav-item"><a class="nav-link" role="tab" data-toggle="tab" href="#tab-2">Alterar Senha</a></li>
-    </ul>
-    <div class="tab-content">
-      <div class="tab-pane active" role="tabpanel" id="tab-1">
-        <form method="post" class="block-cadastro" action="{% url 'configuracoes' %}">
-          {% csrf_token %}
-          <input type="hidden" name="password" value="{{user.password }}">
-          <input type="hidden" name="email" value="{{user.email}}">
-          <div class="form-row">
-            <div class="form-group col-md-6"><label>Nome</label><input class="form-control" type="text" name="first_name" placeholder="Nome" id="nome" value="{{ user.first_name }}">
-            </div>
-            <div class="form-group col-md-6"><label>Sobrenome</label><input class="form-control" type="text" name="last_name" placeholder="Sobrenome" id="sobrenome" value="{{ user.last_name }}">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>Estado</label>
-              <select class="custom-select" name="estado" id="estado">
-                {% for sigla,estado in estados %}
-                {% if sigla == user.estado %}
-                <option value="{{sigla}}" selected>{{estado}}</option>
-                {% else %}
-                <option value="{{sigla}}">{{estado}}</option>
-                {% endif %}
-                {% endfor %}
-              </select>
-            </div>
-            <div class="col-md-6 form-group">
-              <label>Cidade</label>
-              <input class="form-control" type="text" name="cidade" placeholder="Cidade" id="cidade" value="{{ user.cidade }}">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>Data de nascimento</label><input class="form-control" type="date" name="nascimento" id="nascimento" value="{{ user.nascimento|date:'Y-m-d' }}">
-            </div>
-            <div class="form-group col-md-6">
-              <label>Sexo</label>
-              <select class="custom-select" name="sexo" id="sexo">
-                {% if user.sexo == "m" %}
-                <option value="m" selected>Masculino</option>
-                <option value="f">Feminino</option>
-                {% else %}
-                <option value="m">Masculino</option>
-                <option value="f" selected>Feminino</option>
-                {% endif %}
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <button type="submit" class="btn btn-success">Confirmar Alteracoes</button>
-              <a class="btn btn-danger">Cancelar</a>
-            </div>
-          </div>
-      </div>
-      </form>
-      <div class="tab-pane" role="tabpanel" id="tab-2">
-        <form class="block-cadastro" action="{% url 'altera_senha' %}" method="post">
-          {% csrf_token %}
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label for="senha">Senha Atual</label>
-              <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite a senha atual">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>Alterar Senha</label>
-              <input class="form-control" type="password" name="novasenha" placeholder="Alterar a Senha" id="senha">
-            </div>
-            <div class="form-group col-md-6">
-              <label>Confirmar a Senha</label>
-              <input class="form-control" type="password" name="confirmasenha" placeholder="Confirmar a alteracao da senha" id="confirmasenha">
-            </div>
-          </div>
-          <div class="form-group col-md-12">
-            <button type="submit" class="btn btn-success">Confirmar Alteracoes</button>
-            <a class="btn btn-danger">Cancelar</a>
-          </div>
-        </form>
-      </div>
+  <div class="form-row align-items-center">
+    <div class="col-md-6">
+      <label for="estado">Estado:</label>
+      <select class="form-control" name="estado">
+        {% for sigla,nome in estados %}
+        {% if sigla == user.estado %}
+          <option value="{{sigla}}" selected>{{nome}}</option>
+          {% else %}
+          <option value="{{sigla}}">{{nome}}</option>
+        {% endif %}
+        {% endfor %}
+      </select>
     </div>
-  </div>
-</div>
-{% endblock content %}
+    <div class="col-md-6">
+      <label for="cidade">Cidade:</label>
+      <select class="form-control" name="">
+        {% for e,u,n,c in cidades %}
+          <option value="{{c}}">{{n}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  <div class="form-row align-items-center">
+    <div class="col-md-6">
+      <label for="password">Alterar a senha:</label>
+      <input type="password" class="form-control" name="password" value="">
+    </div>
+    <div class="col-md-6">
+      <label for="last_name">Confirmar a nova senha:</label>
+      <input type="password" class="form-control" name="confirm_password" value="">
+    </div>
+    </div>
+</form>

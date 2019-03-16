@@ -1,3 +1,4 @@
+from localidades.models import Cidade
 
 # Brazilian States
 select_estados = (("AC", "Acre"),
@@ -33,8 +34,6 @@ select_estados = (("AC", "Acre"),
 genero = ( ("m", "Masculino"),
            ("f", "Feminino"))
 
-def get_estados():
-    return select_estados
-
-def get_genero():
-    return genero
+def get_cities(state):
+    cities = Cidade.objects.filter(estado_id=state).values()
+    return cities

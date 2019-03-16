@@ -390,7 +390,7 @@ temporary rendered events).
   /* 40x40 touch area */
   content: "";
   position: absolute;
-  z-index: 9999;
+  z-index: 100;
   /* user of this util can scope within a lower z-index */
   top: 50%;
   left: 50%;
@@ -402,7 +402,7 @@ temporary rendered events).
 /* Event Selection (only for touch devices)
 --------------------------------------------------------------------------------------------------*/
 .fc-event.fc-selected {
-  z-index: 9999 !important;
+  z-index: 100 !important;
   /* overcomes inline z-index */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
 

@@ -3,10 +3,8 @@
 {% block content %}
 
 <script>
-
-
   $(document).ready(function() {
-    $("#calendar").fullCalendar('renderEvent',)
+    $("#calendar").fullCalendar('renderEvent', )
 
     // ##### NOTEPAD ####
 
@@ -19,31 +17,31 @@
     //js Calendario
     moment().locale('pt-br');
 
-    $(".select-date").change(function(){
+    $(".select-date").change(function() {
       var date = $("#year").val() + "-" + $("#month").val();
-      $("#calendar").fullCalendar('gotoDate', moment(date,"YYYY-MM"));
+      $("#calendar").fullCalendar('gotoDate', moment(date, "YYYY-MM"));
       $.ajax({
         url: 'ajax/get_events/',
         dataType: 'json',
         data: {
           'date': date
         }
-      }).done(function(data){
+      }).done(function(data) {
         $('#calendar').fullCalendar('removeEvents');
-        for(i = 0;i < data.length; i++){
+        for (i = 0; i < data.length; i++) {
           var eventData = {
             title: "Anotações",
             start: data[i].date
           }
-          $("#calendar").fullCalendar('renderEvent',eventData,true);
+          $("#calendar").fullCalendar('renderEvent', eventData, true);
         }
-      }).fail(function(q,txt,err){
+      }).fail(function(q, txt, err) {
         alert("Ocorreu um erro, por favor tente novamente.");
       });
     });
 
-// Create Calendar / Cria Calendario
-$('#calendar').fullCalendar({
+    // Create Calendar / Cria Calendario
+    $('#calendar').fullCalendar({
       header: {
         left: '',
         center: '',
@@ -52,7 +50,7 @@ $('#calendar').fullCalendar({
       locale: "pt-br",
       editable: true,
       selectable: true,
-      select: function(start,end){
+      select: function(start, end) {
         var inicio = moment(start);
         $("#note-date").empty().append(inicio.format('LL'));
         $("#date").val(inicio.format("YYYY-MM-DD"));
@@ -62,137 +60,164 @@ $('#calendar').fullCalendar({
           data: {
             'date': $("#date").val()
           }
-        }).done(function(data){
+        }).done(function(data) {
           $(".input-note").empty().hide()
-          .val(data.notes).fadeIn(500);
+            .val(data.notes).fadeIn(500);
 
-        }).fail(function(q,txt,err){
+        }).fail(function(q, txt, err) {
           alert("Ocorreu um erro, por favor tente novamente.");
         });
       },
 
     });
 
-    $("#save").on("click",function(){
+    $("#save").on("click", function() {
       var url = 'ajax/set_note/';
       var data = {
-          'note': $('.input-note').val(),
-          'date': $('#date').val(),
-          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        'note': $('.input-note').val(),
+        'date': $('#date').val(),
+        'csrfmiddlewaretoken': '{{ csrf_token }}'
       };
       $.ajax({
         url: url,
         dataType: 'json',
         data: data,
         method: 'POST',
-        beforeSend: function(){
-          $(".input-note").attr("disabled",true);
-          $(".btn-note").attr("disabled",true);
+        beforeSend: function() {
+          $(".input-note").attr("disabled", true);
+          $(".btn-note").attr("disabled", true);
         }
-      }).done(function(data){
-        $(".input-note").attr("disabled",false);
-        $(".btn-note").attr("disabled",false);
+      }).done(function(data) {
+        $(".input-note").attr("disabled", false);
+        $(".btn-note").attr("disabled", false);
         var eventData = {
           title: "Anotações",
           start: $('#date').val()
         }
-        $("#calendar").fullCalendar('renderEvent',eventData,true);
-      }).fail(function(q,err,txt){
-        $(".input-note").attr("disabled",false);
-        $(".btn-note").attr("disabled",false);
+        $("#calendar").fullCalendar('renderEvent', eventData, true);
+      }).fail(function(q, err, txt) {
+        $(".input-note").attr("disabled", false);
+        $(".btn-note").attr("disabled", false);
         alert("Ocorreu um erro, por favor tente novamente.");
       });
     });
 
-    $("#delete").on("click",function(){
-      if(confirm("Tem certeza que deseja remover a nota?")){
+    $("#delete").on("click", function() {
+      if (confirm("Tem certeza que deseja remover a nota?")) {
         var url = 'ajax/delete_note/',
-        data = {
-          'date': $('#date').val(),
-          'csrfmiddlewaretoken': '{{ csrf_token }}'
-        };
+          data = {
+            'date': $('#date').val(),
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          };
         $.ajax({
           url: url,
           dataType: 'json',
           data: data,
           method: 'POST',
-          beforeSend: function(){
-            $(".input-note").attr("disabled",true);
-            $(".btn-note").attr("disabled",true);
+          beforeSend: function() {
+            $(".input-note").attr("disabled", true);
+            $(".btn-note").attr("disabled", true);
           }
-        }).done(function(data){
-          $(".input-note").attr("disabled",false).val("").hide().fadeIn(500);
-          $(".btn-note").attr("disabled",false);
+        }).done(function(data) {
+          $(".input-note").attr("disabled", false).val("").hide().fadeIn(500);
+          $(".btn-note").attr("disabled", false);
 
-        }).fail(function(q,err,txt){
-          $(".input-note").attr("disabled",false);
-          $(".btn-note").attr("disabled",false);
+        }).fail(function(q, err, txt) {
+          $(".input-note").attr("disabled", false);
+          $(".btn-note").attr("disabled", false);
           alert("Ocorreu um erro, por favor tente novamente.");
         });
       }
     });
 
-});
-</script>
+    $("#config").on("click", function() {
+      $.ajax({
+        url: 'configuracoes/'
+      }).done(function(data) {
+        $(".dialog").empty().append(data).dialog({
+          minHeight: 200,
+          minWidth: 550,
+          resizable: false,
+          buttons: [{
+              text: "Salvar",
+              icon: "ui-icon-check"
+            },
+            {
+              text: "Cancelar",
+              icon: "ui-icon-closethick",
+              click: function() {
+                $(this).dialog("close");
+              }
+            }
+          ]
+        });
+      });
+    });
 
-<div class="dialog">
-  
-</div>
+  });
+</script>
 
 <div class="content">
   <div class="row">
-    <div class="col-md-6">
-      <div class="widget-sinteagro">
-        <h4 class="title-widget">Calendario</h4>
-        <div class="row">
-          <div id="calendar-menu-left" class="col-md-6">
-          </div>
-          <div id="calendar-menu-right"  class="col-md-6">
-            <ul class="nav justify-content-end">
-              <li class="nav-item">
-                <select class="select-date" name="mouth" id="month">
-                  {% for s,m in month.items %}
-                    <option value="{{s}}">{{m}}</option>
-                  {% endfor %}
-                </select>
-              <li class="nav-item">
-                <select class="select-date" name="year" id="year">
-                {% for y in year %}
-                  <option value="{{y}}">{{y}}</option>
-                {% endfor %}
-                </select>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div id="calendar">
-
-        </div>
+    <div class="col-md-12">
+      <div class="dialog" title="Configurações" style="display: none">
       </div>
     </div>
-    <div class="col-md-6">
-      <div id="note">
-        <form action="#" method="post" id="form-note" name="form-note">
-          {% csrf_token %}
-          <h4 class="top-note">Anotações</h4>
-          <h5 id="note-date"></h5>
-          <ul class="list">
-            <li>
-              <textarea name="note" rows="11" cols="45" class="input-note" maxlength="250">{{note}}</textarea>
-            </li>
-            <li>
-              <div class="btn-group d-flex justify-content-center" role="group">
-                <button class="btn btn-note" type="button" name="save" id="save"><i class="fa fa-save"></i> Salvar</button>
-                <button class="btn btn-note" type="button" name="delete" id="delete"><i class="fa fa-trash-o"></i> Excluir</button>
-              </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="widget-sinteagro">
+      <h4 class="title-widget">Calendario</h4>
+      <div class="row">
+        <div id="calendar-menu-left" class="col-md-6">
+        </div>
+        <div id="calendar-menu-right" class="col-md-6">
+          <ul class="nav justify-content-end">
+            <li class="nav-item">
+              <select class="select-date" name="mouth" id="month">
+                {% for s,m in month.items %}
+                <option value="{{s}}">{{m}}</option>
+                {% endfor %}
+              </select>
+            <li class="nav-item">
+              <select class="select-date" name="year" id="year">
+                {% for y in year %}
+                <option value="{{y}}">{{y}}</option>
+                {% endfor %}
+              </select>
             </li>
           </ul>
-          <input type="hidden" name="date" id="date" value="">
-        </form>
+        </div>
+      </div>
+      <div id="calendar">
+
       </div>
     </div>
-
   </div>
+  <div class="col-md-6">
+    <div id="note">
+      <form action="#" method="post" id="form-note" name="form-note">
+        {% csrf_token %}
+        <h4 class="top-note">Anotações</h4>
+        <h5 id="note-date"></h5>
+        <ul class="list">
+          <li>
+            <textarea name="note" rows="11" cols="45" class="input-note" maxlength="250">{{note}}</textarea>
+          </li>
+          <li>
+            <div class="btn-group d-flex justify-content-center" role="group">
+              <button class="btn btn-note" type="button" name="save" id="save"><i class="fa fa-save"></i> Salvar</button>
+              <button class="btn btn-note" type="button" name="delete" id="delete"><i class="fa fa-trash-o"></i> Excluir</button>
+            </div>
+          </li>
+        </ul>
+        <input type="hidden" name="date" id="date" value="">
+      </form>
+    </div>
+  </div>
+
+</div>
 
 </div>
 

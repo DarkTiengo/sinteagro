@@ -28,4 +28,10 @@ $.ajaxSetup({
 
 //WIDGETS
 
-$(".dialog").dialog();
+$(".dialog").dialog({
+  modal: true,
+  resizable: true,
+  buttons: {
+    
+  }
+});
