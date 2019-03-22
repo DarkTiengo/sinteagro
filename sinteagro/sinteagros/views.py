@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.urls import reverse
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
@@ -208,10 +208,21 @@ def configuracoes(request):
         contexto = {
             'estados': select_estados,
             'user': request.user,
-            'cidades': (cities.uf,cities.nome)
+            'cidades': cities.values_list('id','nome')
         }
         file = render(request,'sinteagros/configuracoes.html',contexto)
     return file
+
+@login_required
+def change_profile(request):
+    if request.is_ajax:
+        form = UserForm(request.POST,instance=request.user)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("<div class='div_info'>Alterações Feitas com sucesso</div>")
+        else:
+            return HttpResponse("Ajax mas nao valido")
+    return HttpResponse("Algo deu errado")
 
 @login_required()
 def altera_senha(request):

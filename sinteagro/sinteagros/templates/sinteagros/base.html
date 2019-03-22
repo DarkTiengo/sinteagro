@@ -20,10 +20,25 @@
   <script src="{% static "js/autoresize.js" %}"></script>
   <script src="{% static "js/style.js" %}"></script>
   <title>SINTEAGRO</title>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    $("#config").on("click", function() {
+      $.ajax({
+        url: '../../../configuracoes/'
+      }).done(function(data) {
+        $("#dialog").empty().append(data).dialog({
+          minHeight: 200,
+          minWidth: 550,
+          resizable: false
+        });
+      });
+    });
+  })
+
+  </script>
 </head>
 
 <body>
-
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="{% url 'index' %}">SINTEAGRO</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,6 +83,8 @@
         </li>
       </ul>
     </div>
+          <div name="dialog" id="dialog" style="display: none">
+          </div>
   </nav>
       <main role="main">
         {% block content %}{% endblock %}

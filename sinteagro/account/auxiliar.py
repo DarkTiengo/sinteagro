@@ -35,5 +35,5 @@ genero = ( ("m", "Masculino"),
            ("f", "Feminino"))
 
 def get_cities(state):
-    cities = Cidade.objects.filter(estado_id=state).values()
+    cities = Cidade.objects.filter(uf=state).values()
     return cities

@@ -16,10 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from sinteagros.views import configuracoes,change_profile
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('/',include("account.urls")),
     path('login/',include("account.urls")),
     path('index/',include('sinteagros.urls')),
     path('',include("account.urls")),
+    path('configuracoes/', configuracoes),
+    path('change_profile/',change_profile),
 ]

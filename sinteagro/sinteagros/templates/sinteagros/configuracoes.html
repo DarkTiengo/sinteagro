@@ -1,43 +1,87 @@
-<form method="post">
+<script>
+  $("#estado").change(function() {
+    $.ajax({
+      url: '../../../ajax/get_cidade',
+      dataType: 'json',
+      data: {
+        'estado': $("#estado").val()
+      }
+    }).done(function(data) {
+      $("#cidade").empty();
+      $(data.cities).each(function() {
+        $("#cidade").append("<option value='" + $(this)[0].id + "'>" +
+          $(this)[0].nome +
+          "</option>");
+      });
+    });
+  });
+
+  $("#cancel_profile").click(function() {
+    $("#dialog").dialog("close");
+  });
+
+  $("#frm_profile").submit(function(event){
+    event.preventDefault();
+    $.ajax({
+      url: '../../../change_profile/',
+      data: $("#frm_profile").serialize(),
+      method: 'POST'
+    }).done(function(data){
+      console.log(data)
+    });
+  });
+</script>
+<form method="post" id="frm_profile">
+  {% csrf_token %}
   <div class="form-row align-items-center">
     <div class="col-md-6">
       <label for="first_name">Nome:</label>
-      <input type="text" class="form-control" name="first_name" value="{{user.first_name}}">
+      <input type="text" class="form-control" name="first_name" value="{{user.first_name}}" id="first_name">
     </div>
     <div class="col-md-6">
       <label for="last_name">Sobrenome:</label>
-      <input type="text" class="form-control" name="last_name" value="{{user.last_name}}">
+      <input type="text" class="form-control" name="last_name" value="{{user.last_name}}" id="last_name">
     </div>
   </div>
   <div class="form-row align-items-center">
     <div class="col-md-6">
       <label for="estado">Estado:</label>
-      <select class="form-control" name="estado">
+      <select class="form-control" name="estado" id="estado">
         {% for sigla,nome in estados %}
         {% if sigla == user.estado %}
-          <option value="{{sigla}}" selected>{{nome}}</option>
-          {% else %}
-          <option value="{{sigla}}">{{nome}}</option>
+        <option value="{{sigla}}" selected>{{nome}}</option>
+        {% else %}
+        <option value="{{sigla}}">{{nome}}</option>
         {% endif %}
         {% endfor %}
       </select>
     </div>
     <div class="col-md-6">
       <label for="cidade">Cidade:</label>
-      <select class="form-control" name="">
-        {% for e,u,n,c in cidades %}
-          <option value="{{c}}">{{n}}</option>
+      <select class="form-control" name="cidade" id="cidade">
+        {% for id,cidade in cidades %}
+        {% if user.cidade == cidade %}
+        <option value="{{id}}" selected>{{cidade}}</option>
+        {% else %}
+        <option value="{{id}}">{{cidade}}</option>
+        {% endif %}
         {% endfor %}
       </select>
     </div>
-  <div class="form-row align-items-center">
-    <div class="col-md-6">
-      <label for="password">Alterar a senha:</label>
-      <input type="password" class="form-control" name="password" value="">
+    <div class="form-row align-items-center">
+      <div class="col-md-6">
+        <label for="password">Alterar a senha:</label>
+        <input type="password" class="form-control" name="password" value="" id="password">
+      </div>
+      <div class="col-md-6">
+        <label for="last_name">Confirmar a nova senha:</label>
+        <input type="password" class="form-control" name="confirm_password" value="" id="confirm_password">
+      </div>
     </div>
-    <div class="col-md-6">
-      <label for="last_name">Confirmar a nova senha:</label>
-      <input type="password" class="form-control" name="confirm_password" value="">
-    </div>
+    <div class="form-row" style="padding: 20px">
+      <div class="col-md-12 align-items-center">
+        <button type="submit" name="save_profile" id="save_profile" class="btn btn-primary">Salvar</button>
+        <button type="button" name="cancel_profile" id="cancel_profile" class="btn btn-danger">Cancelar</button>
+      </div>
     </div>
 </form>

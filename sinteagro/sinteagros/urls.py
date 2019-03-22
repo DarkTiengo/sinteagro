@@ -19,7 +19,6 @@ urlpatterns = [
     path('cadastrar_safra/',views.cadastrar_safra,name='cadastrar_safra'),
     path('logout/',views.logout,name='logout'),
     path('exclui_fazenda/<fazenda_id>/',views.exclui_fazenda,name='exclui_fazenda'),
-    path('configuracoes/',views.configuracoes,name='configuracoes'),
     path('altera_senha/',views.altera_senha,name='altera_senha'),
     path('edit_talhoes/<fazenda_id>/',views.edit_talhoes,name='edit_talhoes'),
     path('edit_talhao/<fazenda_id>/<talhao_id>/',views.edit_talhao,name='edit_talhao'),

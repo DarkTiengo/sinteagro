@@ -130,41 +130,8 @@
       }
     });
 
-    $("#config").on("click", function() {
-      $.ajax({
-        url: 'configuracoes/'
-      }).done(function(data) {
-        $(".dialog").empty().append(data).dialog({
-          minHeight: 200,
-          minWidth: 550,
-          resizable: false,
-          buttons: [{
-              text: "Salvar",
-              icon: "ui-icon-check"
-            },
-            {
-              text: "Cancelar",
-              icon: "ui-icon-closethick",
-              click: function() {
-                $(this).dialog("close");
-              }
-            }
-          ]
-        });
-      });
-    });
-
   });
 </script>
-
-<div class="content">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="dialog" title="Configurações" style="display: none">
-      </div>
-    </div>
-  </div>
-</div>
 <div class="row">
   <div class="col-md-6">
     <div class="widget-sinteagro">
