@@ -9,8 +9,6 @@ from datetime import datetime
 from .forms import FazendaForm, TalhaoForm, SafraForm, ProdutividadeForm, AgendaForm
 from .fazendas import *
 from .talhoes import *
-from account.auxiliar import *
-from account.forms import UserForm
 from .models import Agenda
 
 
@@ -199,48 +197,6 @@ def cadastrar_safra(request):
 def excluir_safra(request):
     """Excluir safra / Remove Crop """
     dados = safra_remove(request.POST["id"])
-
-@login_required()
-def configuracoes(request):
-    """Exibe e altera informacoes do usuario / Show and edit User Information"""
-    if request.method == "GET":
-        cities = get_cities(request.user.estado)
-        contexto = {
-            'estados': select_estados,
-            'user': request.user,
-            'cidades': cities.values_list('id','nome')
-        }
-        file = render(request,'sinteagros/configuracoes.html',contexto)
-    return file
-
-@login_required
-def change_profile(request):
-    if request.is_ajax:
-        form = UserForm(request.POST,instance=request.user)
-        if form.is_valid():
-            form.save()
-            return HttpResponse("<div class='div_info'>Alterações Feitas com sucesso</div>")
-        else:
-            return HttpResponse("Ajax mas nao valido")
-    return HttpResponse("Algo deu errado")
-
-@login_required()
-def altera_senha(request):
-    """"Altera senha do usuario / Edit User Password"""
-    dados = request.POST
-    contexto = gera_Menu(request.user)
-    if request.user.check_password(dados["senha"]):
-        if dados["novasenha"] == dados["confirmasenha"]:
-            request.user.set_password(dados["novasenha"])
-            contexto["info"] = "sucesso"
-            contexto["mensagem"] = "Senha alterada com sucesso"
-        else:
-            contexto["info"] = "erro"
-            contexto["mensagem"] = "Nova senha nao e igual a confirmacao, favor verificar e tente novamente."
-    else:
-        contexto["info"] = "erro"
-        contexto["mensagem"] = "Senha atual incorreta, favor corrigir e tente novamente."
-    return render(request,'sinteagros/configuracoes.html',contexto)
 
 @login_required()
 def edit_produtividades(request,fazenda_id,talhao_id):

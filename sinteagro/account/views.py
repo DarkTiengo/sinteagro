@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login as django_login
-from django.http.response import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.http import JsonResponse
 
 from .models import User
 from .forms import UserForm
+from .auxiliar import *
 from localidades.models import Cidade
 
 def login(request):
@@ -62,3 +64,29 @@ def get_cidade(request):
     estado = request.GET.get('estado')
     data = Cidade.objects.filter(uf=estado).values()
     return JsonResponse({"cities": list(data)})
+
+@login_required()
+def configuracoes(request):
+    """Exibe e altera informacoes do usuario / Show and edit User Information"""
+    if request.method == "GET":
+        cities = get_cities(request.user.estado)
+        contexto = {
+            'estados': select_estados,
+            'user': request.user,
+            'cidades': cities.values_list('id','nome')
+        }
+        return render(request,'account/configuracoes.html',contexto)
+    elif request.method == "POST" and request.is_ajax:
+        form = UserForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return HttpResponse("<div id='div_info' class='alert alert-success alert-dismissible fade show' role='alert'>Alterações Feitas com sucesso.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>")
+        else:
+            return HttpResponse(form.errors)
+
+@login_required()
+def change_password(request):
+    if request.method == "POST":
+        pass
+    else:
+        return render(request,'account/change_password.html')

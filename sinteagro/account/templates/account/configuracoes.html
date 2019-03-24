@@ -22,25 +22,34 @@
 
   $("#frm_profile").submit(function(event){
     event.preventDefault();
-    $.ajax({
-      url: '../../../change_profile/',
-      data: $("#frm_profile").serialize(),
-      method: 'POST'
-    }).done(function(data){
-      console.log(data)
-    });
+      $.ajax({
+        url: '../../../configuracoes/',
+        data: $("#frm_profile").serialize(),
+        method: 'POST'
+      }).done(function(data){
+        $("#userDropdown").empty().append('<i class="fa fa-user"></i> ' + $("#first_name").val() + ' ' + $("#last_name").val());
+        $("#dialog").dialog("close");
+        $(".container").prepend(data);
+        $("#div_info").hide().fadeIn('slow');
+      });
   });
+
+  $("#nascimento").val(moment("{{user.nascimento}}").format("L"));
 </script>
 <form method="post" id="frm_profile">
   {% csrf_token %}
+  <input type="hidden" name="sexo" value="{{user.sexo}}">
+  <input type="hidden" name="nascimento" value="{{user.nascimento}}" id="nascimento">
+  <input type="hidden" name="password" value="{{user.password}}">
+  <input type="hidden" name="email" value="{{user.email}}">
   <div class="form-row align-items-center">
     <div class="col-md-6">
       <label for="first_name">Nome:</label>
-      <input type="text" class="form-control" name="first_name" value="{{user.first_name}}" id="first_name">
+      <input type="text" class="form-control" name="first_name" value="{{user.first_name}}" id="first_name" maxlength="30">
     </div>
     <div class="col-md-6">
       <label for="last_name">Sobrenome:</label>
-      <input type="text" class="form-control" name="last_name" value="{{user.last_name}}" id="last_name">
+      <input type="text" class="form-control" name="last_name" value="{{user.last_name}}" id="last_name" maxlength="30">
     </div>
   </div>
   <div class="form-row align-items-center">
@@ -68,18 +77,9 @@
         {% endfor %}
       </select>
     </div>
-    <div class="form-row align-items-center">
-      <div class="col-md-6">
-        <label for="password">Alterar a senha:</label>
-        <input type="password" class="form-control" name="password" value="" id="password">
-      </div>
-      <div class="col-md-6">
-        <label for="last_name">Confirmar a nova senha:</label>
-        <input type="password" class="form-control" name="confirm_password" value="" id="confirm_password">
-      </div>
     </div>
     <div class="form-row" style="padding: 20px">
-      <div class="col-md-12 align-items-center">
+      <div class="col-md-12" style="padding-left: 25%">
         <button type="submit" name="save_profile" id="save_profile" class="btn btn-primary">Salvar</button>
         <button type="button" name="cancel_profile" id="cancel_profile" class="btn btn-danger">Cancelar</button>
       </div>

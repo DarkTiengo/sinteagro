@@ -33,6 +33,19 @@
         });
       });
     });
+
+    $("#change_pass").on("click", function() {
+      $.ajax({
+        url: '../../../change_password/'
+      }).done(function(data) {
+        $("#dialog").empty().append(data).dialog({
+          minHeight: 200,
+          minWidth: 550,
+          resizable: false
+        });
+      });
+    });
+
   })
 
   </script>
@@ -76,6 +89,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="userDropdown">
             <a class="dropdown-item" id="config" href="#"><i class="fa fa-gear"></i> Configurações</a>
+            <a class="dropdown-item" id="change_pass" href="#"><i class="fa fa-lock"></i> Alterar Senha</a>
           </div>
         </li>
         <li class="nav-item">

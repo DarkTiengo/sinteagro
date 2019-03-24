@@ -132,59 +132,62 @@
 
   });
 </script>
-<div class="row">
-  <div class="col-md-6">
-    <div class="widget-sinteagro">
-      <h4 class="title-widget">Calendario</h4>
-      <div class="row">
-        <div id="calendar-menu-left" class="col-md-6">
+<div class="container">
+  <div class="row" style="width: 100%">
+    <div class="col-md-7">
+      <div class="widget-sinteagro">
+        <h4 class="title-widget">Calendario</h4>
+        <div class="row">
+          <div id="calendar-menu-left" class="col-md-6">
+          </div>
+          <div id="calendar-menu-right" class="col-md-6">
+            <ul class="nav justify-content-end">
+              <li class="nav-item">
+                <select class="select-date" name="mouth" id="month">
+                  {% for s,m in month.items %}
+                  <option value="{{s}}">{{m}}</option>
+                  {% endfor %}
+                </select>
+              <li class="nav-item">
+                <select class="select-date" name="year" id="year">
+                  {% for y in year %}
+                  <option value="{{y}}">{{y}}</option>
+                  {% endfor %}
+                </select>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div id="calendar-menu-right" class="col-md-6">
-          <ul class="nav justify-content-end">
-            <li class="nav-item">
-              <select class="select-date" name="mouth" id="month">
-                {% for s,m in month.items %}
-                <option value="{{s}}">{{m}}</option>
-                {% endfor %}
-              </select>
-            <li class="nav-item">
-              <select class="select-date" name="year" id="year">
-                {% for y in year %}
-                <option value="{{y}}">{{y}}</option>
-                {% endfor %}
-              </select>
+        <div id="calendar">
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div id="note">
+        <form action="#" method="post" id="form-note" name="form-note">
+          {% csrf_token %}
+          <h4 class="top-note">Anotações</h4>
+          <h5 id="note-date"></h5>
+          <ul class="list">
+            <li>
+              <textarea name="note" rows="11" cols="45" class="input-note" maxlength="250">{{note}}</textarea>
+            </li>
+            <li>
+              <div class="btn-group d-flex justify-content-center" role="group">
+                <button class="btn btn-note" type="button" name="save" id="save"><i class="fa fa-save"></i> Salvar</button>
+                <button class="btn btn-note" type="button" name="delete" id="delete"><i class="fa fa-trash-o"></i> Excluir</button>
+              </div>
             </li>
           </ul>
-        </div>
-      </div>
-      <div id="calendar">
-
+          <input type="hidden" name="date" id="date" value="">
+        </form>
       </div>
     </div>
-  </div>
-  <div class="col-md-6">
-    <div id="note">
-      <form action="#" method="post" id="form-note" name="form-note">
-        {% csrf_token %}
-        <h4 class="top-note">Anotações</h4>
-        <h5 id="note-date"></h5>
-        <ul class="list">
-          <li>
-            <textarea name="note" rows="11" cols="45" class="input-note" maxlength="250">{{note}}</textarea>
-          </li>
-          <li>
-            <div class="btn-group d-flex justify-content-center" role="group">
-              <button class="btn btn-note" type="button" name="save" id="save"><i class="fa fa-save"></i> Salvar</button>
-              <button class="btn btn-note" type="button" name="delete" id="delete"><i class="fa fa-trash-o"></i> Excluir</button>
-            </div>
-          </li>
-        </ul>
-        <input type="hidden" name="date" id="date" value="">
-      </form>
-    </div>
+
   </div>
 
-</div>
+  </div>
 
 </div>
 
