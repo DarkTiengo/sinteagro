@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'account',
     'sinteagros',
     'localidades.apps.LocalidadesConfig',
+    'financeiro',
 ]
 
 MIDDLEWARE = [

@@ -25,5 +25,5 @@ urlpatterns = [
     path('index/',include('sinteagros.urls')),
     path('',include("account.urls")),
     path('configuracoes/', configuracoes),
-    path('change_password/',change_password)
+    path('change_password/',change_password),
 ]

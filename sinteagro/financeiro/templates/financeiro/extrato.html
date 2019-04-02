@@ -1,0 +1,68 @@
+<script>
+  $(document).ready(function(){
+    $(".ex-tab a").click(function(e){
+      e.preventDefault();
+      $(this).tab("show")
+    })
+  });
+</script>
+<div id="extrato">
+  <div role="textbox" class="text-center">
+    <p class="h3">Extrato de Conta Bancária</p>
+  </div>
+    <div class="row">
+      <div class="col-md-2" role="button">
+        <div class="dropdown">
+          <button class="btn dropdown-toggle btn-secondary" type="button" id="btn-add-extrato" data-toggle="dropdown">
+            Opções
+          </button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="">
+            <a href="#" class="dropdown-item"><i class="fa fa-plus"></i> Adicionar Operação manualmente</a>
+            <a href="#" class="dropdown-item"><i class="fas fa-search-plus"></i> Adicionar Operação via planilha</a>
+            <a href="#" class="dropdown-item"><i class="fas fa-th-list"></i> Espelhar extrato da planilha</a>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-5">
+          <label for="banco">Banco: </label>  <select class="extrato-select" name="banco" id="banco">
+            {% if account is not None %}
+            {% for i,cc in account %}
+              <option value="{{i}}">{{cc}}</option>
+            {% endfor %}
+            {% else %}
+            <option value="">Cadastre uma conta para iniciar</option>
+            {% endif %}
+          </select>
+        </div>
+        <div class="col-md-5">
+          <label for="conta">Agencia/Conta: </label><select class="extrato-select" name="conta" id="conta">
+            <option value="">0043-4 / 7601-5</option>
+          </select>
+        </div>
+    </div>
+    <ul class="nav nav-tabs">
+      {% for i,m in month.items %}
+      {% if i == now %}
+      <li class="nav-item ex-tab"><a href="#" class="nav-link active">{{m}}</a></li>
+      {% else %}
+      <li class="nav-item ex-tab"><a href="#" class="nav-link">{{m}}</a></li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Operação</th>
+          <th scope="col">Dia</th>
+          <th scope="col">Histórico</th>
+          <th scope="col">Observação</th>
+          <th scope="col">Valor</th>
+        </tr>
+      </thead>
+      <tbody id="extrato-content">
+      </tbody>
+    </table>
+    <div id="extrato-info">Você ainda não possui nenhum registro cadastrado. Clique <a href="#">aqui</a> para iniciar
+    </div>
+
+</div>

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, Http404, HttpResponse
+from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth.decorators import login_required
@@ -15,10 +15,8 @@ from .models import Agenda
 @login_required()
 def index(request):
     """Pagina inicial  / Main Menu"""
-    contexto = gera_Menu(request.user)
-    contexto['home'] = True
-    contexto['month'] = mes
-    contexto['year'] = ano
+    now = datetime.now()
+    contexto = {'home': True,'month': mes,'year': ano,'now': now.month}
     return render(request,'sinteagros/index.html',contexto)
 
 @login_required()
@@ -33,6 +31,7 @@ def get_events(request):
     except:
         result = {}
     return JsonResponse(result,safe=False)
+
 
 def logout(request):
     """Sai do Sistema / Logout"""

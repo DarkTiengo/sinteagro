@@ -29,8 +29,7 @@
       }).done(function(data){
         $("#userDropdown").empty().append('<i class="fa fa-user"></i> ' + $("#first_name").val() + ' ' + $("#last_name").val());
         $("#dialog").dialog("close");
-        $(".container").prepend(data);
-        $("#div_info").hide().fadeIn('slow');
+        set_message(data.message,data.type)
       });
   });
 
@@ -66,10 +65,10 @@
       </select>
     </div>
     <div class="col-md-6">
-      <label for="cidade">Cidade:</label>
+      <label for="cidade">Cidade: </label>
       <select class="form-control" name="cidade" id="cidade">
         {% for id,cidade in cidades %}
-        {% if user.cidade == cidade %}
+        {% if id == user.cidade %}
         <option value="{{id}}" selected>{{cidade}}</option>
         {% else %}
         <option value="{{id}}">{{cidade}}</option>

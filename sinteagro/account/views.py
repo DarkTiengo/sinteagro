@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login as django_login
+from django.contrib.auth import authenticate, login as django_login, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.http import JsonResponse
+from django.contrib.auth.forms import PasswordChangeForm
 
 from .models import User
 from .forms import UserForm
@@ -80,13 +81,24 @@ def configuracoes(request):
         form = UserForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return HttpResponse("<div id='div_info' class='alert alert-success alert-dismissible fade show' role='alert'>Alterações Feitas com sucesso.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>")
+            response = {"type": "alert-success","message": "Alterações feitas com sucesso."}
+            return JsonResponse(response)
         else:
-            return HttpResponse(form.errors)
+            response = {"type": "alert-danger","message": form.errors}
+            return JsonResponse(response)
 
 @login_required()
 def change_password(request):
     if request.method == "POST":
-        pass
+        form = PasswordChangeForm(request.user,request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request,user)
+            response = {"type": "alert-success", "message": "Senha alterada com sucesso."}
+            return JsonResponse(response)
+        else:
+            response = {"type": "alert-danger", "message": form.errors}
+            return JsonResponse(response)
     else:
-        return render(request,'account/change_password.html')
+        form = PasswordChangeForm(request.user)
+        return render(request,'account/change_password.html',{'form': form})
