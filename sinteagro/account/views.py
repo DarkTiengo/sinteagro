@@ -71,10 +71,12 @@ def configuracoes(request):
     """Exibe e altera informacoes do usuario / Show and edit User Information"""
     if request.method == "GET":
         cities = get_cities(request.user.estado)
+        name_user_city = get_city(request.user.cidade)
         contexto = {
             'estados': select_estados,
             'user': request.user,
-            'cidades': cities.values_list('id','nome')
+            'cidades': cities.values_list('id','nome'),
+            'user_city': name_user_city,
         }
         return render(request,'account/configuracoes.html',contexto)
     elif request.method == "POST" and request.is_ajax:

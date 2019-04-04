@@ -19,24 +19,29 @@
           <ul class="dropdown-menu" role="menu" aria-labelledby="">
             <a href="#" class="dropdown-item"><i class="fa fa-plus"></i> Adicionar Operação manualmente</a>
             <a href="#" class="dropdown-item"><i class="fas fa-search-plus"></i> Adicionar Operação via planilha</a>
-            <a href="#" class="dropdown-item"><i class="fas fa-th-list"></i> Espelhar extrato da planilha</a>
           </ul>
         </div>
       </div>
       <div class="col-md-5">
           <label for="banco">Banco: </label>  <select class="extrato-select" name="banco" id="banco">
-            {% if account is not None %}
-            {% for i,cc in account %}
-              <option value="{{i}}">{{cc}}</option>
+            {% if bank is not None %}
+            {% for i,b in bank %}
+              <option value="{{i}}">{{b}}</option>
             {% endfor %}
             {% else %}
-            <option value="">Cadastre uma conta para iniciar</option>
+            <option value="" class="initial-extract">Cadastre uma conta para iniciar</option>
             {% endif %}
           </select>
         </div>
         <div class="col-md-5">
           <label for="conta">Agencia/Conta: </label><select class="extrato-select" name="conta" id="conta">
-            <option value="">0043-4 / 7601-5</option>
+            {% if account is not None %}
+            {% for i,cc in account %}
+              <option value="{{i}}">{{cc}}</option>
+            {% endfor %}
+            {% else %}
+            <option value="" class="initial-extract">Cadastre uma conta para iniciar</option>
+            {% endif %}
           </select>
         </div>
     </div>
@@ -62,7 +67,10 @@
       <tbody id="extrato-content">
       </tbody>
     </table>
-    <div id="extrato-info">Você ainda não possui nenhum registro cadastrado. Clique <a href="#">aqui</a> para iniciar
-    </div>
+    {% if extract is None and account is not None %}
+    <div id="extrato-info">Você ainda não possui nenhum registro cadastrado. Clique <a href="#">aqui</a> para iniciar</div>
+    {% elif account is None %}
+    <div id="extrato-info">Você ainda não possui uma conta cadastrada. Clique <a href="#" class="new_account">aqui</a> para iniciar</div>
+    {% endif %}
 
 </div>

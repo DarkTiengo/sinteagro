@@ -35,7 +35,7 @@
     $(document).ready(function() {
       $("#config").on("click", function() {
         $.ajax({
-          url: '../../../configuracoes/'
+          url: "{% url 'configuracoes' %}"
         }).done(function(data) {
           $("#dialog").empty().append(data).dialog({
             minHeight: 200,
@@ -47,7 +47,7 @@
 
       $("#change_pass").on("click", function() {
         $.ajax({
-          url: '../../../change_password/'
+          url: "{% url 'change_password' %}"
         }).done(function(data) {
           $("#dialog").empty().append(data).dialog({
             minHeight: 200,
@@ -57,11 +57,14 @@
         });
       });
 
-      $("#new_account").click(function(){
+      $(".new_account").click(function(){
         $.ajax({
-          url: "../../../conta/"
+          url: "{% url 'conta' %}"
         }).done(function(data){
-          $("#dialog").empty().append(data).dialog();
+          $("#dialog").empty().append(data).dialog({
+            minWidth: 650,
+            minHeight: 400
+          });
         });
       });
 
@@ -90,7 +93,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-money-bill"></i> Contas Bancárias</a>
           <div class="dropdown-menu" aria-labelledby="accountDropdown">
-            <a class="dropdown-item" href="#" id="new_account"> Cadastrar Nova Conta</a>
+            <a class="dropdown-item new_account" href="#"> Cadastrar Nova Conta</a>
           </div>
         </li>
       </ul>
@@ -100,7 +103,7 @@
             <i class="fa fa-user"></i> {{user.get_full_name.title}}
           </a>
           <div class="dropdown-menu" aria-labelledby="userDropdown">
-            <a class="dropdown-item" id="config" href="#"><i class="fa fa-gear"></i> Configurações</a>
+            <a class="dropdown-item" id="config" href="#"><i class="fas fa-cog"></i> Configurações</a>
             <a class="dropdown-item" id="change_pass" href="#"><i class="fa fa-lock"></i> Alterar Senha</a>
           </div>
         </li>

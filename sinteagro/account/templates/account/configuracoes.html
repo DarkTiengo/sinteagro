@@ -1,7 +1,11 @@
 <script>
+$(".cancel_dialog").click(function() {
+  $("#dialog").dialog("close");
+});
+
   $("#estado").change(function() {
     $.ajax({
-      url: '../../../ajax/get_cidade',
+      url: "{% url 'get_cidade' %}",
       dataType: 'json',
       data: {
         'estado': $("#estado").val()
@@ -16,14 +20,10 @@
     });
   });
 
-  $("#cancel_profile").click(function() {
-    $("#dialog").dialog("close");
-  });
-
   $("#frm_profile").submit(function(event){
     event.preventDefault();
       $.ajax({
-        url: '../../../configuracoes/',
+        url: "{% url 'configuracoes' %}",
         data: $("#frm_profile").serialize(),
         method: 'POST'
       }).done(function(data){
@@ -67,20 +67,15 @@
     <div class="col-md-6">
       <label for="cidade">Cidade: </label>
       <select class="form-control" name="cidade" id="cidade">
+        <option value="{{user.cidade}}" selected>{{user_city}}</option>
         {% for id,cidade in cidades %}
-        {% if id == user.cidade %}
-        <option value="{{id}}" selected>{{cidade}}</option>
-        {% else %}
         <option value="{{id}}">{{cidade}}</option>
-        {% endif %}
         {% endfor %}
       </select>
     </div>
     </div>
-    <div class="form-row" style="padding: 20px">
-      <div class="col-md-12" style="padding-left: 25%">
-        <button type="submit" name="save_profile" id="save_profile" class="btn btn-primary">Salvar</button>
-        <button type="button" name="cancel_profile" id="cancel_profile" class="btn btn-danger">Cancelar</button>
-      </div>
+    <div class="btn-group" style="padding: 20px">
+        <button type="submit" name="save_profile" id="save_profile" class="btn btn-success">Salvar</button>
+        <button type="button" class="btn btn-danger cancel_dialog">Cancelar</button>
     </div>
 </form>

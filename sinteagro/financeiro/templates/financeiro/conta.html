@@ -1,6 +1,43 @@
-<form action="../../../conta/" method="post">
-{% csrf_token %}
-<div class="form-group">
-  {{form}}
-</div>
-</form>
+<script>
+$(".cancel_dialog").click(function() {
+  $("#dialog").dialog("close");
+});
+
+  $("#conta_form").submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+          url: "{% url 'conta' %}",
+          dataType: 'json',
+          method: 'POST',
+          data: $("#conta_form").serialize(),
+        }).done(function(data){
+          $("#dialog").dialog("close");
+          set_message(data.message,data.type);
+          $(".initial-extract").remove();
+          $("#banco").append("<option val='" + $("#id_banco").val() + "'>" + $("#id_banco option:selected").text() +"</option>");
+        });
+});
+</script>
+
+<form method="post" id="conta_form">
+  {% csrf_token %}
+  <div class="form-group">
+    {{form.banco.label_tag}}
+    {{form.banco}}
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-sm-6">
+        {{form.agencia.label_tag}}
+        {{form.agencia}}
+      </div>
+      <div class="col-sm-6">
+        {{form.conta.label_tag}}(utilize 0 no lugar do X)
+        {{form.conta}}
+      </div>
+    </div>
+  </div>
+  <div class="btn-group ">
+  <button class="btn btn-primary form-control" type="submit" name="submit" id="submit">Enviar</button>
+  <button class="btn btn-danger form-control cancel_dialog" type="button">Cancelar</button>
+  </div>
