@@ -21,6 +21,7 @@ $(".cancel_dialog").click(function() {
 
 <form method="post" id="conta_form">
   {% csrf_token %}
+  {{form.id}}
   <div class="form-group">
     {{form.banco.label_tag}}
     {{form.banco}}

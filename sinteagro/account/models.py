@@ -31,6 +31,8 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
 
+    username = models.CharField(_('Nome de Usuário'), max_length=30,unique=True)
+
     first_name = models.CharField(_('Nome'), max_length=30)
 
     last_name = models.CharField(_('Sobrenome'), max_length=30)
@@ -39,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     sexo = models.CharField(_('Sexo'),max_length=1,default="m")
 
-    nascimento = models.DateField(_('Data de Nascimento'),default= "01-01-2000")
+    nascimento = models.DateField(_('Data de Nascimento'),default= "2000-01-01")
 
     cidade = models.CharField(_('Cidade'),max_length= 60, default= "")
 

@@ -146,8 +146,9 @@
                   {% for s,m in month.items %}
                   {% if s == now %}
                   <option value="{{s}}"selected>{{m}}</option>
-                  {% endif %}
+                  {% else %}
                   <option value="{{s}}">{{m}}</option>
+                  {% endif %}
                   {% endfor %}
                 </select>
               <li class="nav-item">

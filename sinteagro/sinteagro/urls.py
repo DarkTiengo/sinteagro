@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from account.views import configuracoes,change_password
-from financeiro.views import account
+from financeiro.views import conta,get_bancos_user,get_accounts
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +27,7 @@ urlpatterns = [
     path('',include("account.urls")),
     path('configuracoes/', configuracoes,name="configuracoes"),
     path('change_password/',change_password,name="change_password"),
-    path('conta/',account,name="conta"),
+    path('conta/',conta,name="conta"),
+    path('bancos/',get_bancos_user,name='bancos'),
+    path('accounts/',get_accounts,name='contas'),
 ]
