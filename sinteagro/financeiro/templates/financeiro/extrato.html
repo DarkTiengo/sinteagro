@@ -16,10 +16,10 @@ $("#conta").ready(function(){
     },
   }).done(function(data){
     $("#conta").empty().append("------");
-    console.log(data.length);
-    for(var i = 0; i <= data.length;i++){
-      console.log(data);
-      //$("#conta").append("<option value='" + data[i].id + "'> " + data[i].conta + "</option>");
+    var contas = data.conta[0];
+    console.log(contas);
+    for(var i = 0; i <= contas.length;i++){
+    //  $("#conta").append("<option value='" + contas[i].id + "'> " + contas[i].conta + "</option>");
     }
   });
 });

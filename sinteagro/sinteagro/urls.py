@@ -29,5 +29,5 @@ urlpatterns = [
     path('change_password/',change_password,name="change_password"),
     path('conta/',conta,name="conta"),
     path('bancos/',get_bancos_user,name='bancos'),
-    path('accounts/',get_accounts,name='contas'),
+    path('contas/',get_accounts,name='contas'),
 ]
