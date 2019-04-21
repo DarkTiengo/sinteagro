@@ -4,7 +4,9 @@ from django.http import JsonResponse
 import datetime
 
 from .forms import ContaForm
-from .models import Conta, banco_choices
+from .models import Conta, banco_choices,Extrato
+
+
 
 @login_required
 def extrato(request):
@@ -54,11 +56,29 @@ def get_bancos_user(request):
 def get_accounts(request):
     if request.is_ajax:
         banco = request.GET.get('banco')
-        ccs = Conta.objects.filter(banco=banco).values_list('id','agencia','conta')
-        result = {'conta': list()}
+        ccs = Conta.objects.filter(banco=banco,user=request.user).values()
+        result = list()
         for cc in ccs:
-            result['conta'].append(cc)
-        return JsonResponse(result)
+            result.append(cc)
+        return JsonResponse({'contas': result})
+
+@login_required
+def get_extrato(request):
+    if request.is_ajax:
+        conta = request.GET.get('conta')
+        month = request.GET.get('mes')
+        try:
+            cc = Conta.objects.get(id=conta,user=request.user)
+            try:
+                ex = Extrato.objects.filter(id=conta, date__month=month).values()
+                result = list()
+                for e in ex:
+                    result.append(e)
+                return JsonResponse({'extratos': result})
+            except:
+                pass
+        except:
+            raise ValueError("Problemas de autenticacao de conta")
 
 
 

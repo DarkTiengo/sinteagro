@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="670bdce1-e662-4d53-8c7a-936c2eaafe57" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/financeiro/templates/financeiro/extrato.html" beforeDir="false" afterPath="$PROJECT_DIR$/financeiro/templates/financeiro/extrato.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/financeiro/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/financeiro/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sinteagro/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/sinteagro/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,8 +36,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sinteagro/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" column="16" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
+            <state relative-caret-position="544">
+              <caret line="32" column="48" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
               <folding>
                 <element signature="e#633#665#0" expanded="true" />
               </folding>
@@ -48,8 +48,18 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/financeiro/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-215" />
+            <state relative-caret-position="771">
+              <caret line="84" lean-forward="true" selection-start-line="84" selection-end-line="84" />
+              <folding>
+                <element signature="e#0#57#0" expanded="true" />
+              </folding>
+            </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/financeiro/models.py">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
@@ -57,9 +67,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
               <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -119,8 +126,8 @@
         <option value="$PROJECT_DIR$/sinteagros/urls.py" />
         <option value="$PROJECT_DIR$/sinteagros/views.py" />
         <option value="$PROJECT_DIR$/financeiro/models.py" />
-        <option value="$PROJECT_DIR$/financeiro/views.py" />
         <option value="$PROJECT_DIR$/sinteagro/urls.py" />
+        <option value="$PROJECT_DIR$/financeiro/views.py" />
       </list>
     </option>
   </component>
@@ -263,10 +270,10 @@
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.091796875" side_tool="true" weight="0.34199727" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32909605" />
-      <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.9082031" weight="0.34199727" />
+      <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.9082031" weight="0.34199134" />
       <window_info anchor="bottom" x="-51" y="454" width="1536" height="212" id="Run" order="13" sideWeight="0.49739584" weight="0.22943723" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32909605" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12260128" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.123667374" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" weight="0.3295302" />
       <window_info anchor="right" id="SciView" order="5" weight="0.3295302" />
@@ -274,15 +281,15 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="2" sideWeight="0.49932885" weight="0.3997175" />
       <window_info active="true" anchor="bottom" id="manage.py@sinteagro" order="12" visible="true" weight="0.37146893" />
-      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="14" weight="0.32968536" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Coverage" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32968536" />
-      <window_info anchor="right" id="Coverage" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Concurrent Activities Diagram" order="14" weight="0.32968536" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -513,14 +520,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/financeiro/forms.py" />
-    <entry file="file://$PROJECT_DIR$/financeiro/models.py" />
     <entry file="file://$PROJECT_DIR$/sinteagros/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -534,10 +537,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/financeiro/models.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/sinteagro/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="16" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
+        <state relative-caret-position="544">
+          <caret line="32" column="48" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="48" />
           <folding>
             <element signature="e#633#665#0" expanded="true" />
           </folding>
@@ -546,7 +552,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/financeiro/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-215" />
+        <state relative-caret-position="771">
+          <caret line="84" lean-forward="true" selection-start-line="84" selection-end-line="84" />
+          <folding>
+            <element signature="e#0#57#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>
