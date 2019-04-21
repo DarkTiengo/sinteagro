@@ -17,6 +17,7 @@ function get_extrato(){
 }
 
 function get_accounts(){
+  console.log("entrou");
   $("#conta").empty().append("<option value='#'>------</option>");
   $.ajax({
     url: {% url 'contas' %},
@@ -36,10 +37,11 @@ function get_accounts(){
 $(document).ready(function(){
   $(".ex-tab a").click(function(e){
     e.preventDefault();
-    $(this).tab("show")
-  })
+    $(this).tab("show");
+  });
 
-  $("#conta").ready(get_accounts());
+  //$("#conta").ready(get_accounts());
+  //$("#banco").on("change",get_accounts());
 });
 </script>
 <div id="extrato">
