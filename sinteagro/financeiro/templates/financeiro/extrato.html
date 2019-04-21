@@ -10,7 +10,26 @@ function get_extrato(){
       'mes': $("#meses li:active").html()
     }
   }).done(function(data){
-    console.log(data);
+    if(data.extratos.length == 0){
+      $("#extrato-info").empty().append('Você ainda não possui uma conta cadastrada. Clique <a href="#" class="new_account">aqui</a> para iniciar');
+    }
+  });
+}
+
+function get_accounts(){
+  $("#conta").empty().append("<option value='#'>------</option>");
+  $.ajax({
+    url: {% url 'contas' %},
+    dataType: 'json',
+    data:{
+        'banco': $("#banco").val()
+    },
+  }).done(function(data){
+    var contas = data.contas;
+    console.log(contas);
+    for(var i = 0; i <= contas.length - 1;i++){
+      $("#conta").append("<option value='" + contas[i].id + "'> " + contas[i].agencia + "/" + contas[i].conta + "</option>");
+    }
   });
 }
 
@@ -19,23 +38,8 @@ $(document).ready(function(){
     e.preventDefault();
     $(this).tab("show")
   })
-});
 
-$("#conta").ready(function(){
-  $.ajax({
-    url: {% url 'contas' %},
-    dataType: 'json',
-    data:{
-        'banco': $("#banco").val()
-    },
-  }).done(function(data){
-    $("#conta").empty().append("------");
-    var contas = data.contas;
-    for(var i = 0; i <= contas.length - 1;i++){
-      $("#conta").append("<option value='" + contas[i].id + "'> " + contas[i].agencia + "/" + contas[i].conta + "</option>");
-    }
-    get_extrato();
-  });
+  $("#conta").ready(get_accounts());
 });
 </script>
 <div id="extrato">
@@ -96,7 +100,7 @@ $("#conta").ready(function(){
   {% if extract is None and info.cc is not None %}
   <div id="extrato-info">Você ainda não possui nenhum registro cadastrado. Clique <a href="#">aqui</a> para iniciar</div>
   {% elif info.cc is None %}
-  <div id="extrato-info">Você ainda não possui uma conta cadastrada. Clique <a href="#" class="new_account">aqui</a> para iniciar</div>
+  <div id="extrato-info"></div>
   {% endif %}
 
 </div>
