@@ -10,15 +10,15 @@ function get_extrato(){
       'mes': $("#meses li:active").html()
     }
   }).done(function(data){
+    console.log(data);
     if(data.extratos.length == 0){
-      $("#extrato-info").empty().append('Você ainda não possui uma conta cadastrada. Clique <a href="#" class="new_account">aqui</a> para iniciar');
+      $("#extrato-info").empty().append('Você ainda não possui nenhum registro cadastrado. Clique <a href="#">aqui</a> para iniciar');
     }
   });
 }
 
 function get_accounts(){
-  console.log("entrou");
-  $("#conta").empty().append("<option value='#'>------</option>");
+  $("#conta").empty().append("<option value='#'>Selecione Abaixo</option>");
   $.ajax({
     url: {% url 'contas' %},
     dataType: 'json',
@@ -27,7 +27,6 @@ function get_accounts(){
     },
   }).done(function(data){
     var contas = data.contas;
-    console.log(contas);
     for(var i = 0; i <= contas.length - 1;i++){
       $("#conta").append("<option value='" + contas[i].id + "'> " + contas[i].agencia + "/" + contas[i].conta + "</option>");
     }
@@ -38,10 +37,19 @@ $(document).ready(function(){
   $(".ex-tab a").click(function(e){
     e.preventDefault();
     $(this).tab("show");
-  });
+});
 
-  //$("#conta").ready(get_accounts());
-  //$("#banco").on("change",get_accounts());
+    $("#banco").change(function(){
+      if($(this).val() != "000"){
+        get_accounts();
+      }
+    });
+
+    $("#conta").change(function(){
+      if($(this).val() != "000"){
+        get_extrato();
+      }
+    });
 });
 </script>
 <div id="extrato">
@@ -62,6 +70,7 @@ $(document).ready(function(){
     </div>
     <div class="col-md-5">
       <label for="banco">Banco:</label>  <select class="extrato-select" name="banco" id="banco">
+        <option value="000">Selecione abaixo</option>
         {% if info is not None %}
         {% for id,b in info.Bank.items %}
           <option value="{{id}}">{{b}}</option>
@@ -73,7 +82,7 @@ $(document).ready(function(){
     </div>
     <div class="col-md-5">
       <label for="conta">Agencia/Conta: </label><select class="extrato-select" name="conta" id="conta">
-        <option value="000">------</option>
+        <option value="000">Selecione o Banco</option>
       </select>
     </div>
   </div>
@@ -99,9 +108,9 @@ $(document).ready(function(){
     <tbody id="extrato-content">
     </tbody>
   </table>
-  {% if extract is None and info.cc is not None %}
-  <div id="extrato-info">Você ainda não possui nenhum registro cadastrado. Clique <a href="#">aqui</a> para iniciar</div>
-  {% elif info.cc is None %}
+  {% if info.Bank.items is None %}
+  <div id="extrato-info">Você ainda não possui uma conta cadastrada. Clique <a href="#" class="new_account">aqui</a> para iniciar</div>
+  {% else %}
   <div id="extrato-info"></div>
   {% endif %}
 

@@ -3,10 +3,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 import datetime
 
-from .forms import ContaForm
+from .forms import ContaForm, ExtratoForm
 from .models import Conta, banco_choices,Extrato
-
-
 
 @login_required
 def extrato(request):
@@ -80,5 +78,10 @@ def get_extrato(request):
         except:
             raise ValueError("Problemas de autenticacao de conta")
 
+@login_required
+def lancamento(request):
+    form = ExtratoForm()
+    if request.is_ajax:
+        return render(request,"financeiro/lancamento.html",{'form': form})
 
 

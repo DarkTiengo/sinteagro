@@ -1,5 +1,5 @@
 from django.db import models
-from django.forms import ModelForm
+import datetime
 
 from account.models import User
 
@@ -24,7 +24,7 @@ class Conta(models.Model):
 class Extrato(models.Model):
     conta = models.ForeignKey(Conta,on_delete=models.CASCADE)
     operacao = models.IntegerField()
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(default=datetime.datetime.now)
     history = models.CharField(max_length=30)
     obs = models.CharField(max_length=30)
     valor = models.FloatField(max_length=10)
