@@ -50,6 +50,15 @@ $(document).ready(function(){
         get_extrato();
       }
     });
+
+   $("#add-manual").click(function(event) {
+     $.ajax({url: {% url 'lancamento' %}}).done(function(data){
+       $("#dialog").empty().append(data).dialog({
+         minWidth: 650,
+         minHeight: 400
+       });
+     });
+   });
 });
 </script>
 <div id="extrato">
@@ -63,7 +72,7 @@ $(document).ready(function(){
           Opções
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="">
-          <a href="#" class="dropdown-item"><i class="fa fa-plus"></i> Adicionar Operação manualmente</a>
+          <a href="#" class="dropdown-item" id="add-manual"><i class="fa fa-plus"></i> Adicionar Operação manualmente</a>
           <a href="#" class="dropdown-item"><i class="fas fa-search-plus"></i> Adicionar Operação via planilha</a>
         </ul>
       </div>

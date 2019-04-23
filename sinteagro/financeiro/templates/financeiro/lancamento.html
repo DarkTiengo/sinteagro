@@ -1,4 +1,24 @@
 <form action="{% url 'lancamento' %}" method="post">
   {% csrf_token %}
-  {{form}}
+  {{form.id}}
+  <div class="form-row">
+    <div class="col-sm-6">
+      <label for="date">Data:</label> {{form.date}}
+    </div>
+    <div class="col-sm-6">
+      <label for="history">Histórico:</label> {{form.history}}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-sm-6">
+      <label for="valor">Valor:</label> {{form.valor}}
+    </div>
+    <div class="col-sm-6">
+      <label for="obs">Observação do usuário:</label> {{form.obs}}
+    </div>
+  </div>
+  <div class="btn-group ">
+  <button class="btn btn-primary form-control" type="submit" name="submit" id="submit">Enviar</button>
+  <button class="btn btn-danger form-control cancel_dialog" type="button">Cancelar</button>
+  </div>
 </form>

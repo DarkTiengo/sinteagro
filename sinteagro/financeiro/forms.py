@@ -20,6 +20,8 @@ class ExtratoForm(ModelForm):
             'obs': Textarea(attrs={
                 'class': 'form-control',
                 'maxlength': 30,
+                'rows': 2,
+                'cols': 6,
             }),
             'valor': TextInput({
                 'class': 'form-control',
@@ -30,8 +32,8 @@ class ExtratoForm(ModelForm):
                 'class': 'form-control',
                 'type': 'date',
             }),
-            'history': Textarea(attrs={
+            'history': TextInput(attrs={
                'class': 'form-control',
-                'maxlength': 30
+                'maxlength': 30,
             }),
         }
