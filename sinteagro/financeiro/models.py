@@ -26,7 +26,7 @@ class Extrato(models.Model):
     operacao = models.IntegerField()
     date = models.DateField(default=datetime.datetime.now)
     history = models.CharField(max_length=30)
-    obs = models.CharField(max_length=30)
+    obs = models.CharField(max_length=30,blank=True)
     valor = models.FloatField(max_length=10)
 
     class Meta:

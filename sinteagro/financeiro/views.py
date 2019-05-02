@@ -10,8 +10,9 @@ from .models import Conta, banco_choices,Extrato
 def extrato(request):
     """Show Informations of Account's Bank"""
     now = datetime.datetime.now()
+    year = (range(2010,now.year+1,+1))
     meses = {1:"Janeiro",2:"Fevereiro",3:"Março",4:"Abril",5:"Maio",6:"Junho",7:"Julho",8:"Agosto",9:"Setembro",10:"Outubro",11:"Novembro",12:"Dezembro"}
-    contexto = {'month': meses,'now': now.month,'info': get_bancos_user(request)}
+    contexto = {'month': meses,'now': now.month,'info': get_bancos_user(request),'year': year,'now_year': now.year}
     return contexto
 
 @login_required
@@ -80,8 +81,27 @@ def get_extrato(request):
 
 @login_required
 def lancamento(request):
-    form = ExtratoForm()
     if request.is_ajax:
+        form = ExtratoForm()
         return render(request,"financeiro/lancamento.html",{'form': form})
+    if request.method == "POST":
+        form = ExtratoForm(request.POST)
+        conta = request.POST.get('conta')
+        ex = Extrato.objects.filter(conta=conta)
+        op = ex.count() + 1
+        form.operacao = op
+        if form.is_valid:
+            form.save()
+            contexto = {
+                "type": "alert-success",
+                "message": "Extrato registrado com sucesso!"
+            }
+            return JsonResponse(contexto)
+        else:
+            contexto = {
+                "type": "alert-danger",
+                "message": "Ocorreu um problema, por favor tente novamente."
+            }
+            return JsonResponse(contexto)
 
 

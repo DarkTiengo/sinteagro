@@ -145,7 +145,7 @@
                 <select class="select-date" name="month" id="month">
                   {% for s,m in month.items %}
                   {% if s == now %}
-                  <option value="{{s}}"selected>{{m}}</option>
+                  <option value="{{s}}" selected>{{m}}</option>
                   {% else %}
                   <option value="{{s}}">{{m}}</option>
                   {% endif %}
@@ -154,7 +154,11 @@
               <li class="nav-item">
                 <select class="select-date" name="year" id="year">
                   {% for y in year %}
+                  {% if y == now_year %}
+                  <option value="{{y}}" selected>{{y}}</option>
+                  {% else %}
                   <option value="{{y}}">{{y}}</option>
+                  {% endif %}
                   {% endfor %}
                 </select>
               </li>
@@ -194,6 +198,6 @@
     </div>
   </div>
 
-  </div>
+</div>
 
 {% endblock content %}

@@ -1,6 +1,19 @@
-<form action="{% url 'lancamento' %}" method="post">
+<script>
+$(document).ready(function(){
+
+  $("#form-extrato").submit(function(e){
+    e.preventDefault();
+    alert("teste");
+    set_message("Teste","alert-success");
+    $("#dialog").dialog("close");
+  });
+
+})
+</script>
+<form action="{% url 'lancamento' %}" method="post" id="form-extrato">
   {% csrf_token %}
   {{form.id}}
+  {{form.operacao}}
   <div class="form-row">
     <div class="col-sm-6">
       <label for="date">Data:</label> {{form.date}}
@@ -18,7 +31,7 @@
     </div>
   </div>
   <div class="btn-group ">
-  <button class="btn btn-primary form-control" type="submit" name="submit" id="submit">Enviar</button>
+  <button class="btn btn-primary form-control" type="submit" name="submit_extrato" id="submit_extrato">Enviar</button>
   <button class="btn btn-danger form-control cancel_dialog" type="button">Cancelar</button>
   </div>
 </form>
