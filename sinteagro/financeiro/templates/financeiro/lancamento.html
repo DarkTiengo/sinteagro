@@ -3,11 +3,25 @@ $(document).ready(function(){
 
   $("#form-extrato").submit(function(e){
     e.preventDefault();
-    alert("teste");
-    set_message("Teste","alert-success");
-    $("#dialog").dialog("close");
+    $.ajax({
+      url: {% url 'lancamento' %},
+      data: $("#form-extrato").val(),
+      dataType: 'json',
+      method: 'POST',
+    }).done(function(data){
+      set_message(data.message,data.type);
+      console.log(data);
+      $("#dialog").dialog("close");
+    }).fail(function(jqXHR,text,error){
+      console.log("fail " + text + ": " + error);
+    })
   });
 
+  $("#valor").mask("#.##0,00",{reverse: true});
+
+  $(".cancel_dialog").click(function(){
+    $("#dialog").dialog("close");
+  });
 })
 </script>
 <form action="{% url 'lancamento' %}" method="post" id="form-extrato">

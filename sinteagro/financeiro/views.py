@@ -5,6 +5,14 @@ import datetime
 
 from .forms import ContaForm, ExtratoForm
 from .models import Conta, banco_choices,Extrato
+from .classes import *
+
+@login_required
+def set_extrato(request):
+    file = request.GET.get("file")
+    extrato_reader = Extrato_Reader()
+    result = extrato_reader.open_file()
+    return JsonResponse(result)
 
 @login_required
 def extrato(request):
@@ -85,23 +93,7 @@ def lancamento(request):
         form = ExtratoForm()
         return render(request,"financeiro/lancamento.html",{'form': form})
     if request.method == "POST":
-        form = ExtratoForm(request.POST)
-        conta = request.POST.get('conta')
-        ex = Extrato.objects.filter(conta=conta)
-        op = ex.count() + 1
-        form.operacao = op
-        if form.is_valid:
-            form.save()
-            contexto = {
-                "type": "alert-success",
-                "message": "Extrato registrado com sucesso!"
-            }
-            return JsonResponse(contexto)
-        else:
-            contexto = {
-                "type": "alert-danger",
-                "message": "Ocorreu um problema, por favor tente novamente."
-            }
-            return JsonResponse(contexto)
+        contexto = {"teste": "ok"}
+        return JsonResponse(contexto)
 
 

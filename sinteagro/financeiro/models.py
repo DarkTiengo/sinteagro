@@ -5,6 +5,7 @@ from account.models import User
 
 banco_choices =  (
     ("001","Banco do Brasil"),
+    ("641","Sicredi"),
     ("999", "Outros Bancos")
 )
 
