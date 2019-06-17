@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 import datetime
 
 from .forms import ContaForm, ExtratoForm
@@ -9,10 +9,10 @@ from .classes import *
 
 @login_required
 def set_extrato(request):
-    file = request.GET.get("file")
-    extrato_reader = Extrato_Reader()
-    result = extrato_reader.open_file()
-    return JsonResponse(result)
+    if request.method == "POST":
+        pass
+    else:
+        return render(request,"financeiro/autofile.html")
 
 @login_required
 def extrato(request):

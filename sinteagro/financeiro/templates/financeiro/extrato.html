@@ -59,6 +59,18 @@ $(document).ready(function(){
        });
      });
    });
+
+   //Abre os arquivos e envia para o servidor
+   $("#add-auto").click(function(){
+       $.ajax({
+           url: {% url 'set_extrato' %}
+       }).done(function(data){
+           $("#dialog").empty().append(data).dialog({
+               minWidth: 750,
+               minHeight: 400
+           })
+       })
+   })
 });
 </script>
 <div id="extrato">
@@ -73,7 +85,7 @@ $(document).ready(function(){
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="">
           <a href="#" class="dropdown-item" id="add-manual"><i class="fa fa-plus"></i> Adicionar Operação manualmente</a>
-          <a href="#" class="dropdown-item" id="add-auto"><i class="fas fa-search-plus"></i> Adicionar Operação automaticamente. (ofx)</a>
+          <a href="#" class="dropdown-item" id="add-auto"><i class="fas fa-search-plus"></i>Adicionar Operação automaticamente. (ofx)</a>
         </ul>
       </div>
     </div>

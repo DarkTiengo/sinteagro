@@ -7,9 +7,8 @@ import xlrd
 class Extrato_Reader:
 
     lines = {}
-    caminho = ""
 
-    def open_ofx(self,caminho):
+    def open_ofx(self,file):
         data = {"Conta": "",
                 "Agencia": "",
                 "Banco": "",
@@ -17,7 +16,7 @@ class Extrato_Reader:
                 "Extrato": {}
         }
         id, content, date, type = [],[],[],[]
-        with open(caminho) as fileobj:
+        with open(file) as fileobj:
             ofx = OfxParser.parse(fileobj)
             conta = ofx.account
             data["Conta"] = conta.account_id
@@ -68,8 +67,8 @@ class Extrato_Reader:
                 extrato.append(row)
         return extrato
 
-    def open_file(self):
-        if ".ofx" in self.caminho:
-            self.open_ofx(self.caminho)
+    def open_file(self,caminho,file):
+        if ".ofx" in caminho:
+            self.open_ofx(file)
         else:
             raise FileExistsError

@@ -29,11 +29,19 @@
       .empty()
       .append("<div class='alert alert-dismissible fade show " + type +
       "' role='alert'><p class='text-center'>"+ message +
-      "</p><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>")
-      .fadeIn("slow");
-    }
+      "</p><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>").show().animate({
+          top: "10%"
+      });
+      }
 
     $(document).ready(function() {
+        
+      $("#div_info").click(function(){
+         $(this).animate({
+             top: "-15%"
+         }); 
+      });
+        
       $("#config").on("click", function() {
         $.ajax({
           url: "{% url 'configuracoes' %}"
@@ -74,6 +82,7 @@
 </head>
 
 <body>
+    <div id="div_info" role="alert">Teste de janela</div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <a class="navbar-brand" href="{% url 'index' %}">SINTEAGRO</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -120,8 +129,6 @@
     </div>
   </nav>
   <main role="main" style="padding-top: 54px">
-    <div id="div_info" role="alert">
-    </div>
     {% block content %}{% endblock %}
     {% block extra %}{% endblock %}
   </main>

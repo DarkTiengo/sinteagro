@@ -1,0 +1,33 @@
+
+<script>
+$(document).ready(function(){
+    $("#File1").change(function(e){
+        var file = this.files[0];
+        var compatiblefiles = ".ofx";
+        if(file.name.match(compatiblefiles)){
+            $("#check_file").removeClass().addClass("fas fa-check");
+        } else{
+            $("#check_file").removeClass().addClass("fas fa-ban");
+        }
+    })
+    
+    $(".file-btn").click(function(){
+        $("#File1").click();
+    })
+    
+    });
+</script>
+
+<form action="{% url 'set_extrato' %}" method="post" enctype="multipart/form-data">
+<div class="form-group row">
+       <label for="File1" class="col-sm-6 col-form-label">Selecione o arquivo para envio:</label>
+       <div class="col-sm-6">
+          <div class="file-container">
+              <input type="file" class="form-control-file" id="File1">
+          </div>
+          <i id="check_file"></i>
+       </div>
+   </div>
+   
+
+   </form>
