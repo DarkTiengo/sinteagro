@@ -41,9 +41,10 @@ def extrato(request):
     """Show Informations of Account's Bank"""
     now = datetime.datetime.now()
     year = (range(2010,now.year+1,+1))
-    contas = get_bancos_user(request)
+    bancos = get_bancos_user(request)
+    contas = class_accounts(request, bancos[0])
     meses = {1:"Janeiro",2:"Fevereiro",3:"Março",4:"Abril",5:"Maio",6:"Junho",7:"Julho",8:"Agosto",9:"Setembro",10:"Outubro",11:"Novembro",12:"Dezembro"}
-    contexto = {'month': meses,'now': now.month,'info': contas,'year': year,'now_year': now.year,'cc_number': len(contas)}
+    contexto = {'month': meses,'now': now.month,'info': bancos,'year': year,'now_year': now.year,'cc_number': len(contas),'accounts': contas}
     return contexto
 
 @login_required
@@ -76,7 +77,8 @@ def get_bancos_user(request):
 
 @login_required
 def get_accounts(request):
-        data = class_accounts(request)
+        banco = request.GET.get('banco')
+        data = class_accounts(request,banco)
         result = {"agencia": [],"conta": []}
         for ag, cc in data:
             result["agencia"].append(ag)

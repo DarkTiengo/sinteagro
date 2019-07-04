@@ -19,9 +19,8 @@ def class_extrato(request):
         except:
             raise ValueError("Problemas de autenticacao de conta")
 
-def class_accounts(request):
+def class_accounts(request,banco):
     if request.is_ajax:
-        banco = request.GET.get('banco')
         ccs = Conta.objects.filter(banco=banco,user=request.user).values_list("agencia","conta")
         return ccs
 

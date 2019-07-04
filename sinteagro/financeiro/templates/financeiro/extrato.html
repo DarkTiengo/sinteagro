@@ -33,9 +33,6 @@ function get_accounts(){
 }
 
 $(document).ready(function(){
-    if($("#banco").val().length >= 1){
-        $("#banco").select($(this).index(1));
-    }
     
   $(".ex-tab a").click(function(e){
     e.preventDefault();
@@ -98,7 +95,6 @@ $(document).ready(function(){
     </div>
     <div class="col-md-5">
       <label for="banco">Banco:</label>  <select class="extrato-select" name="banco" id="banco">
-        <option value="000">Selecione abaixo</option>
         {% if info is not None %}
         {% for b in info %}
           <option value="{{b}}">{{b}}</option>
@@ -110,7 +106,13 @@ $(document).ready(function(){
     </div>
     <div class="col-md-5">
       <label for="conta">Agencia/Conta: </label><select class="extrato-select" name="conta" id="conta">
-        <option value="000">Selecione o Banco</option>
+       {% if accounts is not None %}
+       {% for ag, cc in accounts %}
+           <option value="{{cc}}">Ag: {{ag}} / CC: {{cc}}</option>
+        {% endfor %}
+       {% else %}
+        <option value="000">Cadastre uma conta primeiro</option>
+        {% endif %}
       </select>
     </div>
   </div>
