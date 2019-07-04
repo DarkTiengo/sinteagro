@@ -1,74 +1,78 @@
-import datetime
-
 from ofxparse import OfxParser
-from openpyxl import load_workbook
-import xlrd
+
+from .models import Conta,Extrato
+
+def class_extrato(request):
+    if request.is_ajax:
+        conta = request.GET.get('conta')
+        month = request.GET.get('mes')
+        try:
+            cc = Conta.objects.get(id=conta,user=request.user)
+            try:
+                ex = Extrato.objects.filter(id=conta, date__month=month).values()
+                result = list()
+                for e in ex:
+                    result.append(e)
+                return result
+            except:
+                pass
+        except:
+            raise ValueError("Problemas de autenticacao de conta")
+
+def class_accounts(request):
+    if request.is_ajax:
+        banco = request.GET.get('banco')
+        ccs = Conta.objects.filter(banco=banco,user=request.user).values_list("agencia","conta")
+        return ccs
+
+def class_user_bank(request):
+    cc = Conta.objects.filter(user=request.user).values_list("banco",flat=True).distinct()
+    return cc
 
 class Extrato_Reader:
+    conta, agencia, banco, balanco, relatorio, extrato, user = "", "", "", "",{},{},{}
 
-    lines = {}
-
-    def open_ofx(self,file):
-        data = {"Conta": "",
-                "Agencia": "",
-                "Banco": "",
-                "Relatorio": {},
-                "Extrato": {}
-        }
-        id, content, date, type = [],[],[],[]
-        with open(file) as fileobj:
+    def __init__(self,file,user):
+        self.user = user
+        id, content, date, type, amount = [], [], [], [], []
+        try:
+            datas = file.read()
+            fileobj = open(user.email + ".ofx", "wb")
+            fileobj.write(datas)
+            fileobj.close()
+            fileobj = open(user.email + ".ofx", "rb")
             ofx = OfxParser.parse(fileobj)
             conta = ofx.account
-            data["Conta"] = conta.account_id
-            data["Agencia"] = conta.branch_id
-            data["Banco"] = conta.institution.organization
+            self.conta = conta.account_id
+            self.agencia = conta.branch_id
+            self.banco = conta.institution.organization
             relatorio = conta.statement
-            data["Relatorio"].update(inicio = relatorio.start_date, fim = relatorio.end_date),
+            self.balanco = relatorio.balance
+            self.relatorio.update(inicio=relatorio.start_date, fim=relatorio.end_date),
             for extrato in relatorio.transactions:
                 id.append(extrato.id)
+                amount.append(extrato.amount)
                 content.append(extrato.memo)
                 date.append(extrato.date)
                 type.append(extrato.type)
-            data["Extrato"].update(id = id,content = content, date = date, type = type)
-            return data
+            self.extrato.update(operacao=id, history=content, date=date, type=type, valor=amount)
+            fileobj.close()
+        except:
+            return False
 
-    def open_xlsx(self,caminho):
-        ws = load_workbook(caminho)
-        wb = ws['Relatorio']
-        self.common_file = False
-        for line in wb:
-            self.lines.append(line)
-        return True
+    def account_exist(self):
+        try:
+            conta = Conta.objects.get(conta=self.conta, agencia=self.agencia, user=self.user)
+            return True
+        except:
+            return False
 
-    def open_xls(self,caminho):
-        planilha = xlrd.open_workbook(caminho)
-        aba = planilha.sheet_by_index(0)
-        type = []
-        values = []
-        extrato = []
-        for r in range(aba.nrows):
-            type.append(aba.row_types(r))
-            values.append(aba.row_values(r))
-        for value in values:
-            if type[values.index(value)].count(1) == 0: continue
-            try:
-                date = datetime.datetime.strptime(value[0],"%d/%m/%Y")
-                extrato.append(value)
-            except:
-                pass
-        return extrato
 
-    def open_csv(self,caminho):
-        extrato = []
-        with open(caminho) as file:
-            for row in file.readlines():
-                if "Data" in row: continue
-                if "S A L D O" in row: continue
-                extrato.append(row)
-        return extrato
-
-    def open_file(self,caminho,file):
-        if ".ofx" in caminho:
-            self.open_ofx(file)
+    def account_auto_create(self):
+        if self.account_exist():
+            dados = {"message": "Conta já criada","type": "alert-error"}
         else:
-            raise FileExistsError
+            conta = Conta.objects.create(user=self.user,conta=self.conta,agencia=self.agencia,banco=self.banco)
+            conta.save()
+            dados = {"message": "Conta criada com sucesso.","type": "alert-success","banco": self.banco}
+        return dados

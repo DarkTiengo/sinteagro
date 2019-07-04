@@ -149,11 +149,13 @@ body {
 
 }
 
-
+input[type="file"]{
+    display: none;
+}
 
 .file-container {
     margin: 3em auto;
-    max-width: 300px;
+    width: 85%;
     background-color: #EDEDED;
     border: 1px solid #DFDFDF;
     border-radius: 5px;

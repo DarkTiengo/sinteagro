@@ -65,14 +65,24 @@
           });
         });
       });
-
-      $(".new_account").click(function(){
+        
+    $(".new_auto_account").click(function(){
         $.ajax({
-          url: "{% url 'conta' %}"
+          url: "{% url 'set_auto_conta' %}"
         }).done(function(data){
           $("#dialog").empty().append(data).dialog({
             minWidth: 650,
-            minHeight: 400
+            minHeight: 400,
+            buttons: {
+                   "Enviar": {
+                        text: "Enviar Arquivo",
+                        id: "send",
+                        click: function(){}
+                   },
+                   "Cancelar": function(){
+                       $(this).dialog("close");
+                   }
+               }
           });
         });
       });
@@ -82,7 +92,7 @@
 </head>
 
 <body>
-    <div id="div_info" role="alert">Teste de janela</div>
+    <div id="div_info" role="alert"></div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <a class="navbar-brand" href="{% url 'index' %}">SINTEAGRO</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,8 +113,8 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-money-bill"></i> Contas Bancárias</a>
           <div class="dropdown-menu" aria-labelledby="accountDropdown">
-            <a class="dropdown-item new_account" href="#"><i class="far fa-plus-square"></i> Cadastrar Nova Conta</a>
-            {% for id,b in info.Bank.items %}
+            <a class="dropdown-item new_auto_account" href="#"><i class="far fa-plus-square"></i> Cadastrar Conta Automaticamente (ofx)</a>
+            {% for b in info %}
               <a class="dropdown-item" href="#"><i class="fas fa-money-check-alt"></i> {{b}}</a>
             {% endfor %}
           </div>
