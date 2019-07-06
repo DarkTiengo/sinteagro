@@ -26,14 +26,14 @@ function get_accounts(){
         'banco': $("#banco").val()
     },
   }).done(function(data){
-    var contas = data.contas;
-    for(var i = 0; i <= contas.length - 1;i++){
-      $("#conta").append("<option value='" + contas[i].id + "'> " + contas[i].agencia + "/" + contas[i].conta + "</option>");
+    for(var i = 0; i <= data.conta.length - 1;i++){
+      $("#conta").append("<option value='" + data.conta[i] + "'> Ag:" + data.agencia[i] + " / Cc:" + data.conta[i] + "</option>");
     }
   });
 }
 
 $(document).ready(function(){
+    
   $(".ex-tab a").click(function(e){
     e.preventDefault();
     $(this).tab("show");
@@ -51,14 +51,31 @@ $(document).ready(function(){
       }
     });
 
-   $("#add-manual").click(function(event) {
-     $.ajax({url: {% url 'lancamento' %}}).done(function(data){
-       $("#dialog").empty().append(data).dialog({
-         minWidth: 650,
-         minHeight: 400
-       });
-     });
-   });
+   //Abre os arquivos e envia para o servidor
+   $("#add-auto").click(function(){
+       if($(".extrato-select").val() == "000"){
+           set_message("Selecione a Banco e a Conta primeiramente, se ainda não possuir registre ambas primeiro","alert-danger");
+       } else {
+        $.ajax({
+           url: {% url 'set_extrato' %}
+       }).done(function(data){
+           $("#dialog").empty().append(data).dialog({
+               minWidth: 750,
+               minHeight: 400,
+               buttons: {
+                   "Enviar": {
+                        text: "Enviar Arquivo",
+                        id: "send",
+                        click: function(){}
+                   },
+                   "Cancelar": function(){
+                       $(this).dialog("close");
+                   }
+               }
+           })
+       })   
+       }
+   })
 });
 </script>
 <div id="extrato">
@@ -72,17 +89,15 @@ $(document).ready(function(){
           Opções
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="">
-          <a href="#" class="dropdown-item" id="add-manual"><i class="fa fa-plus"></i> Adicionar Operação manualmente</a>
-          <a href="#" class="dropdown-item"><i class="fas fa-search-plus"></i> Adicionar Operação via planilha</a>
+          <a href="#" class="dropdown-item" id="add-auto"><i class="fas fa-search-plus"></i>Adicionar Operação automaticamente. (ofx)</a>
         </ul>
       </div>
     </div>
     <div class="col-md-5">
       <label for="banco">Banco:</label>  <select class="extrato-select" name="banco" id="banco">
-        <option value="000">Selecione abaixo</option>
         {% if info is not None %}
-        {% for id,b in info.Bank.items %}
-          <option value="{{id}}">{{b}}</option>
+        {% for b in info %}
+          <option value="{{b}}">{{b}}</option>
         {% endfor %}
         {% else %}
         <option value="000">Cadastre uma conta primeiro</option>
@@ -91,7 +106,13 @@ $(document).ready(function(){
     </div>
     <div class="col-md-5">
       <label for="conta">Agencia/Conta: </label><select class="extrato-select" name="conta" id="conta">
-        <option value="000">Selecione o Banco</option>
+       {% if accounts is not None %}
+       {% for ag, cc in accounts %}
+           <option value="{{cc}}">Ag: {{ag}} / CC: {{cc}}</option>
+        {% endfor %}
+       {% else %}
+        <option value="000">Cadastre uma conta primeiro</option>
+        {% endif %}
       </select>
     </div>
   </div>
@@ -104,7 +125,7 @@ $(document).ready(function(){
     {% endif %}
     {% endfor %}
   </ul>
-  <table class="table table-hover">
+  <table class="table table-hover" id="extrato">
     <thead>
       <tr>
         <th scope="col">Operação</th>
@@ -117,7 +138,7 @@ $(document).ready(function(){
     <tbody id="extrato-content">
     </tbody>
   </table>
-  {% if info.Bank.items is None %}
+  {% if info is None %}
   <div id="extrato-info">Você ainda não possui uma conta cadastrada. Clique <a href="#" class="new_account">aqui</a> para iniciar</div>
   {% else %}
   <div id="extrato-info"></div>

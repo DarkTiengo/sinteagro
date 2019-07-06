@@ -3,15 +3,48 @@ from django.shortcuts import render
 from django.http import JsonResponse
 import datetime
 
-from .forms import ContaForm, ExtratoForm
-from .models import Conta, banco_choices,Extrato
+from .forms import ContaForm, ExtratoForm,AutoExtratoForm
+from .classes import *
+
+@login_required
+def set_extrato(request):
+    if request.method == "POST":
+        form = AutoExtratoForm(request.FILES)
+        if form.is_valid:
+            ex = Extrato_Reader(request.FILES["file"],request.user)
+            data = {
+                "agencia": ex.agencia,
+                "conta": ex.conta,
+                "banco": ex.banco,
+                "balanco": ex.balanco,
+                "relatorio": ex.relatorio,
+                "extrato": ex.extrato,
+            }
+            return JsonResponse(data,safe=False)
+    else:
+        return render(request,"financeiro/autofile.html",context={"view_set": "set_extrato"})
+
+@login_required
+def set_auto_conta(request):
+    if request.method == "POST":
+        form = AutoExtratoForm(request.FILES)
+        if form.is_valid:
+            ex = Extrato_Reader(request.FILES["file"],request.user)
+            if ex is not False:
+                return JsonResponse(ex.account_auto_create())
+        return JsonResponse({"type": "alert-error", "message": "Problemas ao criar a conta, cheque o arquivo e tente novamente."})
+    else:
+        return render(request, "financeiro/autofile.html",context={"view_set": "set_auto_conta"})
 
 @login_required
 def extrato(request):
     """Show Informations of Account's Bank"""
     now = datetime.datetime.now()
+    year = (range(2010,now.year+1,+1))
+    bancos = get_bancos_user(request)
+    contas = class_accounts(request, bancos[0])
     meses = {1:"Janeiro",2:"Fevereiro",3:"Março",4:"Abril",5:"Maio",6:"Junho",7:"Julho",8:"Agosto",9:"Setembro",10:"Outubro",11:"Novembro",12:"Dezembro"}
-    contexto = {'month': meses,'now': now.month,'info': get_bancos_user(request)}
+    contexto = {'month': meses,'now': now.month,'info': bancos,'year': year,'now_year': now.year,'cc_number': len(contas),'accounts': contas}
     return contexto
 
 @login_required
@@ -40,48 +73,29 @@ def conta(request):
 
 @login_required
 def get_bancos_user(request):
-    cc = list(Conta.objects.filter(user=request.user).values_list("banco"))
-    bancos = dict(banco_choices)
-    user_banco = {'Bank': dict()}
-    for c in cc:
-        for id,b in bancos.items():
-            if c[0] == id:
-                user_banco['Bank']
-                user_banco['Bank'][id] = b
-    return user_banco
+    return class_user_bank(request=request)
 
 @login_required
 def get_accounts(request):
-    if request.is_ajax:
         banco = request.GET.get('banco')
-        ccs = Conta.objects.filter(banco=banco,user=request.user).values()
-        result = list()
-        for cc in ccs:
-            result.append(cc)
-        return JsonResponse({'contas': result})
+        data = class_accounts(request,banco)
+        result = {"agencia": [],"conta": []}
+        for ag, cc in data:
+            result["agencia"].append(ag)
+            result["conta"].append(cc)
+        return JsonResponse(result)
 
 @login_required
 def get_extrato(request):
-    if request.is_ajax:
-        conta = request.GET.get('conta')
-        month = request.GET.get('mes')
-        try:
-            cc = Conta.objects.get(id=conta,user=request.user)
-            try:
-                ex = Extrato.objects.filter(id=conta, date__month=month).values()
-                result = list()
-                for e in ex:
-                    result.append(e)
-                return JsonResponse({'extratos': result})
-            except:
-                pass
-        except:
-            raise ValueError("Problemas de autenticacao de conta")
+    return JsonResponse({'extratos': class_extrato(request)})
 
 @login_required
 def lancamento(request):
-    form = ExtratoForm()
     if request.is_ajax:
+        form = ExtratoForm()
         return render(request,"financeiro/lancamento.html",{'form': form})
+    if request.method == "POST":
+        contexto = {"teste": "ok"}
+        return JsonResponse(contexto)
 
 

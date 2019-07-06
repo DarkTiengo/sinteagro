@@ -1,0 +1,77 @@
+<script>
+    $(document).ready(function() {
+
+        var compatiblefiles = ".ofx";
+
+        $("#File1").change(function(e) {
+            var file = this.files[0];
+            if (file.name.match(compatiblefiles)) {
+                $("#check_file").removeClass().addClass("fas fa-check");
+                $(".file-info").empty().append(file.name);
+
+            } else {
+                $("#check_file").removeClass().addClass("fas fa-ban");
+            }
+        })
+
+        $(".file-btn").click(function() {
+            $("#File1").click();
+        })
+
+        $("#form-auto-extrato").submit(function(e) {
+            e.preventDefault();
+            var file = document.getElementById("File1").files[0];
+            var data = new FormData();
+            data.append("file",file);
+            data.append("csrfmiddlewaretoken",$("input[name='csrfmiddlewaretoken']").val());
+             if (file) {
+                if (file.name.match(compatiblefiles)) {
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        method: $(this).attr('method'),
+                        data: data,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        dataType: 'json',
+                    }).done(function(data,text){
+                        set_message(data.message,data.type)
+                        if(data.banco){
+                            $("#banco").append()
+                        }
+                    }).fail(function(jq,text,error){
+                       console.log(jq + " " + text + " " + error); 
+                    });
+                } else {
+                    set_message("Por favor selecione um arquivo válido (ofx).", "alert-danger");
+                }
+            } else {
+                set_message("Por favor selecione um arquivo para envio.", "alert-danger");
+            } 
+        });
+        
+        $("#send").click(function(){
+           $("#form-auto-extrato").submit(); 
+        });
+
+    });
+
+</script>
+
+<form action="{% url view_set %}" method="post" enctype="multipart/form-data" id="form-auto-extrato">
+    {% csrf_token %}
+    <div class="form-group row">
+       {% if view_set == 'set_extrato' %}
+        <label class="col-sm-12 col-form-label">Selecione o arquivo para envio:</label>
+        {% else %}
+        <label class="col-sm-12 col-form-label">Selecione um arquivo ofx de um extrato para criacao automatica da conta:</label>
+        {% endif %}
+        <div class="file-container">
+            <input type="file" class="form-control-file file-custom" id="File1">
+            <button type="button" class="file-btn">Enviar Arquivo</button>
+            <span class="file-info">....</span>
+            <i id="check_file"></i>
+        </div>
+    </div>
+
+</form>

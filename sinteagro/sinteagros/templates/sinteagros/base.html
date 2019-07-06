@@ -21,18 +21,27 @@
   <script src="{% static "js/locale/pt-br.js" %}"></script>
   <script src="{% static "js/autoresize.js" %}"></script>
   <script src="{% static "js/style.js" %}"></script>
+  <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
   <title>SINTEAGRO</title>
   <script type="text/javascript">
     function set_message(message,type){
       $("#div_info")
       .empty()
       .append("<div class='alert alert-dismissible fade show " + type +
-      "' role='alert'>"+ message +
-      "<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>")
-      .fadeIn("slow");
-    }
+      "' role='alert'><p class='text-center'>"+ message +
+      "</p><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>").show().animate({
+          top: "10%"
+      });
+      }
 
     $(document).ready(function() {
+        
+      $("#div_info").click(function(){
+         $(this).animate({
+             top: "-15%"
+         }); 
+      });
+        
       $("#config").on("click", function() {
         $.ajax({
           url: "{% url 'configuracoes' %}"
@@ -56,14 +65,24 @@
           });
         });
       });
-
-      $(".new_account").click(function(){
+        
+    $(".new_auto_account").click(function(){
         $.ajax({
-          url: "{% url 'conta' %}"
+          url: "{% url 'set_auto_conta' %}"
         }).done(function(data){
           $("#dialog").empty().append(data).dialog({
             minWidth: 650,
-            minHeight: 400
+            minHeight: 400,
+            buttons: {
+                   "Enviar": {
+                        text: "Enviar Arquivo",
+                        id: "send",
+                        click: function(){}
+                   },
+                   "Cancelar": function(){
+                       $(this).dialog("close");
+                   }
+               }
           });
         });
       });
@@ -73,6 +92,7 @@
 </head>
 
 <body>
+    <div id="div_info" role="alert"></div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <a class="navbar-brand" href="{% url 'index' %}">SINTEAGRO</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +113,10 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-money-bill"></i> Contas Bancárias</a>
           <div class="dropdown-menu" aria-labelledby="accountDropdown">
-            <a class="dropdown-item new_account" href="#"> Cadastrar Nova Conta</a>
+            <a class="dropdown-item new_auto_account" href="#"><i class="far fa-plus-square"></i> Cadastrar Conta Automaticamente (ofx)</a>
+            {% for b in info %}
+              <a class="dropdown-item" href="#"><i class="fas fa-money-check-alt"></i> {{b}}</a>
+            {% endfor %}
           </div>
         </li>
       </ul>
@@ -115,8 +138,6 @@
     <div name="dialog" id="dialog" role="dialog" style="display: none">
     </div>
   </nav>
-  <div id="div_info" role="alert">
-  </div>
   <main role="main" style="padding-top: 54px">
     {% block content %}{% endblock %}
     {% block extra %}{% endblock %}
