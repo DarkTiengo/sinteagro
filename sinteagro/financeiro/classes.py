@@ -1,6 +1,6 @@
 from ofxparse import OfxParser
 
-from .models import Conta,Extrato
+from .models import Conta,Extrato,Saldo_Inicial
 
 def class_extrato(request):
     if request.is_ajax:
@@ -28,12 +28,30 @@ def class_user_bank(request):
     cc = Conta.objects.filter(user=request.user).values_list("banco",flat=True).distinct()
     return cc
 
+def saldo(request, ano = None, mes = None):
+    if request.method == "POST":
+        conta = Conta.objects.get(user=request.user,conta=request.POST['conta'])
+        valor = request.POST['saldo']
+        try:
+            saldo_inicial = Saldo_Inicial.objects.get(user=request.user,ano=ano,mes=mes,conta=conta,saldo=valor)
+            saldo_inicial.saldo = request.POST['saldo']
+        except:
+            saldo_inicial = Saldo_Inicial(user=request.user,ano=ano,mes=mes,saldo=valor,conta=conta)
+        saldo_inicial.save()
+    else:
+        try:
+            saldo_inicial = Saldo_Inicial.objects.get(ano=ano,mes=mes)
+        except:
+            saldo_inicial = None
+    return saldo_inicial
+
+
 class Extrato_Reader:
     conta, agencia, banco, balanco, relatorio, extrato, user = "", "", "", "",{},{},{}
 
     def __init__(self,file,user):
         self.user = user
-        id, content, date, type, amount = [], [], [], [], []
+        operacao, history, date, type, valor, documento = [], [], [], [], [], []
         try:
             datas = file.read()
             fileobj = open(user.email + ".ofx", "wb")
@@ -49,15 +67,19 @@ class Extrato_Reader:
             self.balanco = relatorio.balance
             self.relatorio.update(inicio=relatorio.start_date, fim=relatorio.end_date),
             for extrato in relatorio.transactions:
-                id.append(extrato.id)
-                amount.append(extrato.amount)
-                content.append(extrato.memo)
+                operacao.append(extrato.id)
+                valor.append(extrato.amount)
+                history.append(extrato.memo)
                 date.append(extrato.date)
                 type.append(extrato.type)
-            self.extrato.update(operacao=id, history=content, date=date, type=type, valor=amount)
+                documento.append(extrato.checknum)
+            self.extrato.update(operacao=operacao, history=history, date=date, type=type, valor=valor, documento = documento)
             fileobj.close()
         except:
             return False
+
+    def save_extrato(self):
+        pass
 
     def account_exist(self):
         try:

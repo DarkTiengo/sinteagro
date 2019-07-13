@@ -19,6 +19,8 @@ def set_extrato(request):
                 "balanco": ex.balanco,
                 "relatorio": ex.relatorio,
                 "extrato": ex.extrato,
+                "message": "Extrato cadastrado com sucesso!",
+                "type": "alert-success",
             }
             return JsonResponse(data,safe=False)
     else:
@@ -43,8 +45,9 @@ def extrato(request):
     year = (range(2010,now.year+1,+1))
     bancos = get_bancos_user(request)
     contas = class_accounts(request, bancos[0])
+    saldo_extrato = saldo(request,mes=now.month,ano=now.year)
     meses = {1:"Janeiro",2:"Fevereiro",3:"Março",4:"Abril",5:"Maio",6:"Junho",7:"Julho",8:"Agosto",9:"Setembro",10:"Outubro",11:"Novembro",12:"Dezembro"}
-    contexto = {'month': meses,'now': now.month,'info': bancos,'year': year,'now_year': now.year,'cc_number': len(contas),'accounts': contas}
+    contexto = {'month': meses,'now': now.month,'info': bancos,'year': year,'now_year': now.year,'cc_number': len(contas),'accounts': contas,'saldo': saldo_extrato}
     return contexto
 
 @login_required
@@ -97,5 +100,11 @@ def lancamento(request):
     if request.method == "POST":
         contexto = {"teste": "ok"}
         return JsonResponse(contexto)
+
+@login_required
+def set_saldo(request):
+    if request.method == "POST":
+        resposta = {'ano': request.POST['ano'], 'mes': request.POST['mes']}
+        return JsonResponse(resposta)
 
 

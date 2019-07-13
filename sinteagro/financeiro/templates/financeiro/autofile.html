@@ -35,10 +35,8 @@
                         contentType: false,
                         dataType: 'json',
                     }).done(function(data,text){
-                        set_message(data.message,data.type)
-                        if(data.banco){
-                            $("#banco").append()
-                        }
+                        set_message(data.message,data.type);
+                        console.log(data);
                     }).fail(function(jq,text,error){
                        console.log(jq + " " + text + " " + error); 
                     });

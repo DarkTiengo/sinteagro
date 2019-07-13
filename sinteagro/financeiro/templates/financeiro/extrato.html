@@ -33,6 +33,11 @@ function get_accounts(){
 }
 
 $(document).ready(function(){
+    $("#add_saldo").click(function(){
+       $(this).fadeOut("slow",function(){
+        $("#campos_saldo").show();
+       });
+    });
     
   $(".ex-tab a").click(function(e){
     e.preventDefault();
@@ -76,8 +81,19 @@ $(document).ready(function(){
        })   
        }
    })
+ 
+ $("#check_saldo").click(function(){
+     $.ajax({
+         url: {% url 'set_saldo' %},
+         method: 'POST',
+         data: $("#formsaldo").serialize(),
+     }).done(function(data){
+         console.log(data);
+     })
+ });
 });
 </script>
+<form id="formsaldo">
 <div id="extrato">
   <div role="textbox" class="text-center">
     <p class="h3">Extrato de Conta Bancária</p>
@@ -93,7 +109,7 @@ $(document).ready(function(){
         </ul>
       </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-3">
       <label for="banco">Banco:</label>  <select class="extrato-select" name="banco" id="banco">
         {% if info is not None %}
         {% for b in info %}
@@ -104,24 +120,29 @@ $(document).ready(function(){
         {% endif %}
       </select>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-4">
       <label for="conta">Agencia/Conta: </label><select class="extrato-select" name="conta" id="conta">
        {% if accounts is not None %}
        {% for ag, cc in accounts %}
-           <option value="{{cc}}">Ag: {{ag}} / CC: {{cc}}</option>
+           <option value="{{cc}}">{{ag}} / {{cc}}</option>
         {% endfor %}
        {% else %}
         <option value="000">Cadastre uma conta primeiro</option>
         {% endif %}
       </select>
     </div>
+    <div class="col-md-3">
+        <label for="ano_extrato">Ano: </label><select class="extrato-select" name="ano_extrato" id="ano_extrato">
+            <option value="2019">2019</option>
+        </select>
+    </div>
   </div>
-  <ul class="nav nav-tabs" id="meses">
+  <ul class="nav nav-tabs" id="meses" name="meses">
     {% for i,m in month.items %}
     {% if i == now %}
-    <li class="nav-item ex-tab"><a href="#" class="nav-link active">{{m}}</a></li>
+    <li class="nav-item ex-tab"><a href="#" class="nav-link active" month="{{i}}">{{m}}</a></li>
     {% else %}
-    <li class="nav-item ex-tab"><a href="#" class="nav-link">{{m}}</a></li>
+    <li class="nav-item ex-tab"><a href="#" class="nav-link" month="{{i}}">{{m}}</a></li>
     {% endif %}
     {% endfor %}
   </ul>
@@ -136,6 +157,25 @@ $(document).ready(function(){
       </tr>
     </thead>
     <tbody id="extrato-content">
+    <tr id="saldo_inicial_tr">
+        <th scope="row">SALDO INICIAL:</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th scope="row">
+        {% if saldo is None %}
+        <div id="campos_saldo" style="display: none">
+        <input id="saldo_inicial" type="number" class="form-control" style="width: 100px" id="saldo" name="saldo">
+        <input type="hidden" id="mes_extrato" name="mes_extrato" value="{{now}}">
+        <button id="check_saldo" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Adicionar Saldo"><i class="fas fa-check"></i></button>
+        <button id="close_saldo" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Fechar"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="botoes_saldo"><button id="add_saldo" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Adicionar Saldo"><i class="fas fa-plus"></i> Criar Saldo Inicial</button></div>
+        {% else %}
+        <div id="campos_saldo">{{saldo}}</div>
+        {% endif %}
+        </th>
+    </tr>
     </tbody>
   </table>
   {% if info is None %}
@@ -145,5 +185,5 @@ $(document).ready(function(){
   {% endif %}
 
 </div>
-
+</form>
 {% endblock %}

@@ -35,13 +35,13 @@
       }
 
     $(document).ready(function() {
-        
-      $("#div_info").click(function(){
-         $(this).animate({
-             top: "-15%"
-         }); 
-      });
-        
+
+        $("#div_info").click(function(){
+            $(this).animate({
+            top: "-15%"
+            });
+        });
+
       $("#config").on("click", function() {
         $.ajax({
           url: "{% url 'configuracoes' %}"
