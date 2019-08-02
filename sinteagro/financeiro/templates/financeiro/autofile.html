@@ -1,6 +1,5 @@
 <script>
     $(document).ready(function() {
-
         var compatiblefiles = ".ofx";
 
         $("#File1").change(function(e) {
@@ -24,6 +23,7 @@
             var data = new FormData();
             data.append("file",file);
             data.append("csrfmiddlewaretoken",$("input[name='csrfmiddlewaretoken']").val());
+            data.append("conta",$("#conta").val());
              if (file) {
                 if (file.name.match(compatiblefiles)) {
                     $.ajax({

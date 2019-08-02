@@ -11,20 +11,21 @@ def set_extrato(request):
     if request.method == "POST":
         form = AutoExtratoForm(request.FILES)
         if form.is_valid:
-            ex = Extrato_Reader(request.FILES["file"],request.user)
-            data = {
-                "agencia": ex.agencia,
-                "conta": ex.conta,
-                "banco": ex.banco,
-                "balanco": ex.balanco,
-                "relatorio": ex.relatorio,
-                "extrato": ex.extrato,
-                "message": "Extrato cadastrado com sucesso!",
-                "type": "alert-success",
-            }
-            return JsonResponse(data,safe=False)
+            account = request.POST.get("conta")
+            ex = Extrato_Reader(request.FILES["file"],request.user,account)
+            if ex.is_valid():
+                ex.save_extrato()
+                data = {"message": "Extrato cadastrado com sucesso!", "type": "alert-success"}
+            else:
+                data = {"message": "Erro!", "type": "alert-danger"}
+            return JsonResponse(data)
     else:
         return render(request,"financeiro/autofile.html",context={"view_set": "set_extrato"})
+
+@login_required
+def get_extrato(request):
+    resultado = class_extrato(request)
+    return JsonResponse(resultado)
 
 @login_required
 def set_auto_conta(request):
@@ -45,7 +46,7 @@ def extrato(request):
     year = (range(2010,now.year+1,+1))
     bancos = get_bancos_user(request)
     contas = class_accounts(request, bancos[0])
-    saldo_extrato = saldo(request,mes=now.month,ano=now.year)
+    saldo_extrato = str(get_saldo(request,mes=now.month,ano=now.year)).replace('.',',')
     meses = {1:"Janeiro",2:"Fevereiro",3:"Março",4:"Abril",5:"Maio",6:"Junho",7:"Julho",8:"Agosto",9:"Setembro",10:"Outubro",11:"Novembro",12:"Dezembro"}
     contexto = {'month': meses,'now': now.month,'info': bancos,'year': year,'now_year': now.year,'cc_number': len(contas),'accounts': contas,'saldo': saldo_extrato}
     return contexto
@@ -89,10 +90,6 @@ def get_accounts(request):
         return JsonResponse(result)
 
 @login_required
-def get_extrato(request):
-    return JsonResponse({'extratos': class_extrato(request)})
-
-@login_required
 def lancamento(request):
     if request.is_ajax:
         form = ExtratoForm()
@@ -102,9 +99,12 @@ def lancamento(request):
         return JsonResponse(contexto)
 
 @login_required
-def set_saldo(request):
+def saldo(request):
     if request.method == "POST":
-        resposta = {'ano': request.POST['ano'], 'mes': request.POST['mes']}
-        return JsonResponse(resposta)
+        return JsonResponse({'data': set_saldo(request)})
+    else:
+        ano = request.GET['ano']
+        mes = request.GET['mes']
+        return JsonResponse({'data': get_saldo(request,ano,mes)})
 
 

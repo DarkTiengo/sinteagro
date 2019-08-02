@@ -1,189 +1,226 @@
 {% block extra %}
 <script>
-
-function get_extrato(){
-  $.ajax({
-    url: {% url 'extrato' %},
-    dataType: 'json',
-    data: {
-      'conta': $("#conta").val(),
-      'mes': $("#meses li:active").html()
-    }
-  }).done(function(data){
-    console.log(data);
-    if(data.extratos.length == 0){
-      $("#extrato-info").empty().append('Você ainda não possui nenhum registro cadastrado. Clique <a href="#">aqui</a> para iniciar');
-    }
-  });
-}
-
-function get_accounts(){
-  $("#conta").empty().append("<option value='#'>Selecione Abaixo</option>");
-  $.ajax({
-    url: {% url 'contas' %},
-    dataType: 'json',
-    data:{
-        'banco': $("#banco").val()
-    },
-  }).done(function(data){
-    for(var i = 0; i <= data.conta.length - 1;i++){
-      $("#conta").append("<option value='" + data.conta[i] + "'> Ag:" + data.agencia[i] + " / Cc:" + data.conta[i] + "</option>");
-    }
-  });
-}
-
-$(document).ready(function(){
-    $("#add_saldo").click(function(){
-       $(this).fadeOut("slow",function(){
-        $("#campos_saldo").show();
-       });
-    });
-    
-  $(".ex-tab a").click(function(e){
-    e.preventDefault();
-    $(this).tab("show");
-});
-
-    $("#banco").change(function(){
-      if($(this).val() != "000"){
-        get_accounts();
-      }
-    });
-
-    $("#conta").change(function(){
-      if($(this).val() != "000"){
-        get_extrato();
-      }
-    });
-
-   //Abre os arquivos e envia para o servidor
-   $("#add-auto").click(function(){
-       if($(".extrato-select").val() == "000"){
-           set_message("Selecione a Banco e a Conta primeiramente, se ainda não possuir registre ambas primeiro","alert-danger");
-       } else {
+    function get_extrato() {
         $.ajax({
-           url: {% url 'set_extrato' %}
-       }).done(function(data){
-           $("#dialog").empty().append(data).dialog({
-               minWidth: 750,
-               minHeight: 400,
-               buttons: {
-                   "Enviar": {
-                        text: "Enviar Arquivo",
-                        id: "send",
-                        click: function(){}
-                   },
-                   "Cancelar": function(){
-                       $(this).dialog("close");
-                   }
-               }
-           })
-       })   
-       }
-   })
- 
- $("#check_saldo").click(function(){
-     $.ajax({
-         url: {% url 'set_saldo' %},
-         method: 'POST',
-         data: $("#formsaldo").serialize(),
-     }).done(function(data){
-         console.log(data);
-     })
- });
-});
+            url: {% url 'extrato' %},
+            dataType: 'json',
+            data: {
+                'conta': $("#conta").val(),
+                'mes': $("#meses li:active").html()
+            }
+        }).done(function(data) {
+            console.log(data);
+            if (data.extratos.length == 0) {
+                $("#extrato-info").empty().append('Você ainda não possui nenhum registro cadastrado. Clique <a href="#">aqui</a> para iniciar');
+            }
+        });
+    }
+
+    function get_accounts() {
+        $("#conta").empty().append("<option value='#'>Selecione Abaixo</option>");
+        $.ajax({
+            url: {% url 'contas' %},
+            dataType: 'json',
+            data: {
+                'banco': $("#banco").val()
+            },
+        }).done(function(data) {
+            for (var i = 0; i <= data.conta.length - 1; i++) {
+                $("#conta").append("<option value='" + data.conta[i] + "'> Ag:" + data.agencia[i] + " / Cc:" + data.conta[i] + "</option>");
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $("#saldo").maskMoney('mask');
+        // Alterar extratos pelos meses e informacoes dos mesmos   
+        $(".ex-tab a").on('click', function(e) {
+            e.preventDefault();
+            $("#meses").find('li a.active').removeClass("active");
+            $(this).addClass('active');
+            $("#mes").val($(this).attr("month"));
+            $.ajax({
+                url: {% url 'saldo' %},
+                data: {
+                    'ano': $("#ano").val(),
+                    'mes': $(this).attr("month")
+                }
+            }).done(function(data) {
+                if (data.data == null) {
+                    $("#saldo").val('').attr('placeholder', 'Adicione o saldo');
+                } else {
+                    $("#saldo").val(data.data).maskMoney('mask');
+                }
+            });
+            $.ajax({
+                url: {% url 'extrato' %},
+                data: {
+                    'conta': $("#conta").val(),
+                    'mes': $(this).attr("month")
+                }
+            }).done(function(data){
+               console.log(data); 
+            });
+        });
+
+        //Alterar dados do Saldo do Mes
+        $("#saldo").focusin(function(){
+            $("#saldo_botoes").fadeIn("slow");
+            $("#aux").val($(this).val());
+        }).focusout(function(){
+            $("#saldo_botoes").fadeOut("slow");
+        })
+        
+        $("#abort_saldo").click(function(){
+            $("#saldo").val($("#aux").val());
+            $("#saldo_botoes").fadeOut("slow");
+        })
+        
+        $("#check_saldo").click(function() {
+            $("#saldo").val($("#saldo").maskMoney('unmasked')[0]);
+            $.ajax({
+                url: {% url 'saldo' %},
+                method: 'POST',
+                data: $("#formsaldo").serialize(),
+            }).done(function(data) {
+                $("#saldo").maskMoney('mask',$("#saldo").val());
+            })
+        });
+
+        // Alterar informacoes de banco e conta    
+        $("#banco").change(function() {
+            if ($(this).val() != "000") {
+                get_accounts();
+            }
+        });
+
+        $("#conta").change(function() {
+            if ($(this).val() != "000") {
+                get_extrato();
+            }
+        });
+
+        // Abre os arquivos e envia para o servidor
+        $("#add-auto").click(function() {
+            if ($(".extrato-select").val() == "000") {
+                set_message("Selecione a Banco e a Conta primeiramente, se ainda não possuir registre ambas primeiro", "alert-danger");
+            } else {
+                $.ajax({
+                    url: {% url 'set_extrato' %}
+                }).done(function(data) {
+                    $("#dialog").empty().append(data).dialog({
+                        minWidth: 750,
+                        minHeight: 400,
+                        buttons: {
+                            "Enviar": {
+                                text: "Enviar Arquivo",
+                                id: "send",
+                                click: function() {}
+                            },
+                            "Cancelar": function() {
+                                $(this).dialog("close");
+                            }
+                        }
+                    })
+                })
+            }
+        })
+    });
+
 </script>
 <form id="formsaldo">
-<div id="extrato">
-  <div role="textbox" class="text-center">
-    <p class="h3">Extrato de Conta Bancária</p>
-  </div>
-  <div class="row">
-    <div class="col-md-2" role="button">
-      <div class="dropdown">
-        <button class="btn dropdown-toggle btn-secondary" type="button" id="btn-add-extrato" data-toggle="dropdown">
-          Opções
-        </button>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="">
-          <a href="#" class="dropdown-item" id="add-auto"><i class="fas fa-search-plus"></i>Adicionar Operação automaticamente. (ofx)</a>
-        </ul>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <label for="banco">Banco:</label>  <select class="extrato-select" name="banco" id="banco">
-        {% if info is not None %}
-        {% for b in info %}
-          <option value="{{b}}">{{b}}</option>
-        {% endfor %}
-        {% else %}
-        <option value="000">Cadastre uma conta primeiro</option>
-        {% endif %}
-      </select>
-    </div>
-    <div class="col-md-4">
-      <label for="conta">Agencia/Conta: </label><select class="extrato-select" name="conta" id="conta">
-       {% if accounts is not None %}
-       {% for ag, cc in accounts %}
-           <option value="{{cc}}">{{ag}} / {{cc}}</option>
-        {% endfor %}
-       {% else %}
-        <option value="000">Cadastre uma conta primeiro</option>
-        {% endif %}
-      </select>
-    </div>
-    <div class="col-md-3">
-        <label for="ano_extrato">Ano: </label><select class="extrato-select" name="ano_extrato" id="ano_extrato">
-            <option value="2019">2019</option>
-        </select>
-    </div>
-  </div>
-  <ul class="nav nav-tabs" id="meses" name="meses">
-    {% for i,m in month.items %}
-    {% if i == now %}
-    <li class="nav-item ex-tab"><a href="#" class="nav-link active" month="{{i}}">{{m}}</a></li>
-    {% else %}
-    <li class="nav-item ex-tab"><a href="#" class="nav-link" month="{{i}}">{{m}}</a></li>
-    {% endif %}
-    {% endfor %}
-  </ul>
-  <table class="table table-hover" id="extrato">
-    <thead>
-      <tr>
-        <th scope="col">Operação</th>
-        <th scope="col">Dia</th>
-        <th scope="col">Histórico</th>
-        <th scope="col">Observação</th>
-        <th scope="col">Valor</th>
-      </tr>
-    </thead>
-    <tbody id="extrato-content">
-    <tr id="saldo_inicial_tr">
-        <th scope="row">SALDO INICIAL:</th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th scope="row">
-        {% if saldo is None %}
-        <div id="campos_saldo" style="display: none">
-        <input id="saldo_inicial" type="number" class="form-control" style="width: 100px" id="saldo" name="saldo">
-        <input type="hidden" id="mes_extrato" name="mes_extrato" value="{{now}}">
-        <button id="check_saldo" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Adicionar Saldo"><i class="fas fa-check"></i></button>
-        <button id="close_saldo" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Fechar"><i class="fas fa-times"></i></button>
+   {% csrf_token %}
+    <div id="extrato">
+        <div role="textbox" class="text-center">
+            <p class="h3">Extrato de Conta Bancária</p>
         </div>
-        <div id="botoes_saldo"><button id="add_saldo" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Adicionar Saldo"><i class="fas fa-plus"></i> Criar Saldo Inicial</button></div>
+        <div class="row">
+            <div class="col-md-2" role="button">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle btn-secondary" type="button" id="btn-add-extrato" data-toggle="dropdown">
+                        Adicionar Extrato
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="">
+                        <a href="#" class="dropdown-item" id="add-auto"><i class="fas fa-search-plus"></i>Adicionar Operação automaticamente. (ofx)</a>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="banco">Banco:</label> <select class="extrato-select" name="banco" id="banco">
+                    {% if info is not None %}
+                    {% for b in info %}
+                    <option value="{{b}}">{{b}}</option>
+                    {% endfor %}
+                    {% else %}
+                    <option value="000">Cadastre uma conta primeiro</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="conta">Agencia/Conta: </label><select class="extrato-select" name="conta" id="conta">
+                    {% if accounts is not None %}
+                    {% for ag, cc in accounts %}
+                    <option value="{{cc}}">{{ag}} / {{cc}}</option>
+                    {% endfor %}
+                    {% else %}
+                    <option value="000">Cadastre uma conta primeiro</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="ano_extrato">Ano: </label><select class="extrato-select" name="ano" id="ano">
+                    <option value="2019">2019</option>
+                </select>
+            </div>
+        </div>
+        <ul class="nav nav-tabs" id="meses" name="meses" role="tablist">
+            {% for i,m in month.items %}
+            {% if i == now %}
+            <li class="nav-item ex-tab"><a href="#" class="nav-link active" month="{{i}}" role="tab">{{m}}</a></li>
+            <input type="hidden" id="mes" name="mes" value="{{i}}">
+            {% else %}
+            <li class="nav-item ex-tab"><a href="#" class="nav-link" month="{{i}}" role="tab">{{m}}</a></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <table class="table table-hover" id="extrato">
+            <thead>
+                <tr>
+                    <th scope="col">Operação</th>
+                    <th scope="col">Dia</th>
+                    <th scope="col">Histórico</th>
+                    <th scope="col">Observação</th>
+                    <th scope="col">Valor</th>
+                </tr>
+            </thead>
+            <tbody id="extrato-content">
+                <tr id="saldo_inicial_tr">
+                    <th scope="row">SALDO INICIAL:</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th scope="row">
+                        <div id="campos_saldo">
+                            <input class="dinheiro" id="saldo" name="saldo" value="{{saldo}}">
+                            <input type="hidden" id="aux" value="">
+                            <div id="saldo_botoes" style="display: none" class="btn-group"> 
+                            <button type="button" class="btn btn-success" id="check_saldo" data-toggle="tooltip" data-placement="top" title="Adicionar Saldo"><i class="fa fa-check"></i></button> 
+                            <button type="button" class="btn btn-danger" id="abort_saldo" data-toggle="tooltip" data-placement="top" title="Cancelar"><i class="fa fa-times-circle"></i></button>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                <tr id="saldo_final_tr">
+                    <th scope="row">SALDO FINAL:</th>
+                </tr>
+            </tbody>
+        </table>
+        {% if info is None %}
+        <div id="extrato-info">Você ainda não possui uma conta cadastrada. Clique <a href="#" class="new_account">aqui</a> para iniciar</div>
         {% else %}
-        <div id="campos_saldo">{{saldo}}</div>
+        <div id="extrato-info"></div>
         {% endif %}
-        </th>
-    </tr>
-    </tbody>
-  </table>
-  {% if info is None %}
-  <div id="extrato-info">Você ainda não possui uma conta cadastrada. Clique <a href="#" class="new_account">aqui</a> para iniciar</div>
-  {% else %}
-  <div id="extrato-info"></div>
-  {% endif %}
 
-</div>
+    </div>
 </form>
 {% endblock %}

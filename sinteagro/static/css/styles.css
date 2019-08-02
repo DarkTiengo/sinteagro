@@ -175,6 +175,19 @@ input[type="file"]{
   background: #4ec0b4;
 }
 
+.saldo_positivo {
+    background: transparent;
+    border: none;
+    padding-right: 1px;
+    max-width: 200px;
+    -webkit-appearance: none;
+    /* Remove estilo padrão do Chrome */
+    -moz-appearance: none;
+    /* Remove estilo padrão do FireFox */
+    appearance: none;
+    resize: none;
+}
+
 @media (max-width: 300px) {
   button {
     width: 100%;

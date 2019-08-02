@@ -41,8 +41,5 @@ class Saldo_Inicial(models.Model):
     saldo = models.FloatField()
 
     class Meta:
-        verbose_name_plural = "Extratos Bancários"
-        verbose_name = "Extrato Bancário"
-
-    def __str__(self):
-        return self.mes + "/" + self.ano + " = " + self.saldo
+        verbose_name_plural = "Saldos dos Meses"
+        verbose_name = "Saldo do Mes"

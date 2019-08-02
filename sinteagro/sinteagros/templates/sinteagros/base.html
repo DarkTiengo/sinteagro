@@ -21,9 +21,11 @@
   <script src="{% static "js/locale/pt-br.js" %}"></script>
   <script src="{% static "js/autoresize.js" %}"></script>
   <script src="{% static "js/style.js" %}"></script>
+  <script src="{% static "js/money.js" %}"></script>
   <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
   <title>SINTEAGRO</title>
-  <script type="text/javascript">
+  <script type="text/javascript"> 
+    
     function set_message(message,type){
       $("#div_info")
       .empty()
@@ -35,7 +37,7 @@
       }
 
     $(document).ready(function() {
-
+        $(".dinheiro").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
         $("#div_info").click(function(){
             $(this).animate({
             top: "-15%"
