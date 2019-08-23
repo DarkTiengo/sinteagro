@@ -1,0 +1,65 @@
+<script>
+    $("#add_pagar").on("click", function() {
+        alert("ok");
+    });
+
+</script>
+
+<div>
+    <div class="widget-sinteagro">
+        <div class=" row d-flex justify-content-center">
+            <h2>Lançamento de contas a pagar</h2>
+        </div>
+        <div class="row">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Data</th>
+                        <th scope="col">A Receber</th>
+                        <th scope="col">Observacao</th>
+                        <th scope="col">Tipo de Doc</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Data Vencimento</th>
+                        <th scope="col">Data Pagamento</th>
+                        <th scope="col">Situação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Sem dados informados.</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <nav aria-label="Paginação de contas a pagar">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Próximo</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-6">
+                <div class="form-row">
+                        <label for="date_inicio" class="col-sm-1">Entre:</label>
+                        <div class="col-sm-4">
+                            <input type="date" class="form-control" id="date_inicio">
+                        </div>
+                        <label for="date_fim" class="col-sm-1">até:</label>
+                        <div class="col-sm-4">
+                            <input type="date" class="form-control" id="date_fim"> 
+                        </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-row">
+                    <input type="search" class="form-control" placeholder="Procurar..." autocomplete="off" role="combobox">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row widget-sinteagro"><button type="button" class="btn btn-primary" href="#" id="add_pagar" role="button"><i class="fas fa-comment-dollar"></i> Lançar Conta</button></div>
+
+</div>

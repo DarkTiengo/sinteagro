@@ -1,0 +1,19 @@
+<form id="form-data-extrato" action="{% url 'data_extrato' %}">
+    <div class="form-row">
+        <div class="col-md-4">
+            <label for="date">Data:</label><input class="form-control" id="date" type="date" disabled value="">
+        </div>
+        <div class="col-md-4">
+            <label for="operacao">Operacao:</label><input class="form-control" id="operacao" type="number" disabled value="">
+        </div>
+        <div class="col-md-4">
+            <label for="valor">Valor:</label><input class="form-control" id="valor" type="text" disabled value="">
+        </div>
+    </div>
+    <div class="form-row">
+        <label for="history">Histórico:</label><input class="form-control" id="history" type="text" disabled value="">
+    </div>
+    <div class="form-row">
+        <label for="obs">Observação:</label><input class="form-control" id="obs" type="text" value="">
+    </div>
+</form>

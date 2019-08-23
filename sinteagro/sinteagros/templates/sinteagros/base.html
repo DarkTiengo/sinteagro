@@ -6,26 +6,30 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <link rel="stylesheet" href="{% static "css/fullcalendar.css" %}">
   <link rel="stylesheet" href="{% static "css/styles.css" %}">
-  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css" />
   <script src="{% static "js/jquery.min.js" %}"></script>
   <script src="{% static "js/popper.min.js" %}"></script>
   <script src="{% static "js/lib/moment.min.js" %}"></script>
-  <script src="{% static "js/lib/jquery-ui.min.js" %}"></script>
+  <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
   <script src="{% static "js/fullcalendar.js" %}"></script>
   <script src="{% static "js/locale/pt-br.js" %}"></script>
-  <script src="{% static "js/autoresize.js" %}"></script>
   <script src="{% static "js/style.js" %}"></script>
   <script src="{% static "js/money.js" %}"></script>
   <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
   <title>SINTEAGRO</title>
   <script type="text/javascript"> 
-    
+    function change_page(view = ""){
+        $("#block_content").fadeOut("slow",function(){
+           $.ajax({
+               url: view
+           }).done(function(data){
+              $("#block_content").empty().append(data).fadeIn("slow"); 
+           });
+        });
+    } 
+      
     function set_message(message,type){
       $("#div_info")
       .empty()
@@ -72,20 +76,7 @@
         $.ajax({
           url: "{% url 'set_auto_conta' %}"
         }).done(function(data){
-          $("#dialog").empty().append(data).dialog({
-            minWidth: 650,
-            minHeight: 400,
-            buttons: {
-                   "Enviar": {
-                        text: "Enviar Arquivo",
-                        id: "send",
-                        click: function(){}
-                   },
-                   "Cancelar": function(){
-                       $(this).dialog("close");
-                   }
-               }
-          });
+          get_modal("Criar Conta automaticamente",data);
         });
       });
 
@@ -110,6 +101,12 @@
           <a class="nav-link dropdown-toggle" href="#" id="workerDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i> Funcionários</a>
           <div class="dropdown-menu" aria-labelledby="workerDropdown">
             <a class="dropdown-item" href="#" id="new_worker"><i class="fa fa-user-plus"></i> Cadastrar Novo Funcionário</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="payDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-comments-dollar"></i>Pagar e Receber</a>
+          <div class="dropdown-menu" aria-labelledby="payDropdown">
+            <a class="dropdown-item" onclick="change_page('pggeral')"><i class="fas fa-money-bill-wave"></i> Contas a Pagar</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -141,9 +138,30 @@
     </div>
   </nav>
   <main role="main" style="padding-top: 54px">
-    {% block content %}{% endblock %}
-    {% block extra %}{% endblock %}
+   <div id="block_content">{% block content %}{% endblock %}</div>
+    <div id="block_extra">{% block extra %}{% endblock %}</div>
   </main>
+
+<!-- Modal -->
+<div class="modal fade" id="sinteagroModal" tabindex="-1" role="dialog" aria-labelledby="sinteagroModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Salvar Alterações</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 
 </html>

@@ -2,13 +2,18 @@ from ofxparse import OfxParser
 
 from .models import Conta,Extrato,Saldo_Inicial
 
-def class_extrato(request):
-    if request.is_ajax:
-        conta = request.GET.get('conta')
-        month = request.GET.get('mes')
-        cc = Conta.objects.get(conta=conta,user=request.user)
-        ex = Extrato.objects.filter(conta=cc).values()
-        return ex
+def get_first_cc(user):
+    cc = Conta.objects.filter(user=user)
+    return cc[0]
+
+def class_extrato(mes,ano,user,conta):
+    cc = Conta.objects.get(conta=conta,user=user)
+    ex = Extrato.objects.filter(conta=cc,date__month=mes,date__year=ano).values()
+    return list(ex)
+
+def get_data_extrato(operacao):
+    extrato = Extrato.objects.get(operacao=operacao)
+    return extrato
 
 def class_accounts(request,banco):
     if request.is_ajax:

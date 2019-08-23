@@ -27,11 +27,9 @@ $.ajaxSetup({
 });
 
 //WIDGETS
-
-$(".dialog").dialog({
-  modal: true,
-  resizable: true,
-  buttons: {
     
-  }
-});
+function get_modal(title = "",content){
+    $(".modal-title").empty().append(title);
+    $(".modal-body").empty().append(content);
+    $("#sinteagroModal").modal();
+}

@@ -1,19 +1,59 @@
 {% block extra %}
 <script>
-    function get_extrato() {
+    
+    function get_data_extrato(operacao){
         $.ajax({
-            url: {% url 'extrato' %},
-            dataType: 'json',
-            data: {
-                'conta': $("#conta").val(),
-                'mes': $("#meses li:active").html()
-            }
-        }).done(function(data) {
-            console.log(data);
-            if (data.extratos.length == 0) {
-                $("#extrato-info").empty().append('Você ainda não possui nenhum registro cadastrado. Clique <a href="#">aqui</a> para iniciar');
-            }
-        });
+            url: {% url 'data_extrato' %},
+            data: operacao
+        }).done(function(data){
+            get_modal("Dados do Extrato",data)
+        })
+    }
+    
+    function get_extrato(mes = {{now}}) {
+        $.ajax({
+                url: {% url 'saldo' %},
+                data: {
+                    'ano': $("#ano").val(),
+                    'mes': mes
+                }
+            }).done(function(data) {
+                if (data.data == null) {
+                    $("#saldo").val('').attr('placeholder', 'Adicione o saldo');
+                } else {
+                    $("#saldo").val(data.data).maskMoney('mask');
+                }
+            });
+            $.ajax({
+                url: {% url 'extrato' %},
+                data: {
+                    'conta': $("#conta").val(),
+                    'mes': mes,
+                    'ano': $("#ano").val()
+                }
+            }).done(function(data){
+                $("#total_extrato").empty();
+               if(data.length > 0){
+                   $("#extrato-content").empty();
+                   var total = parseFloat($("#saldo").maskMoney('unmasked')[0]);
+                   if(total == NaN){
+                       total = 0;
+                   }
+                   for(i = 0; i < data.length;i++){
+                       total += data[i].valor;
+                       $("#extrato-content").append("<tr id='tb_" + i + "' class='table-row' onclick='get_data_extrato(" + data[i].operacao.toString() + ")'></tr>");
+                       $("#tb_" + i)
+                        .append("<th class='operacao'>" + data[i].operacao.toString() + "</th>")
+                        .append("<th class='date'>" + moment(data[i].date).format('DD/MM/YYYY') + "</th>")
+                        .append("<th class='history'>" + data[i].history + "</th>")
+                        .append("<th class='obs'>" + data[i].obs + "</th>")
+                        .append("<th class='valor'>" + data[i].valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) + "</th>");
+                   }
+                   $("#total_extrato").append(total.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}));
+               } else{
+                   $("#extrato-content").empty().append("<tr><th>Sem cadastro realizado.</th></tr>")
+               }
+            });
     }
 
     function get_accounts() {
@@ -33,34 +73,14 @@
 
     $(document).ready(function() {
         $("#saldo").maskMoney('mask');
+        get_extrato();
         // Alterar extratos pelos meses e informacoes dos mesmos   
         $(".ex-tab a").on('click', function(e) {
             e.preventDefault();
             $("#meses").find('li a.active').removeClass("active");
             $(this).addClass('active');
             $("#mes").val($(this).attr("month"));
-            $.ajax({
-                url: {% url 'saldo' %},
-                data: {
-                    'ano': $("#ano").val(),
-                    'mes': $(this).attr("month")
-                }
-            }).done(function(data) {
-                if (data.data == null) {
-                    $("#saldo").val('').attr('placeholder', 'Adicione o saldo');
-                } else {
-                    $("#saldo").val(data.data).maskMoney('mask');
-                }
-            });
-            $.ajax({
-                url: {% url 'extrato' %},
-                data: {
-                    'conta': $("#conta").val(),
-                    'mes': $(this).attr("month")
-                }
-            }).done(function(data){
-               console.log(data); 
-            });
+            get_extrato($("#mes").val());
         });
 
         //Alterar dados do Saldo do Mes
@@ -84,7 +104,8 @@
                 data: $("#formsaldo").serialize(),
             }).done(function(data) {
                 $("#saldo").maskMoney('mask',$("#saldo").val());
-            })
+            });
+            location.reload();
         });
 
         // Alterar informacoes de banco e conta    
@@ -108,23 +129,10 @@
                 $.ajax({
                     url: {% url 'set_extrato' %}
                 }).done(function(data) {
-                    $("#dialog").empty().append(data).dialog({
-                        minWidth: 750,
-                        minHeight: 400,
-                        buttons: {
-                            "Enviar": {
-                                text: "Enviar Arquivo",
-                                id: "send",
-                                click: function() {}
-                            },
-                            "Cancelar": function() {
-                                $(this).dialog("close");
-                            }
-                        }
-                    })
+                    get_modal("Adicionar Extrato",data)
                 })
             }
-        })
+        });
     });
 
 </script>
@@ -192,8 +200,6 @@
                     <th scope="col">Observação</th>
                     <th scope="col">Valor</th>
                 </tr>
-            </thead>
-            <tbody id="extrato-content">
                 <tr id="saldo_inicial_tr">
                     <th scope="row">SALDO INICIAL:</th>
                     <th></th>
@@ -201,19 +207,27 @@
                     <th></th>
                     <th scope="row">
                         <div id="campos_saldo">
-                            <input class="dinheiro" id="saldo" name="saldo" value="{{saldo}}">
+                            <input class="dinheiro form-control" id="saldo" name="saldo" value="{{saldo}}">
                             <input type="hidden" id="aux" value="">
                             <div id="saldo_botoes" style="display: none" class="btn-group"> 
-                            <button type="button" class="btn btn-success" id="check_saldo" data-toggle="tooltip" data-placement="top" title="Adicionar Saldo"><i class="fa fa-check"></i></button> 
-                            <button type="button" class="btn btn-danger" id="abort_saldo" data-toggle="tooltip" data-placement="top" title="Cancelar"><i class="fa fa-times-circle"></i></button>
+                                <button type="button" class="btn btn-success" id="check_saldo" data-toggle="tooltip" data-placement="top" title="Adicionar Saldo"><i class="fa fa-check"></i></button> 
+                                <button type="button" class="btn btn-danger" id="abort_saldo" data-toggle="tooltip" data-placement="top" title="Cancelar"><i class="fa fa-times-circle"></i></button>
                             </div>
                         </div>
                     </th>
                 </tr>
+            </thead>
+            <tbody id="extrato-content">
+            </tbody>
+            <tfoot>
                 <tr id="saldo_final_tr">
                     <th scope="row">SALDO FINAL:</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th id="total_extrato"></th>
                 </tr>
-            </tbody>
+            </tfoot>
         </table>
         {% if info is None %}
         <div id="extrato-info">Você ainda não possui uma conta cadastrada. Clique <a href="#" class="new_account">aqui</a> para iniciar</div>

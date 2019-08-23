@@ -5,7 +5,7 @@ OFXHEADER:100DATA:OFXSGMLVERSION:102SECURITY:NONEENCODING:USASCIICHARSET:12
             <CODE>0</CODE>
             <SEVERITY>INFO</SEVERITY>
          </STATUS>
-         <DTSERVER>20190603120000[-3:BRT]</DTSERVER>
+         <DTSERVER>20190807120000[-3:BRT]</DTSERVER>
          <LANGUAGE>POR</LANGUAGE>
          <FI>
             <ORG>Banco do Brasil</ORG>
@@ -29,75 +29,21 @@ OFXHEADER:100DATA:OFXSGMLVERSION:102SECURITY:NONEENCODING:USASCIICHARSET:12
                <ACCTTYPE>CHECKING</ACCTTYPE>
             </BANKACCTFROM>
             <BANKTRANLIST>
-               <DTSTART>20190228120000[-3:BRT]</DTSTART>
-               <DTEND>20190331120000[-3:BRT]</DTEND>
+               <DTSTART>20190724120000[-3:BRT]</DTSTART>
+               <DTEND>20190807120000[-3:BRT]</DTEND>
                <STMTTRN>
                   <TRNTYPE>OTHER</TRNTYPE>
-                  <DTPOSTED>20190306120000[-3:BRT]</DTPOSTED>
-                  <TRNAMT>-436318.44</TRNAMT>
-                  <FITID>201903061436318440</FITID>
-                  <CHECKNUM>000000004300</CHECKNUM>
-                  <REFNUM>4.300</REFNUM>
-                  <MEMO>Saque sem cartão</MEMO>
-               </STMTTRN>
-               <STMTTRN>
-                  <TRNTYPE>OTHER</TRNTYPE>
-                  <DTPOSTED>20190306120000[-3:BRT]</DTPOSTED>
-                  <TRNAMT>-50.29</TRNAMT>
-                  <FITID>20190306150290</FITID>
-                  <CHECKNUM>000004007052</CHECKNUM>
-                  <REFNUM>4.007.052</REFNUM>
-                  <MEMO>Empréstimo</MEMO>
-               </STMTTRN>
-               <STMTTRN>
-                  <TRNTYPE>OTHER</TRNTYPE>
-                  <DTPOSTED>20190307120000[-3:BRT]</DTPOSTED>
-                  <TRNAMT>-79.79</TRNAMT>
-                  <FITID>20190307179790</FITID>
-                  <CHECKNUM>661001455845</CHECKNUM>
-                  <REFNUM>890.661.001.455.845</REFNUM>
-                  <MEMO>Tarifa Pacote de Serviços - Tarifa referente a 07/03/2019</MEMO>
-               </STMTTRN>
-               <STMTTRN>
-                  <TRNTYPE>OTHER</TRNTYPE>
-                  <DTPOSTED>20190311120000[-3:BRT]</DTPOSTED>
-                  <TRNAMT>150.00</TRNAMT>
-                  <FITID>201903110150000</FITID>
-                  <CHECKNUM>043000007601</CHECKNUM>
-                  <REFNUM>520.043.000.007.601</REFNUM>
-                  <MEMO>Transferência recebida - 11/03 0043       7601-5 ALCIDES SEBAST</MEMO>
-               </STMTTRN>
-               <STMTTRN>
-                  <TRNTYPE>OTHER</TRNTYPE>
-                  <DTPOSTED>20190312120000[-3:BRT]</DTPOSTED>
-                  <TRNAMT>-46.06</TRNAMT>
-                  <FITID>20190312146060</FITID>
-                  <CHECKNUM>000004006969</CHECKNUM>
-                  <REFNUM>4.006.969</REFNUM>
-                  <MEMO>Empréstimo</MEMO>
-               </STMTTRN>
-               <STMTTRN>
-                  <TRNTYPE>OTHER</TRNTYPE>
-                  <DTPOSTED>20190320120000[-3:BRT]</DTPOSTED>
-                  <TRNAMT>50.00</TRNAMT>
-                  <FITID>20190320050000</FITID>
-                  <CHECKNUM>043000007601</CHECKNUM>
-                  <REFNUM>520.043.000.007.601</REFNUM>
-                  <MEMO>Transferência recebida - 20/03 0043       7601-5 ALCIDES SEBAST</MEMO>
-               </STMTTRN>
-               <STMTTRN>
-                  <TRNTYPE>OTHER</TRNTYPE>
-                  <DTPOSTED>20190329120000[-3:BRT]</DTPOSTED>
-                  <TRNAMT>-14.61</TRNAMT>
-                  <FITID>20190329114610</FITID>
-                  <CHECKNUM>000004006659</CHECKNUM>
-                  <REFNUM>4.006.659</REFNUM>
-                  <MEMO>Empréstimo</MEMO>
+                  <DTPOSTED>20190805120000[-3:BRT]</DTPOSTED>
+                  <TRNAMT>-20.21</TRNAMT>
+                  <FITID>20190805120210</FITID>
+                  <CHECKNUM>171000456911</CHECKNUM>
+                  <REFNUM>802.171.000.456.911</REFNUM>
+                  <MEMO>Tarifa Pacote de Serviços - Cobrança referente 05/08/2019</MEMO>
                </STMTTRN>
             </BANKTRANLIST>
             <LEDGERBAL>
-               <BALAMT>8909.25</BALAMT>
-               <DTASOF>20190331120000[-3:BRT]</DTASOF>
+               <BALAMT>0.00</BALAMT>
+               <DTASOF>20190807120000[-3:BRT]</DTASOF>
             </LEDGERBAL>
          </STMTRS>
       </STMTTRNRS>

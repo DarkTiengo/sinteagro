@@ -24,8 +24,16 @@ def set_extrato(request):
 
 @login_required
 def get_extrato(request):
-    resultado = class_extrato(request)
-    return JsonResponse(resultado)
+    mes = request.GET.get('mes')
+    ano = request.GET.get('ano')
+    conta = request.GET.get('conta')
+    if mes != None:
+        resultado = class_extrato(mes=mes,ano=ano,conta=conta,user=request.user)
+    else:
+        now = datetime.datetime.now()
+        cc = get_first_cc(request.user)
+        resultado = class_extrato(mes=now.month,ano=now.year,user=request.user,conta=cc)
+    return JsonResponse(resultado,safe=False)
 
 @login_required
 def set_auto_conta(request):
@@ -106,5 +114,15 @@ def saldo(request):
         ano = request.GET['ano']
         mes = request.GET['mes']
         return JsonResponse({'data': get_saldo(request,ano,mes)})
+
+@login_required
+def pagar_receber(request):
+    return render(request,"financeiro/pagarecebegeral.html")
+
+@login_required
+def data_extrato(request):
+    operacao = request.GET.get('operacao')
+    dados = get_data_extrato(operacao)
+    return render(request,"financeiro/data_extrato.html",{'dados': dados})
 
 
