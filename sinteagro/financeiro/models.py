@@ -30,9 +30,6 @@ class Extrato(models.Model):
         verbose_name = "Extrato Bancário"
         verbose_name_plural = "Extratos Bancários"
 
-    def __str__(self):
-        return self.date + " = " + self.valor
-
 class Saldo_Inicial(models.Model):
     conta = models.ForeignKey(Conta,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)

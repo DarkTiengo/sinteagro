@@ -1,0 +1,40 @@
+<script>
+$(document).ready(function(){
+   $("#valor").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:','});
+    $('#valor').maskMoney('mask');
+    
+    $("#save_modal").on('click',function(){
+       $.ajax({
+            url: $("#form-data-extrato").attr('action'),
+            method: "POST",
+            data: $("#form-data-extrato").serialize()
+        }).done(function(data){
+            $("#tb_" + $("#operacao").val()).children(".operacao").empty().append($("#obs").val());
+            $("#sinteagroModal").modal('hide');
+            set_message(data.message,data.type);
+        });
+    })
+});
+</script>
+   
+   <form id="form-data-extrato" action="{% url 'data_extrato' %}">
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="operacao">Operacao:</label><input class="form-control" id="operacao" name="operacao" type="number" readonly value="{{dados.operacao}}">
+        </div>
+        <div class="col-md-6">
+            <label for="date">Data:</label><input class="form-control" id="date" readonly value="{{dados.date|date}}">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="valor">Valor:</label><input class="form-control" readonly id="valor" name="valor" type="text" value="{{dados.valor}}">
+        </div>
+    </div>
+    <div class="form-row">
+        <label for="history">Histórico:</label><input class="form-control" id="history" type="text" name="history" readonly value="{{dados.history}}">
+    </div>
+    <div class="form-row">
+        <label for="obs">Observação:</label><input class="form-control" id="obs" name="obs" type="text" value="{{dados.obs}}">
+    </div>
+</form>

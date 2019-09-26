@@ -78,9 +78,8 @@
         }).done(function(data){
           get_modal("Criar Conta automaticamente",data);
         });
-      });
-
-    })
+      }); 
+    });
   </script>
 </head>
 
@@ -98,9 +97,10 @@
           <a class="nav-link" href="{% url 'index' %}"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="workerDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i> Funcionários</a>
-          <div class="dropdown-menu" aria-labelledby="workerDropdown">
-            <a class="dropdown-item" href="#" id="new_worker"><i class="fa fa-user-plus"></i> Cadastrar Novo Funcionário</a>
+          <a class="nav-link dropdown-toggle" href="#" id="peopleDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i> Pessoas</a>
+          <div class="dropdown-menu" aria-labelledby="peopleDropdown">
+            <a class="dropdown-item" href="#" id="new_worker" onclick="change_page('{% url "worker" %}')"><i class="fa fa-user-plus"></i> Funcionários</a>
+            <a class="dropdown-item" href="#" id="new_partner"><i class="far fa-handshake"></i> Parceiros</a>
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -157,7 +157,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Salvar Alterações</button>
+        <button type="button" id="save_modal" class="btn btn-primary">Salvar Alterações</button>
       </div>
     </div>
   </div>

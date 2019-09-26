@@ -32,4 +32,8 @@ function get_modal(title = "",content){
     $(".modal-title").empty().append(title);
     $(".modal-body").empty().append(content);
     $("#sinteagroModal").modal();
+};
+
+function close_modal(){
+    $("#sinteagroModal").modal('hide');
 }

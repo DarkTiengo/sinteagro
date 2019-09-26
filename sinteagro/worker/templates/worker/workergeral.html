@@ -1,0 +1,58 @@
+<script>
+$(document).ready(function(){
+   $("#add_pagar").on("click", function() {
+        $.ajax({
+            url: "{% url 'worker_sign' %}"
+        }).done(function(data){
+            get_modal("Cadastro de Funcionário",data); 
+        }); 
+    });
+ 
+});
+</script>
+
+<div>
+    <div class="widget-sinteagro">
+        <div class=" row d-flex justify-content-center">
+            <h2>Cadastro de Funcionários</h2>
+        </div>
+        <div class="row">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Sobrenome</th>
+                        <th scope="col">Data de Contratação</th>
+                        <th scope="col">Função</th>
+                        <th scope="col">Data limite de pagamento</th>
+                        <th scope="col">Situação</th>
+                        <th scope="col">Data de atualização</th>
+                    </tr>
+                </thead>
+                <tbody id="body_worker">
+                    <tr id="nobody_worker">
+                        <th>Sem dados informados.</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <nav aria-label="Paginação de funcionários">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Próximo</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-9">
+                <div class="form-row">
+                    <input id="procurar" type="search" class="form-control" placeholder="Digite o nome do funcionário" autocomplete="off" aria-label="Search">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row widget-sinteagro"><button type="button" class="btn btn-primary" href="#" id="add_pagar" role="button"><i class="fas fa-comment-dollar"></i> Adicionar Funcionário</button></div>
+
+</div>

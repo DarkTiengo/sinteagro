@@ -18,6 +18,7 @@ from django.urls import path, include
 
 from account.views import configuracoes,change_password
 from financeiro.views import *
+from worker.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,4 +38,7 @@ urlpatterns = [
     path('saldo/',saldo,name='saldo'),
     path('index/pggeral/',pagar_receber,name='pggeral'),
     path('data_extrato/',data_extrato,name='data_extrato'),
+    path('set_contas/',set_contas,name='set_contas'),
+    path('worker/',worker,name='worker'),
+    path('worker_sign/',worker_sign,name='worker_sign'),
 ]

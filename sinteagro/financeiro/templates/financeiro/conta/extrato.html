@@ -4,7 +4,7 @@
     function get_data_extrato(operacao){
         $.ajax({
             url: {% url 'data_extrato' %},
-            data: operacao
+            data: {'operacao' :operacao}
         }).done(function(data){
             get_modal("Dados do Extrato",data)
         })
@@ -41,8 +41,8 @@
                    }
                    for(i = 0; i < data.length;i++){
                        total += data[i].valor;
-                       $("#extrato-content").append("<tr id='tb_" + i + "' class='table-row' onclick='get_data_extrato(" + data[i].operacao.toString() + ")'></tr>");
-                       $("#tb_" + i)
+                       $("#extrato-content").append("<tr id='tb_" + data[i].operacao.toString() + "' class='table-row' onclick='get_data_extrato(" + data[i].operacao.toString() + ")'></tr>");
+                       $("#tb_" + data[i].operacao.toString())
                         .append("<th class='operacao'>" + data[i].operacao.toString() + "</th>")
                         .append("<th class='date'>" + moment(data[i].date).format('DD/MM/YYYY') + "</th>")
                         .append("<th class='history'>" + data[i].history + "</th>")

@@ -204,3 +204,7 @@ input[type="file"]{
 .table-row {
     cursor: pointer;
 }
+
+.search::after {
+    content: "my boy just like me";
+}

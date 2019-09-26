@@ -20,7 +20,7 @@ def set_extrato(request):
                 data = {"message": "Erro!", "type": "alert-danger"}
             return JsonResponse(data)
     else:
-        return render(request,"financeiro/autofile.html",context={"view_set": "set_extrato"})
+        return render(request,"financeiro/conta/autofile.html",context={"view_set": "set_extrato"})
 
 @login_required
 def get_extrato(request):
@@ -45,7 +45,7 @@ def set_auto_conta(request):
                 return JsonResponse(ex.account_auto_create())
         return JsonResponse({"type": "alert-error", "message": "Problemas ao criar a conta, cheque o arquivo e tente novamente."})
     else:
-        return render(request, "financeiro/autofile.html",context={"view_set": "set_auto_conta"})
+        return render(request, "financeiro/conta/autofile.html",context={"view_set": "set_auto_conta"})
 
 @login_required
 def extrato(request):
@@ -81,7 +81,7 @@ def conta(request):
             return JsonResponse(contexto)
     else:
         form = ContaForm()
-        return render(request,"financeiro/conta.html",{'form': form})
+        return render(request,"financeiro/conta/conta.html",{'form': form})
 
 @login_required
 def get_bancos_user(request):
@@ -101,7 +101,7 @@ def get_accounts(request):
 def lancamento(request):
     if request.is_ajax:
         form = ExtratoForm()
-        return render(request,"financeiro/lancamento.html",{'form': form})
+        return render(request,"financeiro/conta/lancamento.html",{'form': form})
     if request.method == "POST":
         contexto = {"teste": "ok"}
         return JsonResponse(contexto)
@@ -121,8 +121,14 @@ def pagar_receber(request):
 
 @login_required
 def data_extrato(request):
-    operacao = request.GET.get('operacao')
-    dados = get_data_extrato(operacao)
-    return render(request,"financeiro/data_extrato.html",{'dados': dados})
+    if request.method == 'GET':
+        operacao = request.GET.get('operacao')
+        dados = get_data_extrato(operacao)
+        return render(request,"financeiro/conta/data_extrato.html",{'dados': dados})
+    elif request.method == 'POST':
+        set_data_extrato(request.POST)
+        return JsonResponse({'message': 'Observação alterada com sucesso!','type': 'alert-success'})
 
-
+@login_required
+def set_contas(request):
+    return render(request,"financeiro/conta/lancamento.html")

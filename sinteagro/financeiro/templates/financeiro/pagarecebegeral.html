@@ -1,8 +1,14 @@
 <script>
-    $("#add_pagar").on("click", function() {
-        alert("ok");
+$(document).ready(function(){
+   $("#add_pagar").on("click", function() {
+        $.ajax({
+            url: "{% url 'set_contas' %}"
+        }).done(function(data){
+            get_modal("Teste",data); 
+        }); 
     });
-
+ 
+});
 </script>
 
 <div>
@@ -49,6 +55,9 @@
                         <label for="date_fim" class="col-sm-1">até:</label>
                         <div class="col-sm-4">
                             <input type="date" class="form-control" id="date_fim"> 
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-primary" type="button" id="search_data"><i class="fas fa-search"></i> Procurar</button>
                         </div>
                 </div>
             </div>

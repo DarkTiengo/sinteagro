@@ -1,0 +1,49 @@
+<script>
+    $("#cpf").mask('000.000.000-00',{reverse: true});
+    
+    $("#save_modal").click(function(){
+        if($("#cpf").val().length != 14){
+            set_message("Favor cadastrar corretamente o CPF","alert-danger");
+            $("#cpf").css("background","red");
+            return false;
+        } else{
+            $("#cpf").css("background","white");
+        }
+        $.ajax({
+            url: $("#form-worker").attr("action"),
+            method: "post",
+            data: $("#form-worker").serialize()
+        }).done(function(data){
+            set_message(data.message,data.type);
+            close_modal();
+            if($("#nobody_worker")){
+                $("#nobody_worker").remove();
+            }
+            $("#body_worker").append("<tr id='"+ data.dados.cpf +"'><th>" + data.dados.nome + "</th><th>" + data.dados.sobrenome + "</th><th>" + data.dados.contratacao + "</th><th>" + data.dados.cargo +
+                                    "</th>");
+        })
+    })
+</script>
+
+<form id="form-worker" action="{% url 'worker_sign' %}">
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="nome">Nome:</label><input type="text" class="form-control" name="nome" value="{{dados.nome}}" maxlength="50" required>
+        </div>
+        <div class="col-md-6">
+            <label for="sobrenome">Sobrenome:</label><input type="text" class="form-control" name="sobrenome" value="{{dados.sobrenome}}" maxlength="50" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6">
+            <label for="cpf">CPF:</label><input type="text" class="form-control" id="cpf" name="cpf" value="{{dados.cpf}}" maxlength="14" required>
+        </div>
+        <div class="col-md-6">
+            <label for="contratacao">Data de contratação:</label><input type="date" id="contratacao" class="form-control" name="contratacao" value="{{dados.contratacao}}" required>
+        </div>
+    </div>
+    <div class="form-row">
+        <label for="cargo">Cargo:</label><input type="text" class="form-control" name="cargo" value="{{dados.cargo}}" maxlength="100" required>
+    </div>
+     
+</form>

@@ -15,6 +15,11 @@ def get_data_extrato(operacao):
     extrato = Extrato.objects.get(operacao=operacao)
     return extrato
 
+def set_data_extrato(dados):
+    data = Extrato.objects.get(operacao=dados['operacao'])
+    data.obs = dados['obs']
+    data.save()
+
 def class_accounts(request,banco):
     if request.is_ajax:
         ccs = Conta.objects.filter(banco=banco,user=request.user).values_list("agencia","conta")
