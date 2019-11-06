@@ -1,8 +1,9 @@
 <script>
-    $("#cpf").mask('000.000.000-00',{reverse: true});
+    $("#id_cpf").mask('000.000.000-00',{reverse: true});
     
-    $("#save_modal").click(function(){
-        if($("#cpf").val().length != 14){
+    $("#save_modal").off("click");
+    $("#save_modal").on("click",function(){
+        if($("#id_cpf").val().length != 14){
             set_message("Favor cadastrar corretamente o CPF","alert-danger");
             $("#cpf").css("background","red");
             return false;
@@ -18,32 +19,29 @@
             close_modal();
             if($("#nobody_worker")){
                 $("#nobody_worker").remove();
+            } 
+            if ($("#body_worker").find("#"+ $("#id_cpf").val()).length > 0){
+                $("#"+ $("#id_cpf").val()).empty().append("<th>" + $("#id_nome").val() + "</th><th>" + $("#id_sobrenome").val() + "</th><th>" + $("#id_contratacao").val() + "</th><th>" + $("#id_cargo").val() +
+                                    "</th><th>" + "</th><th><div class='alert-success'>Ativo</div></th><th>" + moment().format() + "</th>");
+            } else{
+                $("#body_worker").append("<tr id='"+ $("#id_cpf").val() +"'><th>" + $("#id_nome").val() + "</th><th>" + $("#id_sobrenome").val() + "</th><th>" + $("#id_contratacao").val() + "</th><th>" + $("#id_cargo").val() +
+                                    "</th><th>" + "</th><th><div class='alert-success'>Ativo</div></th><th>" + moment().format() + "</th>");
             }
-            $("#body_worker").append("<tr id='"+ data.dados.cpf +"'><th>" + data.dados.nome + "</th><th>" + data.dados.sobrenome + "</th><th>" + data.dados.contratacao + "</th><th>" + data.dados.cargo +
-                                    "</th>");
         })
     })
 </script>
-
-<form id="form-worker" action="{% url 'worker_sign' %}">
-    <div class="form-row">
-        <div class="col-md-6">
-            <label for="nome">Nome:</label><input type="text" class="form-control" name="nome" value="{{dados.nome}}" maxlength="50" required>
-        </div>
-        <div class="col-md-6">
-            <label for="sobrenome">Sobrenome:</label><input type="text" class="form-control" name="sobrenome" value="{{dados.sobrenome}}" maxlength="50" required>
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="col-md-6">
-            <label for="cpf">CPF:</label><input type="text" class="form-control" id="cpf" name="cpf" value="{{dados.cpf}}" maxlength="14" required>
-        </div>
-        <div class="col-md-6">
-            <label for="contratacao">Data de contratação:</label><input type="date" id="contratacao" class="form-control" name="contratacao" value="{{dados.contratacao}}" required>
-        </div>
-    </div>
-    <div class="form-row">
-        <label for="cargo">Cargo:</label><input type="text" class="form-control" name="cargo" value="{{dados.cargo}}" maxlength="100" required>
-    </div>
-     
+<form action="{% url 'worker_sign' %}" method="post" class="form-group" id="form-worker">
+  {% csrf_token %}
+  {% for hidden_field in form.hidden_fields %}
+    {{ hidden_field }}
+  {% endfor %}
+  {% for field in form.visible_fields %}
+  <div class="form-group">
+      {{field.label_tag}}
+      {{ field }}
+      {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text }}</small>
+      {% endif %}
+  </div>
+  {% endfor %}
 </form>

@@ -1,6 +1,6 @@
 <script>
 $(document).ready(function(){
-   $("#add_pagar").on("click", function() {
+   $("#add_worker").on("click", function() {
         $.ajax({
             url: "{% url 'worker_sign' %}"
         }).done(function(data){
@@ -30,9 +30,23 @@ $(document).ready(function(){
                     </tr>
                 </thead>
                 <tbody id="body_worker">
+                   {% if workers %}
+                       {% for w in workers %}
+                       <tr id="{{w.cpf}}">
+                           <th>{{w.nome}}</th>
+                           <th>{{w.sobrenome}}</th>
+                           <th>{{w.contratacao}}</th>
+                           <th>{{w.funcao}}</th>
+                           <th>{{w.pagamento}}</th>
+                           <th>{{w.status}}</th>
+                           <th>{{w.atualizacao}}</th>
+                       </tr>
+                       {% endfor %}
+                   {% else %}
                     <tr id="nobody_worker">
                         <th>Sem dados informados.</th>
                     </tr>
+                    {% endif %}
                 </tbody>
             </table>
         </div>
@@ -53,6 +67,7 @@ $(document).ready(function(){
         </div>
 
     </div>
-    <div class="row widget-sinteagro"><button type="button" class="btn btn-primary" href="#" id="add_pagar" role="button"><i class="fas fa-comment-dollar"></i> Adicionar Funcionário</button></div>
+    <div class="row widget-sinteagro">
+    <button type="button" class="btn btn-primary" href="#" id="add_worker" role="button"><i class="fas fa-comment-dollar"></i> Adicionar Funcionário</button> <button type="button" class="btn btn-primary" href="#" id="add_funcao" role="button">      <i class="fas fa-comment-dollar"></i> Adicionar Função</button></div>
 
 </div>
